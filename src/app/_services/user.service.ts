@@ -25,4 +25,19 @@ export class UserService {
   getAdminBoard(): Observable<any> {
     return this.http.get(API_URL + 'admin', { responseType: 'text' });
   }
+  getall(): Observable<any> {
+    return this.http.get(API_URL + 'all');
+  }
+  getallCand(): Observable<any> {
+    return this.http.get(API_URL + 'allc');
+  }
+  findById(id): Observable<any> {
+    return this.http.get(`$API_URL + 'find'}/${id}`);
+  }
+  findByUsername(username): Observable<any> {
+    return this.http.get(`${API_URL + 'findusername'}/${username}`);
+  }
+  delete(id) {
+    return this.http.delete(`${API_URL + 'delete'}/${id}`);
+  }
 }
