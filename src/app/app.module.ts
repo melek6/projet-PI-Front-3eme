@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { EvaluationfComponent } from './front-pages/EvaluationF/evaluationf.component';
+
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
