@@ -22,16 +22,13 @@ import { EvaluationfComponent } from 'src/app/front-pages/EvaluationF/evaluation
     ],
   declarations: [
     FrontLayoutComponent,
-    EvaluationfComponent,
+    EvaluationfComponent
     
-
-
   ],
   exports: [
     FrontLayoutComponent
   ]
 })
-
 
 
 export class FrontLayoutModule { }
