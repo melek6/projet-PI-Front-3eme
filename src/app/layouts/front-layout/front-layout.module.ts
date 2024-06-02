@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FrontLayoutComponent } from './front-layout.component';
-
+import { EvaluationfComponent } from 'src/app/front-pages/EvaluationF/evaluationf.component'; 
 @NgModule({
     imports: [
         CommonModule,
@@ -16,11 +16,14 @@ import { FrontLayoutComponent } from './front-layout.component';
         HttpClientModule,
         NgbModule,
         RouterModule, // Assure-toi que RouterModule est importé ici si FrontLayoutComponent utilise le router-outlet
-
+        
         ReactiveFormsModule,
+        
     ],
   declarations: [
-    FrontLayoutComponent
+    FrontLayoutComponent,
+    EvaluationfComponent,
+    
 
 
   ],

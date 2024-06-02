@@ -1,1 +1,93 @@
-<p>evaluation formation works!</p>
+<h1>Évaluation de la formation</h1>
+<div class="evaluation-form">
+  <div class="form-group">
+
+  <div class="form-group">
+    <label for="trainingTitle">Titre de la formation</label>
+    <input id="trainingTitle" type="text" [(ngModel)]="evaluation.trainingTitle">
+  </div>
+  <div class="form-group">
+    <label for="dates">Date(s)</label>
+    <input id="dates" type="text" [(ngModel)]="evaluation.dates">
+  </div>
+  <div class="form-group">
+    <label for="location">Lieu de la formation</label>
+    <input id="location" type="text" [(ngModel)]="evaluation.location">
+  </div>
+  <div class="form-group">
+    <label for="trainer">Formateur/Organisme de formation</label>
+    <input id="trainer" type="text" [(ngModel)]="evaluation.trainer">
+  </div>
+  <div class="form-group">
+    <label for="participant">Nom/Prénom du participant</label>
+    <input id="participant" type="text" [(ngModel)]="evaluation.participant">
+  </div>
+
+  <div class="rating-section">
+    <h2>COURS</h2>
+    <div class="form-group">
+      <label>Contenu conforme aux objectifs</label>
+      <input type="number" [(ngModel)]="evaluation.courseContent" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Rapport théorie/pratique</label>
+      <input type="number" [(ngModel)]="evaluation.theoryPractice" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Durée</label>
+      <input type="number" [(ngModel)]="evaluation.duration" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Rythme</label>
+      <input type="number" [(ngModel)]="evaluation.pace" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Support pédagogique</label>
+      <input type="number" [(ngModel)]="evaluation.materialSupport" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Logistique et conditions matérielles</label>
+      <input type="number" [(ngModel)]="evaluation.logistics" min="1" max="5">
+    </div>
+
+    <h2>INSTRUCTEUR</h2>
+    <div class="form-group">
+      <label>Clarté du cours</label>
+      <input type="number" [(ngModel)]="evaluation.courseClarity" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Maîtrise du sujet</label>
+      <input type="number" [(ngModel)]="evaluation.subjectMastery" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Disponibilité</label>
+      <input type="number" [(ngModel)]="evaluation.availability" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Méthode pédagogique</label>
+      <input type="number" [(ngModel)]="evaluation.teachingMethod" min="1" max="5">
+    </div>
+
+    <h2>IMPACT</h2>
+    <div class="form-group">
+      <label>Utilité en situation de travail</label>
+      <input type="number" [(ngModel)]="evaluation.workUtility" min="1" max="5">
+    </div>
+    <div class="form-group">
+      <label>Amélioration du développement personnel/professionnel</label>
+      <input type="number" [(ngModel)]="evaluation.personalDevelopment" min="1" max="5">
+    </div>
+
+    <h2>APPRÉCIATION GÉNÉRALE</h2>
+    <div class="form-group">
+      <input type="number" [(ngModel)]="evaluation.overallRating" min="1" max="5">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="comments">Commentaires</label>
+    <textarea id="comments" [(ngModel)]="evaluation.comments"></textarea>
+  </div>
+
+  <button (click)="submitEvaluation()">Soumettre</button>
+</div>
