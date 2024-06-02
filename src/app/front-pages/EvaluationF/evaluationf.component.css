@@ -30,4 +30,9 @@
   button:hover {
     background-color: #0056b3;
   }
+
+  .evaluation-form h1 {
+    color: red; /* Couleur rouge */
+    text-transform: uppercase; /* Mettre en majuscules */
+  }
   
