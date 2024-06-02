@@ -17,17 +17,18 @@ export class FrontLayoutComponent implements OnInit {
   logout() {
     this.tokenStorage.signOut();
   }
-  getUserbyid() {
+ /* getUserbyid() {
     this.utilisateurService.findByUsername(this.username).subscribe(data => {
+      console.log(data)
       this.user = data;
     });
-  }
+  }*/
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
+      //this.getUserbyid();
       this.username = this.tokenStorage.getUser().username;
-      this.getUserbyid();
-      console.log(this.user);
+    
     }
   }
 
