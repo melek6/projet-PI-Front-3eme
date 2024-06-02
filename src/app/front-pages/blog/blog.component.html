@@ -1,1 +1,43 @@
-<p>blog works!</p>
+<h1>Blog Posts</h1>
+<div *ngIf="blogPosts?.length > 0; else noPosts">
+  <div *ngFor="let post of blogPosts" class="post-card">
+    <div class="post-header">
+      <h2>{{ post.title }}</h2>
+      <small>By {{ post.user.username }} on {{ post.publishDate | date: 'longDate' }}</small>
+    </div>
+    <div class="post-content">
+      <p>{{ post.content }}</p>
+    </div>
+    <div class="post-actions">
+      <button (click)="editPost(post.id)">Edit</button>
+      <button (click)="deletePost(post.id)">Delete</button>
+      <button (click)="likePost(post)">Like {{ post.likes || 0 }}</button>
+      <button (click)="dislikePost(post)">Dislike {{ post.dislikes || 0 }}</button>
+      <button (click)="toggleCommentForm(post)">Add Comment</button>
+      <!--  <button (click)="toggleReactForm(post)">Add React</button>-->
+    </div>
+    <div class="post-comments">
+      <h3>Comments</h3>
+      <div *ngIf="post.commentaires?.length > 0; else noComments">
+        <div *ngFor="let comment of post.commentaires" class="comment">
+          <p>{{ comment.content }}</p>
+          <small>By {{ comment.user.username }} on {{ comment.date | date: 'short' }}</small>
+        </div>
+      </div>
+      <ng-template #noComments>
+        <p>No comments available.</p>
+      </ng-template>
+    </div>
+    <div *ngIf="showCommentForm[post.id]">
+      <app-comment-form [blogPost]="post" (commentAdded)="onCommentAdded($event)"></app-comment-form>
+    </div>
+    <!-- <div *ngIf="showReactForm[post.id]">
+      <app-react-form [blogPost]="post" (reactAdded)="onReactAdded($event)"></app-react-form>
+    </div> -->
+    
+  </div>
+</div>
+<ng-template #noPosts>
+  <p>No posts available.</p>
+</ng-template>
+<button routerLink="/create-blog-post" >Create New Blog Post</button>
