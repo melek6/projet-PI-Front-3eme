@@ -1,0 +1,11 @@
+<div class="react-form">
+    <h3>Add a React</h3>
+    <form (ngSubmit)="onSubmit()">
+      <select [(ngModel)]="type" name="type" required>
+        <option value="like">Like</option>
+        <option value="dislike">Dislike</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  
