@@ -1,4 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+interface Evaluation {
+  id: number;
+  trainingTitle: string;
+  date: string; // J'ai modifié le type de date en string pour correspondre au type attendu par le formulaire HTML
+  location: string;
+  trainer: string;
+  participant: string;
+  score: number; // Ajout de la propriété score
+  comments: string;
+}
 
 @Component({
   selector: 'app-evaluationf',
@@ -7,37 +19,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EvaluationfComponent implements OnInit {
 
-  evaluation = {
-    trainingProject: '',
-    category: '',
+  evaluation: Evaluation = {
+    id: 0,
     trainingTitle: '',
-    dates: '',
+    date: '', // Initialisation avec une chaîne vide
     location: '',
     trainer: '',
     participant: '',
-    courseContent: 3,
-    theoryPractice: 3,
-    duration: 3,
-    pace: 3,
-    materialSupport: 3,
-    logistics: 3,
-    courseClarity: 3,
-    subjectMastery: 3,
-    availability: 3,
-    teachingMethod: 3,
-    workUtility: 3,
-    personalDevelopment: 3,
-    overallRating: 3,
+    score: 0, // Initialisation avec 0
     comments: ''
   };
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
 
   submitEvaluation(): void {
-    console.log(this.evaluation);
+    this.http.post<Evaluation>('http://localhost:8080/api/evaluations', this.evaluation)
+      .subscribe(response => {
+        console.log(response); // Log the response from the backend
+        // Reset the form if needed
+        this.resetForm();
+      }, error => {
+        console.error(error); // Log any errors
+        // Handle error if needed
+      });
+  }
+
+  resetForm(): void {
+    // Reset all evaluation properties
+    this.evaluation = {
+      id: 0,
+      trainingTitle: '',
+      date: '',
+      location: '',
+      trainer: '',
+      participant: '',
+      score: 0,
+      comments: ''
+    };
   }
 
 }
