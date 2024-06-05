@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OffreService } from 'src/app/_services/offre/offre.service';
 
 @Component({
@@ -6,35 +6,21 @@ import { OffreService } from 'src/app/_services/offre/offre.service';
   templateUrl: './add-offre.component.html',
   styleUrls: ['./add-offre.component.css']
 })
-export class AddOffreComponent implements OnInit {
-  offre = {
-    title: '',
-    description: '',
-    location: '',
-    createDate: new Date(), // Utiliser la date actuelle
-    expiryDate: null,
-    status: '',
-    user: {
-      id: null // Remplacer par l'identifiant de l'utilisateur connecté
-    }
-  };
-
-  constructor(private offreService: OffreService) { }
-
+export class AddOffreComponent  implements OnInit {
   ngOnInit(): void {
+    console.log(this.offre)
+
+  }
+  @Input() offre: any;
+  @Input() isEditing: boolean;
+  @Output() save = new EventEmitter<any>();
+  @Output() cancel = new EventEmitter<void>();
+
+  onSave(): void {
+    this.save.emit(this.offre);
   }
 
-  onSubmit(): void {
-    this.offreService.addOffre(this.offre)
-      .subscribe(
-        response => {
-          console.log(response);
-          // Logique de gestion de la réponse réussie
-        },
-        error => {
-          console.log(error);
-          // Logique de gestion des erreurs
-        }
-      );
+  onCancel(): void {
+    this.cancel.emit();
   }
 }
