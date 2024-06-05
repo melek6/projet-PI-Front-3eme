@@ -1,1 +1,35 @@
-<p>evaluation formation works!</p>
+<h1>ÉVALUATION DE LA FORMATION</h1>
+<div class="evaluation-form">
+  <div class="form-group">
+    <label for="trainingTitle">Titre de la formation</label>
+    <input id="trainingTitle" type="text" [(ngModel)]="evaluation.trainingTitle" name="trainingTitle">
+  </div>
+  <div class="form-group">
+    <label for="date">Date(s)</label>
+    <input id="date" type="text" [(ngModel)]="evaluation.date" name="date">
+  </div>
+  <div class="form-group">
+    <label for="location">Lieu de la formation</label>
+    <input id="location" type="text" [(ngModel)]="evaluation.location" name="location">
+  </div>
+  <div class="form-group">
+    <label for="trainer">Formateur/Organisme de formation</label>
+    <input id="trainer" type="text" [(ngModel)]="evaluation.trainer" name="trainer">
+  </div>
+  <div class="form-group">
+    <label for="participant">Nom/Prénom du participant</label>
+    <input id="participant" type="text" [(ngModel)]="evaluation.participant" name="participant">
+  </div>
+
+  <div class="form-group">
+    <label for="score">Score</label>
+    <input id="score" type="number" [(ngModel)]="evaluation.score" name="score">
+  </div>
+
+  <div class="form-group">
+    <label for="comments">Commentaires</label>
+    <textarea id="comments" [(ngModel)]="evaluation.comments" name="comments"></textarea>
+  </div>
+
+  <button (click)="submitEvaluation()">Soumettre</button>
+</div>
