@@ -36,4 +36,10 @@ import { BlogPostFormComponent } from 'src/app/front-pages/blog-post-form/blog-p
   ],
   exports: [FrontLayoutComponent]
 })
+
+
+
+
+
+
 export class FrontLayoutModule { }

@@ -33,7 +33,6 @@ import { AuthGuard } from './_helpers/auth/auth-guard.service';
     AdminLayoutComponent,
     AuthLayoutComponent
    
-   
       ],
   providers: [
     AuthService,
