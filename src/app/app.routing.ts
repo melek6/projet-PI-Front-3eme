@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { FrontLayoutComponent } from './layouts/front-layout/front-layout.component';
-import { EvaluationfComponent } from './front-pages/EvaluationF/evaluationf.component'; 
 
 const routes: Routes =[
   {
@@ -53,10 +52,6 @@ const routes: Routes =[
     redirectTo: 'dashboard'
   },
 
-  {
-    path: 'evaluation', // Define the route for EvaluationfComponent
-    component: EvaluationfComponent
-  }
 ];
 
 @NgModule({
