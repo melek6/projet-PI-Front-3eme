@@ -17,7 +17,7 @@ export class UserService {
   getUserBoard(): Observable<any> {
     return this.http.get(API_URL + 'user', { responseType: 'text' });
   }
-  
+
   getModeratorBoard(): Observable<any> {
     return this.http.get(API_URL + 'mod', { responseType: 'text' });
   }
@@ -40,4 +40,5 @@ export class UserService {
   delete(id) {
     return this.http.delete(`${API_URL + 'delete'}/${id}`);
   }
+  
 }

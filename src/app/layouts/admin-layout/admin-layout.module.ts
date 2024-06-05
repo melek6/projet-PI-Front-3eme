@@ -23,7 +23,8 @@ import { OffreComponent } from 'src/app/pages/offre/offre.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    ClipboardModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,

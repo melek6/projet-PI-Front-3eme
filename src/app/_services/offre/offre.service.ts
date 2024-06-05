@@ -33,6 +33,8 @@ export class OffreService {
   }
 
   addOffre(offre: any): Observable<any> {
+    // Si votre backend attend une date de création automatique, vous pouvez la créer ici
+    offre.createDate = new Date(); // Date de système par défaut
     return this.http.post<any>(this.apiUrl, offre, httpOptions).pipe(
       tap((newOffre: any) => console.log(`Offre ajoutée avec l'id ${newOffre.id}`)),
       catchError(this.handleError<any>('addOffre'))
@@ -58,7 +60,7 @@ export class OffreService {
   // Méthode générique pour la gestion des erreurs
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
+      console.error(`${operation} failed:`, error);
       return of(result as T);
     };
   }
