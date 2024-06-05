@@ -13,7 +13,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
+import { FrontLayoutModule } from './layouts/front-layout/front-layout.module';
+import { AuthService } from './_services/auth.service';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { AuthGuard } from './_helpers/auth/auth-guard.service';
 
 @NgModule({
   imports: [
@@ -23,15 +26,20 @@ import { ComponentsModule } from './components/components.module';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent
    
+   
+      ],
+  providers: [
+    AuthService,
+    authInterceptorProviders,
+    AuthGuard,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
