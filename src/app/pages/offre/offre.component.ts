@@ -83,7 +83,7 @@ export class OffreComponent implements OnInit {
     modalRef.componentInstance.isEditing = isEditing;
 
     modalRef.componentInstance.save.subscribe((result: any) => {
-      result.user=this.userId?.id
+      //result.user=this.userId
        console.log(result)
       this.offreService.addOffre(result).subscribe((newOffre: any) => {
         console.log('Offre ajoutée avec succès', newOffre);
