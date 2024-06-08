@@ -1,38 +1,56 @@
+/* Conteneur principal du formulaire d'évaluation */
 .evaluation-form {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-  .evaluation-form h1 {
-    color: red; /* Couleur rouge */
-    text-transform: uppercase; /* Mettre en majuscules */
-  }
-  
+/* En-tête du formulaire */
+.evaluation-form h1 {
+  color: #333;
+  text-transform: uppercase;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Groupes de champs du formulaire */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Labels des champs */
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Champs de saisie et zones de texte */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+/* Boutons */
+button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
