@@ -1,0 +1,177 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 10px 20px;
+  }
+  
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo img {
+    height: 40px;
+  }
+  
+  .search-bar input {
+    width: 400px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    margin-left: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .nav-links a .heart-icon,
+  .nav-links a .cart-icon,
+  .nav-links a .bell-icon {
+    font-size: 20px;
+  }
+  
+  .user-profile {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  
+  /* Hero Section 
+  .hero {
+    background: url('assets/hero-bg.jpg') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+  }*/
+  
+  .hero-content h1 {
+    font-size: 48px;
+    margin: 0;
+  }
+  
+  .hero-content p {
+    font-size: 24px;
+    margin: 20px 0;
+  }
+  
+  .btn-primary {
+    background-color: #1c87c9;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Featured Courses Section */
+  .featured-courses {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .featured-courses h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .courses {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .course-card {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    width: 300px;
+    margin: 10px;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .course-card img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .course-card h3 {
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  
+  .course-card p {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  /* Categories Section */
+  .categories {
+    padding: 50px 20px;
+    background-color: #f7f7f7;
+    text-align: center;
+  }
+  
+  .categories h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .category-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .category-item {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    width: 200px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .category-item h3 {
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  
+  /* Footer Section */
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
