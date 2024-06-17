@@ -7,19 +7,41 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class FormationModalComponent implements OnInit {
 
-    ngOnInit(): void {
-  
-    }
-    @Input() formation: any;
-    @Input() isEditing: boolean;
-    @Output() save = new EventEmitter<any>();
-    @Output() cancel = new EventEmitter<void>();
-  
-    onSave(): void {
-      this.save.emit(this.formation);
-    }
-  
-    onCancel(): void {
-      this.cancel.emit();
+  @Input() formation: any;
+  @Input() isEditing: boolean;
+  @Input() users: any[]; // Assuming users is an array of objects with username property
+
+  @Output() save = new EventEmitter<any>();
+  @Output() cancel = new EventEmitter<void>();
+
+  constructor() { }
+
+  ngOnInit(): void {
+    // Initialize formation object if needed
+    if (!this.formation) {
+      this.formation = {
+        title: '',
+        description: '',
+        schedule: '',
+        startDate: '',
+        endDate: '',
+        location: '',
+        price: null,
+        numberOfHours: null,
+        category: '',
+        user: null,
+        newFormation: false,
+        bestSeller: false
+      };
     }
   }
+
+  onSave(): void {
+    this.save.emit(this.formation);
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
+  }
+
+}
