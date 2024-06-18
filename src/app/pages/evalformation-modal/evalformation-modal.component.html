@@ -1,0 +1,79 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ isEditing ? 'Modifier la formation' : 'Créer une nouvelle formation' }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="trainingTitle">trainingTitle</label>
+            <input type="text" class="form-control" id="trainingTitle" [(ngModel)]="evalformation.trainingTitle" name="trainingTitle">
+        </div>
+         <div class="form-group">
+            <label for="date">Date </label>
+            <input type="date" class="form-control" id="date" [(ngModel)]="evalformation.date" name="date">
+        </div> 
+        <div class="form-group">
+            <label for="location">Emplacement</label>
+            <input type="text" class="form-control" id="location" [(ngModel)]="evalformation.location" name="location">
+        </div>
+        <div class="form-group">
+            <label for="trainer">Formateur</label>
+            <input type="text" class="form-control" id="trainer" [(ngModel)]="evalformation.trainer" name="trainer">
+        </div>
+        <div class="form-group">
+            <label for="participant">Participant</label>
+            <input type="text" class="form-control" id="participant" [(ngModel)]="evalformation.participant" name="participant">
+        </div>
+        <div class="form-group">
+            <label for="comments">Commentaire</label>
+            <input type="text" class="form-control" id="comments" [(ngModel)]="evalformation.comments" name="comments">
+        </div>
+        <div class="form-group">
+            <label for="score">Score</label>
+            <input type="number" class="form-control" id="score" [(ngModel)]="evalformation.score" name="score">
+        </div>
+        <!-- <div class="form-group">
+            <label for="startDate">Date de début</label>
+            <input type="date" class="form-control" id="startDate" [(ngModel)]="formation.startDate" name="startDate">
+        </div>
+        <div class="form-group">
+            <label for="endDate">Date de fin</label>
+            <input type="date" class="form-control" id="endDate" [(ngModel)]="formation.endDate" name="endDate">
+        </div>
+        <div class="form-group">
+          <label for="user">Utilisateur</label>
+          <select class="form-control" id="user" [(ngModel)]="formation.user" name="user">
+              <option *ngFor="let user of users" [ngValue]="user">{{ user.id }}</option>
+          </select>
+      </div>
+        <div class="form-group">
+            <label for="location">Emplacement</label>
+            <input type="text" class="form-control" id="location" [(ngModel)]="formation.location" name="location">
+        </div>
+        <div class="form-group">
+            <label for="price">Prix</label>
+            <input type="number" class="form-control" id="price" [(ngModel)]="formation.price" name="price">
+        </div>
+        <div class="form-group">
+            <label for="numberOfHours">Nombre d'heures</label>
+            <input type="number" class="form-control" id="numberOfHours" [(ngModel)]="formation.numberOfHours" name="numberOfHours">
+        </div>
+       
+       
+        <div class="form-group">
+            <label for="newFormation">Nouvelle formation</label>
+            <input type="checkbox" class="form-control" id="newFormation" [(ngModel)]="formation.newFormation" name="newFormation">
+        </div>
+        <div class="form-group">
+            <label for="bestSeller">Best Seller</label>
+            <input type="checkbox" class="form-control" id="bestSeller" [(ngModel)]="formation.bestSeller" name="bestSeller">
+        </div>
+    </form>
+  </div> --> 
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)="onSave()">Enregistrer</button>
+  </div>
+  

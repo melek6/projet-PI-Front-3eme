@@ -16,6 +16,8 @@ import { AddOffreComponent } from 'src/app/pages/add-offre/add-offre.component';
 import { OffreComponent } from 'src/app/pages/offre/offre.component';
 import { GestionFormationComponent } from 'src/app/pages/gestion-formation/gestion-formation.component';
 import { FormationModalComponent } from 'src/app/pages/formation-modal/formation-modal.component';
+import { EvalformationModalComponent } from 'src/app/pages/evalformation-modal/evalformation-modal.component';
+import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformation/gestion-evalformation.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -37,7 +39,9 @@ import { FormationModalComponent } from 'src/app/pages/formation-modal/formation
     AddOffreComponent,
     OffreComponent,
     GestionFormationComponent,
-    FormationModalComponent
+    FormationModalComponent,
+    EvalformationModalComponent,
+    GestionEvalformationComponent
   ]
 })
 
