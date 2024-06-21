@@ -27,9 +27,10 @@ import { AddOffreComponent } from './pages/add-offre/add-offre.component';
     HttpClientModule,
     ComponentsModule,
     NgbModule,
+    FormsModule,
     RouterModule,
     AppRoutingModule,
-
+    FrontLayoutModule
   ],
   declarations: [
     AppComponent,
