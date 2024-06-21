@@ -48,8 +48,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommentFormComponent,
     ReactFormComponent,
     BlogPostFormComponent,
-    ProjectManagementComponent,
-    MarketplaceComponent,
     FormationComponent
   ],
   exports: [FrontLayoutComponent]

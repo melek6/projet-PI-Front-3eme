@@ -1,24 +1,39 @@
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+table {
+    width: 100%;
   }
   
-  .table-container {
-    max-height: 400px;
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+  }
+  
+  .mat-table {
     overflow: auto;
+    max-height: 500px;
   }
   
-  table {
-    width: 100%;
+  .element-row {
+    position: relative;
   }
   
-  mat-form-field {
-    width: 100%;
+  .element-row:not(.expanded) {
+    cursor: pointer;
   }
   
-  .mat-spinner {
-    display: block;
-    margin: 20px auto;
+  .element-row:not(.expanded):hover {
+    background: #f5f5f5;
   }
   
+  .element-row.expanded {
+    border-bottom-color: transparent;
+  }

@@ -19,6 +19,12 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { AuthGuard } from './_helpers/auth/auth-guard.service';
 import { OffreComponent } from './pages/offre/offre.component';
 import { AddOffreComponent } from './pages/add-offre/add-offre.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -30,6 +36,12 @@ import { AddOffreComponent } from './pages/add-offre/add-offre.component';
     FormsModule,
     RouterModule,
     AppRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     FrontLayoutModule
   ],
   declarations: [

@@ -1,50 +1,100 @@
-import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../_services/ProjectManagement/project.service';
+import { Component } from '@angular/core';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable, ReplaySubject } from 'rxjs';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MarketplaceService } from 'src/app/_services/ProjectManagement/marketplace.service';
+
+export interface ProjectData {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  skillsRequired: string;
+  budget: number;
+  nbPropositions: number;
+}
+
+export interface ProjectDataCreation {
+  title: string;
+  description: string;
+  category: string;
+  skillsRequired: string;
+  budget: number;
+}
 
 @Component({
   selector: 'app-project-management',
-  templateUrl: './project-management.component.html',
-  styleUrls: ['./project-management.component.css']
+  styleUrls: ['project-management.component.css'],
+  templateUrl: 'project-management.component.html',
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatSortModule,
+  ],
 })
-export class ProjectManagementComponent implements OnInit {
+export class ProjectManagementComponent {
+  displayedColumns: string[] = ['id', 'title', 'description', 'category', 'skillsRequired', 'budget', 'nbPropositions', 'actions'];
+  dataToDisplay: ProjectData[] = [];
 
-  projects: any[] = [];
-  newProject: any = {};
-  selectedProject: any;
+  dataSource = new ExampleDataSource(this.dataToDisplay);
 
-  constructor(private projectService: ProjectService) { }
-
-  ngOnInit(): void {
-    this.loadProjects();
+  constructor(private marketplaceService: MarketplaceService) {
+    this.fetchProjects();
   }
 
-  loadProjects() {
-    this.projectService.getProjects().subscribe(data => {
-      this.projects = data;
+  fetchProjects() {
+    this.marketplaceService.getAllProjects().subscribe((data) => {
+      this.dataToDisplay = data.map((project) => ({
+        id: project.id,
+        title: project.title,
+        description: project.description,
+        category: project.category,
+        skillsRequired: project.skillsRequired,
+        budget: project.budget,
+        nbPropositions: project.propositions.length,
+      }));
+      this.dataSource.setData(this.dataToDisplay);
     });
   }
 
-  createProject() {
-    this.projectService.createProject(this.newProject).subscribe(data => {
-      this.projects.push(data);
-      this.newProject = {};
+  addData(newProject: ProjectDataCreation) {
+    this.marketplaceService.createProject(newProject).subscribe((project) => {
+      this.fetchProjects();
     });
   }
 
-  updateProject() {
-    this.projectService.updateProject(this.selectedProject.id, this.selectedProject).subscribe(data => {
-      this.loadProjects();
-      this.selectedProject = null;
+  removeData(id: number) {
+    this.marketplaceService.deleteProject(id).subscribe(() => {
+      this.dataToDisplay = this.dataToDisplay.filter((project) => project.id !== id);
+      this.dataSource.setData(this.dataToDisplay);
     });
   }
+}
 
-  deleteProject(id: number) {
-    this.projectService.deleteProject(id).subscribe(() => {
-      this.projects = this.projects.filter(project => project.id !== id);
-    });
+class ExampleDataSource extends DataSource<ProjectData> {
+  private _dataStream = new ReplaySubject<ProjectData[]>();
+
+  constructor(initialData: ProjectData[]) {
+    super();
+    this.setData(initialData);
   }
 
-  selectProject(project: any) {
-    this.selectedProject = { ...project };
+  connect(): Observable<ProjectData[]> {
+    return this._dataStream;
+  }
+
+  disconnect() {}
+
+  setData(data: ProjectData[]) {
+    this._dataStream.next(data);
   }
 }
