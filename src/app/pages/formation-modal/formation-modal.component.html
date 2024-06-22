@@ -30,12 +30,7 @@
           <label for="endDate">Date de fin</label>
           <input type="date" class="form-control" id="endDate" [(ngModel)]="formation.endDate" name="endDate">
       </div>
-      <div class="form-group">
-        <label for="user">Utilisateur</label>
-        <select class="form-control" id="user" [(ngModel)]="formation.user" name="user">
-            <option *ngFor="let user of users" [ngValue]="user">{{ user.id }}</option>
-        </select>
-    </div>
+     
       <div class="form-group">
           <label for="location">Emplacement</label>
           <input type="text" class="form-control" id="location" [(ngModel)]="formation.location" name="location">
