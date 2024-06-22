@@ -18,6 +18,10 @@ import { GestionFormationComponent } from 'src/app/pages/gestion-formation/gesti
 import { FormationModalComponent } from 'src/app/pages/formation-modal/formation-modal.component';
 import { EvalformationModalComponent } from 'src/app/pages/evalformation-modal/evalformation-modal.component';
 import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformation/gestion-evalformation.component';
+import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gestion-questions.component';
+import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.component';
+import { QuestionModalComponent } from 'src/app/pages/question-modal/question-modal.component';
+import { QuizModalComponent } from 'src/app/pages/quiz-modal/quiz-modal.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -41,7 +45,12 @@ import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformati
     GestionFormationComponent,
     FormationModalComponent,
     EvalformationModalComponent,
-    GestionEvalformationComponent
+    GestionEvalformationComponent,
+    GestionquestionsComponent,
+    GestionQuizComponent,
+    QuestionModalComponent,
+    QuizModalComponent
+
   ]
 })
 

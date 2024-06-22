@@ -9,6 +9,8 @@ import { OffreComponent } from 'src/app/pages/offre/offre.component';
 import { AddOffreComponent } from 'src/app/pages/add-offre/add-offre.component';
 import { GestionFormationComponent } from 'src/app/pages/gestion-formation/gestion-formation.component';
 import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformation/gestion-evalformation.component';
+import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.component';
+import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gestion-questions.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -18,7 +20,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'offre',          component: OffreComponent },
     { path: 'gestformation',      component: GestionFormationComponent },
-    { path: 'gestevalformation',      component: GestionEvalformationComponent }
+    { path: 'gestevalformation',      component: GestionEvalformationComponent },
+    { path: 'quiz',      component: GestionQuizComponent },
+    { path: 'questions',      component: GestionquestionsComponent },
+
 
 
 ];
