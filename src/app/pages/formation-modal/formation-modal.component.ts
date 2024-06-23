@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormationCategory } from 'src/app/pages/gestion-formation/formation-category.enum';
 
 @Component({
   selector: 'app-formation-modal',
@@ -13,7 +14,7 @@ export class FormationModalComponent implements OnInit {
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
-
+  categories: string[] = Object.values(FormationCategory);
   constructor() { }
 
   ngOnInit(): void {
