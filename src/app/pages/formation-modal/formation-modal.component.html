@@ -15,12 +15,16 @@
           <textarea class="form-control" id="description" [(ngModel)]="formation.description" name="description"></textarea>
       </div>
 
-      <div class="form-group">
+     <div class="form-group">
         <label for="category">Catégorie</label>
         <select class="form-control" id="category" [(ngModel)]="formation.category" name="category">
           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         </select>
       </div>
+      <!-- <div class="form-group">
+        <label for="category">Catégorie</label>
+        <app-category-select [categories]="categories" [(ngModel)]="formation.category" name="category"></app-category-select>
+      </div> -->
       <!-- <div class="form-group">
           <label for="schedule">Date d'expiration</label>
           <input type="date" class="form-control" id="schedule" [(ngModel)]="formation.schedule" name="schedule">

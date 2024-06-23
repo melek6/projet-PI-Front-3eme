@@ -21,11 +21,6 @@ export class EvalformationModalComponent implements OnInit {
     if (!this.evalformation) {
       this.evalformation = {
         id: 0,
-    trainingTitle: '',
-    date: '', 
-    location: '',
-    trainer: '',
-    participant: '',
     score: 4, 
     comments: ''
       };
