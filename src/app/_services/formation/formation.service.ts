@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of, tap } from 'rxjs';
+import { FormationCategory } from 'src/app/pages/gestion-formation/formation-category.enum';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -36,7 +37,11 @@ export class FormationService {
   }
 
   createFormation(formation: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, formation);
+    // Assurez-vous que la formation inclut une catégorie valide
+    if (!Object.values(FormationCategory).includes(formation.category)) {
+      formation.category = FormationCategory.Other; // Catégorie par défaut si non spécifiée
+    }
+    return this.http.post<any>(this.apiUrl, formation, httpOptions);
   }
 
   updateFormation(id: number, formation: any): Observable<any> {

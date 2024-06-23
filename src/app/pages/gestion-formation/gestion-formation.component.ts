@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormationService } from 'src/app/_services/formation/formation.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { FormationModalComponent } from '../formation-modal/formation-modal.component';
+import { FormationCategory } from 'src/app/pages/gestion-formation/formation-category.enum';
 
 @Component({
   selector: 'app-gestion-formation',
@@ -18,11 +19,13 @@ export class GestionFormationComponent implements OnInit {
 
   nouvellesformations: number = 0;
   formationsExpirees: number = 0;
+  categories: string[] = Object.values(FormationCategory);
   userId:any
   constructor(private formationService: FormationService, private modalService: NgbModal,private storageService:StorageService) { }
 
   ngOnInit(): void {
     this.loadAllformations();
+    
    this.userId= this.storageService.getUser()
   }
 
