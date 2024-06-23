@@ -27,6 +27,14 @@ import { QuestionModalComponent } from 'src/app/pages/question-modal/question-mo
 import { QuizModalComponent } from 'src/app/pages/quiz-modal/quiz-modal.component';
 // import { ToastrModule } from 'ngx-toastr';
 
+// Angular Material imports
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +43,14 @@ import { QuizModalComponent } from 'src/app/pages/quiz-modal/quiz-modal.componen
     HttpClientModule,
     NgbModule,
     ClipboardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+        // Angular Material modules
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatCheckboxModule
   ],
   declarations: [
     DashboardComponent,
