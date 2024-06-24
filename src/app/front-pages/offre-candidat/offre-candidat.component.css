@@ -1,0 +1,36 @@
+.offre-box {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  display: flex; /* Utilisation de flexbox pour gérer les éléments enfants */
+  flex-direction: column; /* Alignement en colonnes pour les éléments à l'intérieur */
+}
+
+.offre-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.offre-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.offre-box p {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.offre-box .btn-primary {
+  align-self: flex-start; /* Alignement du bouton sur la gauche */
+  padding: 0.5rem 1rem; /* Réduire légèrement la taille du bouton */
+  font-size: 0.875rem; /* Taille de police légèrement réduite pour le bouton */
+}
+
+.offre-box .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}

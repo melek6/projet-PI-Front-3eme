@@ -1,0 +1,13 @@
+<!-- Dans votre template OffreDetailsComponent (offre-details.component.html) -->
+<h2>Détails de l'offre</h2>
+
+<div *ngIf="offre">
+  <h3>{{ offre.title }}</h3>
+  <p><strong>Description:</strong> {{ offre.description }}</p>
+  <p><strong>Emplacement:</strong> {{ offre.location }}</p>
+  <p><strong>Date de création:</strong> {{ offre.createDate | date:'short' }}</p>
+  <p><strong>Date d'expiration:</strong> {{ offre.expiryDate | date:'short' }}</p>
+
+  <!-- Bouton "Postuler" -->
+  <a [routerLink]="['/candidat', offre.id]" class="btn btn-primary mt-3">Postuler</a>
+</div>

@@ -15,6 +15,9 @@ import { CommentFormComponent } from 'src/app/front-pages/comment-form/comment-f
 import { ReactFormComponent } from 'src/app/front-pages/react-form/react-form.component';
 import { BlogPostFormComponent } from 'src/app/front-pages/blog-post-form/blog-post-form.component';
 import { FormationComponent } from 'src/app/front-pages/Formation/formation.component';
+import { CandidatComponent } from 'src/app/front-pages/candidat/candidat.component';
+import { OffreCandidatComponent } from 'src/app/front-pages/offre-candidat/offre-candidat.component';
+import { OffreDetailsComponent } from 'src/app/front-pages/offre-details/offre-details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +38,10 @@ import { FormationComponent } from 'src/app/front-pages/Formation/formation.comp
     CommentFormComponent,
     ReactFormComponent,
     BlogPostFormComponent,
-    FormationComponent
+    FormationComponent,
+    CandidatComponent,
+    OffreCandidatComponent,
+    OffreDetailsComponent
   ],
   exports: [FrontLayoutComponent]
 })

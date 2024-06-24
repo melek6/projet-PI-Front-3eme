@@ -1,0 +1,73 @@
+/* Style pour le navbar */
+.navbar {
+  background: linear-gradient(to top, rgb(30,109,140) 0.5%, rgba(48, 49, 68, 1) 100%);
+  padding: 10px 0; /* Espacement interne en haut et en bas */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bordure en bas */
+}
+
+.navbar-brand {
+  color: #fff; /* Couleur du texte */
+  font-size: 1.5rem; /* Taille de police */
+}
+
+.navbar-nav .nav-item {
+  padding: 10px 15px; /* Espacement des éléments de la liste */
+}
+
+.navbar-nav .nav-link {
+  color: #fff; /* Couleur du texte */
+  font-size: 1.1rem; /* Taille de police */
+  transition: color 0.3s ease; /* Transition de couleur au survol */
+}
+
+.navbar-nav .nav-link:hover {
+  color: rgba(255, 255, 255, 0.8); /* Couleur légèrement plus claire au survol */
+}
+
+.footer {
+  background-color: #2e65a0;
+  color: #fff;
+  padding: 60px 0;
+}
+
+.footer h5 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.footer p {
+  color: #ccc;
+}
+
+.footer ul.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.footer ul li {
+  padding-bottom: 10px;
+}
+
+.footer .social-icons {
+  margin-top: 20px;
+}
+
+.footer .social-icons li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.footer .social-icons li a {
+  color: #fff;
+  font-size: 20px;
+}
+
+.footer .social-icons li a:hover {
+  color: #007bff;
+}
+
+.footer .text-muted {
+  margin-top: 20px;
+}
