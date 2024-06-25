@@ -14,6 +14,7 @@ export class FormationModalComponent implements OnInit {
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
+  @Output() uploadPlanning = new EventEmitter<any>();
   categories: string[] = Object.values(FormationCategory);
   constructor() { }
 
@@ -42,6 +43,12 @@ export class FormationModalComponent implements OnInit {
 
   onCancel(): void {
     this.cancel.emit();
+  }
+  onUploadPlanning(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.uploadPlanning.emit({ file: file });
+    }
   }
 
 }

@@ -1,3 +1,51 @@
-table {
-    width: 100%;
-  }
+/* Appliquer un style spécifique aux en-têtes de table */
+th.mat-header-cell {
+  background-color: #4CAF50; /* Couleur de fond des titres */
+  color: white;              /* Couleur du texte des titres */
+  text-align: center;        /* Centrer le texte des titres */
+  padding: 10px;             /* Espacement intérieur des titres */
+  font-weight: bold;         /* Texte en gras */
+  font-size: 16px;           /* Taille du texte */
+  border-bottom: 2px solid #ddd; /* Bordure inférieure */
+  border-right: 1px solid #ddd;  /* Bordure droite pour la séparation des colonnes */
+}
+
+/* Styles personnalisés pour les en-têtes de colonne avec icônes */
+.custom-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  border-right: 1px solid #ddd;  /* Bordure droite pour la séparation des colonnes */
+}
+
+.custom-header mat-icon {
+  margin-right: 5px; /* Espacement entre l'icône et le texte */
+}
+
+/* Appliquer un style spécifique aux cellules de table */
+td.mat-cell {
+  padding: 12px 8px;           /* Espacement intérieur des cellules */
+  border-right: 1px solid #ddd; /* Bordure droite pour la séparation des colonnes */
+  text-align: left;            /* Alignement à gauche du texte */
+}
+
+/* Supprimer la bordure droite de la dernière cellule pour éviter une double bordure */
+td.mat-cell:last-child {
+  border-right: none;
+}
+
+/* Supprimer la bordure droite du dernier en-tête pour éviter une double bordure */
+th.mat-header-cell:last-child,
+.custom-header:last-child {
+  border-right: none;
+}
+
+/* Style optionnel pour les lignes de tableau */
+tr.mat-row {
+  border-bottom: 1px solid #ddd; /* Bordure inférieure pour chaque ligne */
+}
