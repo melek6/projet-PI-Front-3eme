@@ -64,6 +64,15 @@ export class FormationService {
     const url = `${this.apiUrl}/${formationId}/evaluations`;
     return this.http.post<any>(url, evaluation);
   }
+  uploadPlanning(formationId: number, file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    const url = `${this.apiUrl}/${formationId}/uploadPlanning`;
+    return this.http.post(url, formData, { responseType: 'json' }).pipe(
+      catchError(this.handleError<any>('uploadPlanning'))
+    );
+  }
 }
 
 

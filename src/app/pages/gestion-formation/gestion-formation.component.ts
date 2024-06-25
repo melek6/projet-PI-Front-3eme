@@ -20,6 +20,7 @@ export class GestionFormationComponent implements OnInit {
   formationsExpirees: number = 0;
   categories: string[] = Object.values(FormationCategory);
   userId: any;
+  
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -38,7 +39,7 @@ export class GestionFormationComponent implements OnInit {
     this.formationService.getAllFormations().subscribe(
       (data: any[]) => {
         this.formations = data;
-        this.dataSource.data = data; // Mettez à jour le dataSource pour le tableau Material
+        this.dataSource.data = data;
         this.calculateStatistics();
       },
       error => {
@@ -102,5 +103,18 @@ export class GestionFormationComponent implements OnInit {
     }, error => {
       console.error('Erreur lors de la mise à jour de l\'formation :', error);
     });
+  }
+  uploadPlanning(event: any, formationId: number): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formationService.uploadPlanning(formationId, file).subscribe(
+        response => {
+          console.log('Planning uploaded successfully', response);
+        },
+        error => {
+          console.error('Error uploading planning:', error);
+        }
+      );
+    }
   }
 }
