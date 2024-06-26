@@ -9,7 +9,7 @@ import { CandidatService } from 'src/app/_services/candidat/candidat.service';
 export class CandidatComponent implements OnInit {
 
   candidatures: any[] = [];
-  candidature: any = { nom: '', prenom: '', offre_id: null };
+  candidature: any = { nom: '', prenom: '', offre_id: null, cv: null };
   selectedFile: File = null;
 
   constructor(private candidatService: CandidatService) { }
@@ -29,24 +29,19 @@ export class CandidatComponent implements OnInit {
         }
       );
   }
-
   addCandidature(): void {
     const formData = new FormData();
     formData.append('nom', this.candidature.nom);
     formData.append('prenom', this.candidature.prenom);
-    formData.append('offre_id', this.candidature.offre_id); // Assurez-vous que le nom est correct
-
-    if (this.selectedFile) {
-      formData.append('cv', this.selectedFile, this.selectedFile.name);
-    }
+    formData.append('offre_id', this.candidature.offre_id);
+    formData.append('cv', this.selectedFile);
 
     this.candidatService.addCandidat(formData)
       .subscribe(
         (response) => {
           console.log('Candidature ajoutée avec succès :', response);
-          this.candidature = { nom: '', prenom: '', offre_id: null }; // Réinitialisez après l'ajout
+          this.candidature = { nom: '', prenom: '', offre_id: null, cv: null };
           this.selectedFile = null;
-          this.getAllCandidatures();
         },
         (error) => {
           console.log('Erreur lors de l\'ajout de la candidature :', error);

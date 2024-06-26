@@ -8,7 +8,7 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class CandidatService {
 
-  private apiUrl = 'http://localhost:8081/api/candidatures'; // URL de votre API pour les candidatures
+  private apiUrl = 'http://localhost:8081/api/candidatures';
 
   constructor(private http: HttpClient) { }
 
@@ -28,11 +28,9 @@ export class CandidatService {
   }
 
   addCandidat(candidat: FormData): Observable<any> {
-    return this.http.post<any>(this.apiUrl, candidat).pipe(
-      tap((newCandidat: any) => console.log(`Candidat ajouté avec l'id ${newCandidat.id}`)),
-      catchError(this.handleError<any>('addCandidat'))
-    );
+    return this.http.post<any>(this.apiUrl, candidat);
   }
+
 
   updateCandidat(id: number, candidat: any): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
