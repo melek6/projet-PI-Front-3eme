@@ -14,6 +14,17 @@
           <label for="description">Description</label>
           <textarea class="form-control" id="description" [(ngModel)]="formation.description" name="description"></textarea>
       </div>
+
+     <div class="form-group">
+        <label for="category">Catégorie</label>
+        <select class="form-control" id="category" [(ngModel)]="formation.category" name="category">
+          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        </select>
+      </div>
+      <!-- <div class="form-group">
+        <label for="category">Catégorie</label>
+        <app-category-select [categories]="categories" [(ngModel)]="formation.category" name="category"></app-category-select>
+      </div> -->
       <!-- <div class="form-group">
           <label for="schedule">Date d'expiration</label>
           <input type="date" class="form-control" id="schedule" [(ngModel)]="formation.schedule" name="schedule">
@@ -30,12 +41,7 @@
           <label for="endDate">Date de fin</label>
           <input type="date" class="form-control" id="endDate" [(ngModel)]="formation.endDate" name="endDate">
       </div>
-      <div class="form-group">
-        <label for="user">Utilisateur</label>
-        <select class="form-control" id="user" [(ngModel)]="formation.user" name="user">
-            <option *ngFor="let user of users" [ngValue]="user">{{ user.id }}</option>
-        </select>
-    </div>
+     
       <div class="form-group">
           <label for="location">Emplacement</label>
           <input type="text" class="form-control" id="location" [(ngModel)]="formation.location" name="location">
@@ -63,6 +69,7 @@
           <label for="bestSeller">Best Seller</label>
           <input type="checkbox" class="form-control" id="bestSeller" [(ngModel)]="formation.bestSeller" name="bestSeller">
       </div>
+      
   </form>
 </div>
 <div class="modal-footer">

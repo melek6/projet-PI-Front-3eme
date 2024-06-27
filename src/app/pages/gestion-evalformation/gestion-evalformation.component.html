@@ -73,26 +73,14 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
-                <th scope="col">TITRE DE FORMATION</th>
-                <th scope="col">DATE</th>
-                <th scope="col">EMPLACEMENT</th>
-                <th scope="col">DATE</th>
-                <th scope="col">FORMATEUR</th>
-                <th scope="col">PARTICIPANT</th>
                 <th scope="col">SCORE</th>
                 <th scope="col">COMMENTAIRE</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let evalformation of evalformations">
-                <td>{{ evalformation.trainingTitle }}</td>
-                <td>{{ evalformation.date }}</td>
-                <td>{{ evalformation.location }}</td>
-                <td>{{ evalformation.date | date:'short' }}</td>
-                <td>{{ evalformation.participant }}</td>
                 <td>{{ evalformation.score }}</td>
-                <td>{{ evalformation.trainer }}</td>
-                <td>{{ evalformation.comment }}</td>
+                <td>{{ evalformation.comments }}</td>
                 <td class="text-right">
                   <div ngbDropdown placement="bottom-right">
                     <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>

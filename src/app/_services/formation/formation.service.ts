@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of, tap } from 'rxjs';
+import { FormationCategory } from 'src/app/pages/gestion-formation/formation-category.enum';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -36,7 +37,11 @@ export class FormationService {
   }
 
   createFormation(formation: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, formation);
+    // Assurez-vous que la formation inclut une catégorie valide
+    if (!Object.values(FormationCategory).includes(formation.category)) {
+      formation.category = FormationCategory.Other; // Catégorie par défaut si non spécifiée
+    }
+    return this.http.post<any>(this.apiUrl, formation, httpOptions);
   }
 
   updateFormation(id: number, formation: any): Observable<any> {
@@ -58,6 +63,15 @@ export class FormationService {
   addEvaluationToFormation(formationId: number, evaluation: any): Observable<any> {
     const url = `${this.apiUrl}/${formationId}/evaluations`;
     return this.http.post<any>(url, evaluation);
+  }
+  uploadPlanning(formationId: number, file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    const url = `${this.apiUrl}/${formationId}/uploadPlanning`;
+    return this.http.post(url, formData, { responseType: 'json' }).pipe(
+      catchError(this.handleError<any>('uploadPlanning'))
+    );
   }
 }
 

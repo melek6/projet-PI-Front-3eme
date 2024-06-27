@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormationCategory } from 'src/app/pages/gestion-formation/formation-category.enum';
 
 @Component({
   selector: 'app-formation-modal',
@@ -9,11 +10,12 @@ export class FormationModalComponent implements OnInit {
 
   @Input() formation: any;
   @Input() isEditing: boolean;
-  @Input() users: any[]; // Assuming users is an array of objects with username property
+  @Input() users: any[]; 
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
-
+  @Output() uploadPlanning = new EventEmitter<any>();
+  categories: string[] = Object.values(FormationCategory);
   constructor() { }
 
   ngOnInit(): void {
@@ -29,7 +31,6 @@ export class FormationModalComponent implements OnInit {
         price: null,
         numberOfHours: null,
         category: '',
-        user: null,
         newFormation: false,
         bestSeller: false
       };
@@ -42,6 +43,12 @@ export class FormationModalComponent implements OnInit {
 
   onCancel(): void {
     this.cancel.emit();
+  }
+  onUploadPlanning(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.uploadPlanning.emit({ file: file });
+    }
   }
 
 }

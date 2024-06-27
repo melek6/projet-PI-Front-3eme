@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ isEditing ? 'Modifier l\'quiz' : 'Créer une nouvelle question' }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="content" [(ngModel)]="quiz.title" name="title">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" id="description" [(ngModel)]="quiz.description" name="description">
+      </div>
+      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)="onSave()">Enregistrer</button>
+  </div>
+  
