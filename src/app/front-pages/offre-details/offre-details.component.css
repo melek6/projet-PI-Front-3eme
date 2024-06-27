@@ -1,39 +1,55 @@
-/* CSS pour la page de détails de l'offre */
-
-.offre-details {
-  padding: 50px 0; /* Espacement intérieur */
-  background-color: #f8f9fa; /* Couleur de fond */
+/* Réinitialisation et styles globaux */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
 }
 
-.offre-details-box {
-  border: 1px solid #ddd;
-  padding: 30px;
-  margin-bottom: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd; /* Bordure fine */
+}
+
+.offre-details {
+  text-align: center;
+  padding: 50px 0;
 }
 
 .offre-details-title {
   font-size: 2.5rem;
-  margin-bottom: 15px;
-  color: #333; /* Couleur du titre */
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.offre-details-description,
-.offre-details-location,
-.offre-details-date {
+.offre-details-info {
   font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #555;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.offre-details-info p {
   margin-bottom: 10px;
-  color: #555; /* Couleur du texte */
 }
 
 .btn-primary {
-  background-color: #dc3545; /* Couleur de fond du bouton */
-  border-color: #dc3545; /* Couleur de bordure du bouton */
-  color: #fff; /* Couleur du texte du bouton */
+  display: inline-block;
+  padding: 8px 24px;
+  background-color: #ff9800;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 20px;
 }
 
 .btn-primary:hover {
-  background-color: #c82333; /* Couleur de fond au survol */
-  border-color: #bd2130; /* Couleur de bordure au survol */
+  background-color: #e68a00;
 }

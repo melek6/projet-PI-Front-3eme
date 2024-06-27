@@ -2,17 +2,16 @@
 <section class="offre-details">
   <div class="container">
     <div class="row">
-      <div class="col-lg-10 offset-lg-1">
-        <div *ngIf="offre" class="offre-details-box">
-          <h2 class="offre-details-title">{{ offre.title }}</h2>
+      <div class="col text-center">
+        <h2 class="offre-details-title">{{ offre.title }}</h2>
+        <div class="offre-details-info">
           <p class="offre-details-description"><strong>Description:</strong> {{ offre.description }}</p>
           <p class="offre-details-location"><strong>Emplacement:</strong> {{ offre.location }}</p>
           <p class="offre-details-date"><strong>Date de création:</strong> {{ offre.createDate | date:'short' }}</p>
           <p class="offre-details-date"><strong>Date d'expiration:</strong> {{ offre.expiryDate | date:'short' }}</p>
-
-          <!-- Bouton "Postuler" -->
-          <a [routerLink]="['/candidat', offre.id]" class="btn btn-primary mt-3">Postuler</a>
         </div>
+        <!-- Bouton "Postuler" -->
+        <a [routerLink]="['/candidat', offre.id]" class="btn btn-primary">Postuler</a>
       </div>
     </div>
   </div>

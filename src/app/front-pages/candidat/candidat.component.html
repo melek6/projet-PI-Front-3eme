@@ -1,22 +1,25 @@
 <div class="container">
   <h2>Ajouter une candidature</h2>
-
   <form (ngSubmit)="addCandidature()">
-    <div class="form-group">
-      <label for="nom">Nom :</label>
-      <input type="text" id="nom" name="nom" [(ngModel)]="candidature.nom" required>
-    </div>
+    <div class="form-box">
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="nom">Nom :</label>
+          <input type="text" id="nom" name="nom" [(ngModel)]="candidature.nom" required>
+        </div>
 
-    <div class="form-group">
-      <label for="prenom">Prénom :</label>
-      <input type="text" id="prenom" name="prenom" [(ngModel)]="candidature.prenom" required>
-    </div>
+        <div class="form-group col">
+          <label for="prenom">Prénom :</label>
+          <input type="text" id="prenom" name="prenom" [(ngModel)]="candidature.prenom" required>
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label for="cv">CV :</label>
-      <input type="file" id="cv" name="cv" (change)="onFileChange($event)" accept=".pdf,.doc,.docx" required>
-    </div>
+      <div class="form-group">
+        <label for="cv">CV :</label>
+        <input type="file" id="cv" name="cv" (change)="onFileChange($event)" accept=".pdf,.doc,.docx" required>
+      </div>
 
-    <button type="submit" class="btn btn-primary">Ajouter Candidature</button>
+      <button type="submit" class="btn btn-primary">Postuler</button>
+    </div>
   </form>
 </div>
