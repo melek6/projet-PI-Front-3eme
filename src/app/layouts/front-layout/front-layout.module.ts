@@ -15,7 +15,7 @@ import { CommentFormComponent } from 'src/app/front-pages/comment-form/comment-f
 import { ReactFormComponent } from 'src/app/front-pages/react-form/react-form.component';
 import { BlogPostFormComponent } from 'src/app/front-pages/blog-post-form/blog-post-form.component';
 import { FormationComponent } from 'src/app/front-pages/Formation/formation.component';
-import { ProjectManagementComponent } from 'src/app/front-pages/project-management/project-management.component';
+import { ProjectManagementComponent } from 'src/app/pages/project-management/project-management.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MarketplaceComponent } from 'src/app/front-pages/marketplace/marketplace.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
