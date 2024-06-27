@@ -53,7 +53,7 @@
                 <td>{{ candidat.nom }}</td>
                 <td>{{ candidat.prenom }}</td>
                 <td>{{ candidat.date | date:'short' }}</td>
-                <td><a [href]="dataURItoPDF(candidat.cv)" target="_blank">Ouvrir le CV</a></td>
+                <td><a [href]="dataURItoPDF(candidat.cv)" target="_blank">Ouvrir le PDF</a></td>
                 <td>{{ candidat.offre?.title }}</td>
                 <!-- Assurez-vous d'afficher correctement les détails de l'offre -->
               </tr>
