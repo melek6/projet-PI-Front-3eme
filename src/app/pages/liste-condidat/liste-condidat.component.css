@@ -72,3 +72,15 @@
 .comment small {
   color: #777;
 }
+/* styles.css */
+
+/* Ajuster l'alignement des éléments dans les colonnes auto */
+.row .col-auto {
+  display: flex;
+  align-items: center;
+}
+
+/* Ajuster la marge gauche du bouton pour le séparer légèrement du sélecteur */
+.row .col-auto .btn {
+  margin-left: 0.5rem; /* Ajustez la marge selon vos besoins */
+}

@@ -29,11 +29,27 @@
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
+      <!-- Filtre par nom d'offre -->
       <div class="card shadow">
         <div class="card-header border-0">
-          <h3 class="mb-0">Liste des candidats</h3>
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Liste des candidats</h3>
+            </div>
+            <div class="col-auto">
+              <div class="form-group d-flex align-items-center">
+                <label for="filterOffre" class="mr-2 small">Filtrer par Offre :</label>
+                <select class="form-control form-control-sm" id="filterOffre" [(ngModel)]="selectedOffre" (change)="filterCandidatsByOffre(selectedOffre)">
+                  <option class="text-muted" value="">Toutes les offres</option>
+                  <option *ngFor="let offre of offres">{{ offre }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-secondary btn-sm ml-2" (click)="resetFilter()">Réinitialiser</button>
+            </div>
+          </div>
         </div>
-        <!-- Ajoutez un bouton pour créer un candidat si nécessaire -->
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
@@ -49,13 +65,15 @@
             </thead>
             <tbody>
               <tr *ngFor="let candidat of candidats">
-                <td>{{ candidat.id }}</td>
-                <td>{{ candidat.nom }}</td>
-                <td>{{ candidat.prenom }}</td>
-                <td>{{ candidat.date | date:'short' }}</td>
-                <td><a [href]="dataURItoPDF(candidat.cv)" target="_blank">Ouvrir le PDF</a></td>
-                <td>{{ candidat.offre?.title }}</td>
-                <!-- Assurez-vous d'afficher correctement les détails de l'offre -->
+                <!-- Filtrer les candidats par offre sélectionnée -->
+                <ng-container *ngIf="!selectedOffre || candidat.offre?.title === selectedOffre">
+                  <td>{{ candidat.id }}</td>
+                  <td>{{ candidat.nom }}</td>
+                  <td>{{ candidat.prenom }}</td>
+                  <td>{{ candidat.date | date:'short' }}</td>
+                  <td><a [href]="dataURItoPDF(candidat.cv)" target="_blank">Ouvrir le PDF</a></td>
+                  <td>{{ candidat.offre?.title }}</td>
+                </ng-container>
               </tr>
             </tbody>
           </table>
