@@ -18,6 +18,7 @@ import { GestionFormationComponent } from 'src/app/pages/gestion-formation/gesti
 import { FormationModalComponent } from 'src/app/pages/formation-modal/formation-modal.component';
 import { EvalformationModalComponent } from 'src/app/pages/evalformation-modal/evalformation-modal.component';
 import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformation/gestion-evalformation.component';
+import { ListeCondidatComponent } from 'src/app/pages/liste-condidat/liste-condidat.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -41,7 +42,8 @@ import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformati
     GestionFormationComponent,
     FormationModalComponent,
     EvalformationModalComponent,
-    GestionEvalformationComponent
+    GestionEvalformationComponent,
+    ListeCondidatComponent
   ]
 })
 

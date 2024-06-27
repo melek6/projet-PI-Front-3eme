@@ -13,10 +13,11 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '' },
     { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '' },
     { path: '/offre', title: 'Gestion des offres',  icon:'ni-bell-55 text-red', class: '' },
+    { path: '/listecondidat', title: 'Liste des candidats',  icon:'ni-planet text-blue', class: '' },
     { path: '/gestformation', title: 'Gestion des formations',  icon:'ni-bell-55 text-red', class: '' },
     { path: '/gestevalformation', title: 'Gestion des evaluations formation',  icon:'ni-bell-55 text-red', class: '' },
     { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
-    
+
 
 
 ];

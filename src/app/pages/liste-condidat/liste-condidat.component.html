@@ -1,0 +1,66 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row">
+        <!-- Stat Cards -->
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Nombre de candidats</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ candidats.length }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Ajoutez d'autres cartes de statistiques si nécessaire pour les candidats -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h3 class="mb-0">Liste des candidats</h3>
+        </div>
+        <!-- Ajoutez un bouton pour créer un candidat si nécessaire -->
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NOM</th>
+                <th scope="col">PRÉNOM</th>
+                <th scope="col">DATE</th>
+                <th scope="col">CV</th>
+                <th scope="col">OFFRE</th>
+                <!-- Ajoutez d'autres en-têtes si nécessaire -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let candidat of candidats">
+                <td>{{ candidat.id }}</td>
+                <td>{{ candidat.nom }}</td>
+                <td>{{ candidat.prenom }}</td>
+                <td>{{ candidat.date | date:'short' }}</td>
+                <td><a [href]="dataURItoPDF(candidat.cv)" target="_blank">Ouvrir le CV</a></td>
+                <td>{{ candidat.offre?.title }}</td>
+                <!-- Assurez-vous d'afficher correctement les détails de l'offre -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
