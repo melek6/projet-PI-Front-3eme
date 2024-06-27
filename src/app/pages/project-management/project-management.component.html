@@ -1,0 +1,125 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row">
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Nombre des Projets</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ projects.length }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i class="fas fa-chart-bar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Gestion des Projets</h3>
+          <button mat-raised-button color="primary" (click)="openProjectModal()">Créer un Projet</button>
+        </div>
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef class="hidden-column"> ID </th>
+              <td mat-cell *matCellDef="let project" class="hidden-column"> {{project.id}} </td>
+            </ng-container>
+
+            <!-- Other Columns -->
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef> Titre </th>
+              <td mat-cell *matCellDef="let project"> {{project.title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description </th>
+              <td mat-cell *matCellDef="let project"> {{project.description}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef> Catégorie </th>
+              <td mat-cell *matCellDef="let project"> {{project.category}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="skillsRequired">
+              <th mat-header-cell *matHeaderCellDef> Compétences Requises </th>
+              <td mat-cell *matCellDef="let project"> {{project.skillsRequired}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="budget">
+              <th mat-header-cell *matHeaderCellDef> Budget </th>
+              <td mat-cell *matCellDef="let project"> {{project.budget | currency}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nbPropositions">
+              <th mat-header-cell *matHeaderCellDef> Nb Propositions </th>
+              <td mat-cell *matCellDef="let project"> {{project.nbPropositions}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let project" class="d-flex align-items-center">
+                <button mat-raised-button color="warn" (click)="updateProject(project)">Modifier</button>
+                <button mat-raised-button color="accent" (click)="deleteProject(project.id)">Supprimer</button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #projectModal>
+  <h2 mat-dialog-title>Créer un Projet</h2>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="newProject.title">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput [(ngModel)]="newProject.description">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <input matInput [(ngModel)]="newProject.category">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Skills Required</mat-label>
+      <input matInput [(ngModel)]="newProject.skillsRequired">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Budget</mat-label>
+      <input matInput type="number" [(ngModel)]="newProject.budget">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Deadline</mat-label>
+      <input matInput type="date" [(ngModel)]="newProject.deadline">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="dialog.closeAll()">Cancel</button>
+    <button mat-button (click)="dialog.closeAll(); addProject(newProject)">Save</button>
+  </mat-dialog-actions>
+</ng-template>

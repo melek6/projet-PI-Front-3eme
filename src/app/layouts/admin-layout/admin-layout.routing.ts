@@ -11,6 +11,7 @@ import { GestionFormationComponent } from 'src/app/pages/gestion-formation/gesti
 import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformation/gestion-evalformation.component';
 import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.component';
 import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gestion-questions.component';
+import { ProjectManagementComponent } from 'src/app/pages/project-management/project-management.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -22,6 +23,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'gestformation',      component: GestionFormationComponent },
     { path: 'gestevalformation',      component: GestionEvalformationComponent },
     { path: 'quiz',      component: GestionQuizComponent },
+    { path: 'projects',       component: ProjectManagementComponent },
     { path: 'questions',      component: GestionquestionsComponent },
 
 
