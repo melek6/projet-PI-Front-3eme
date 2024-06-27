@@ -1,15 +1,16 @@
 <!-- Dans votre template Angular -->
-<h2>Liste des Offres</h2>
+<h2 class="title">Liste des Offres</h2>
+<p class="description">Découvrez les dernières offres disponibles et trouvez celle qui correspond à vos compétences et aspirations professionnelles.</p>
 
 <div class="container">
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
       <div class="offre-box" *ngFor="let offre of offres">
         <h3>{{ offre.title }}</h3>
-        <p><strong>Description:</strong> {{ offre.description }}</p>
-        <p><strong>Emplacement:</strong> {{ offre.location }}</p>
-        <p><strong>Date de création:</strong> {{ offre.createDate | date:'short' }}</p>
-        <p><strong>Date d'expiration:</strong> {{ offre.expiryDate | date:'short' }}</p>
+        <p><i class="fas fa-info-circle"></i> <strong>Description:</strong> {{ offre.description }}</p>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Emplacement:</strong> {{ offre.location }}</p>
+        <p><i class="fas fa-calendar-alt"></i> <strong>Date de création:</strong> {{ offre.createDate | date:'short' }}</p>
+        <p><i class="fas fa-clock"></i> <strong>Date d'expiration:</strong> {{ offre.expiryDate | date:'short' }}</p>
 
         <!-- Bouton "Lire plus" redirigeant vers une nouvelle page avec l'ID de l'offre -->
         <a [routerLink]="['/offre', offre.id]" class="btn btn-primary mt-3">Lire plus</a>

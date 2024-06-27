@@ -1,36 +1,101 @@
+/* Styles globaux */
+body {
+  font-family: 'Arial', sans-serif;
+  color: #444;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-lg-8 {
+  flex: 0 0 66.6667%;
+  max-width: 66.6667%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+/* CSS spécifique à la page */
+.title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.description {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #666;
+}
+
 .offre-box {
   border: 1px solid #ddd;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 15px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  display: flex; /* Utilisation de flexbox pour gérer les éléments enfants */
-  flex-direction: column; /* Alignement en colonnes pour les éléments à l'intérieur */
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  width: 100%; /* S'assure que la boîte utilise toute la largeur de son conteneur */
+  max-width: 1400px; /* Limite la largeur maximale */
+  margin: 20px 0px ; /* Centre les boîtes */
 }
 
 .offre-box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .offre-box h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
+  color: #555;
 }
 
 .offre-box p {
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.offre-box p i {
+  margin-right: 8px;
+  color: #ff9800;
 }
 
 .offre-box .btn-primary {
-  align-self: flex-start; /* Alignement du bouton sur la gauche */
-  padding: 0.5rem 1rem; /* Réduire légèrement la taille du bouton */
-  font-size: 0.875rem; /* Taille de police légèrement réduite pour le bouton */
+  align-self: flex-end; /* Aligne le bouton à la droite de la boîte */
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  background-color: #ff9800;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
 }
 
 .offre-box .btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background-color: #e68a00;
 }
