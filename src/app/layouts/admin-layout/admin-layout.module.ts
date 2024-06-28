@@ -37,6 +37,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProjectManagementComponent } from 'src/app/pages/project-management/project-management.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PropositionManagementComponent } from 'src/app/pages/proposition-management/proposition-management.component';
 
 @NgModule({
   imports: [
@@ -79,6 +80,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     GestionQuizComponent,
     QuestionModalComponent,
     ProjectManagementComponent,
+    PropositionManagementComponent,
     QuizModalComponent
 
   ]

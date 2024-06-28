@@ -4,14 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MarketplaceService } from 'src/app/_services/ProjectManagement/marketplace.service';
 
-export interface Proposition {
-  id: number;
-  detail: string;
-  amount: number;
-  date: string;
-  status: string;
-}
-
 export interface ProjectData {
   id: number;
   title: string;
@@ -19,7 +11,8 @@ export interface ProjectData {
   category: string;
   skillsRequired: string;
   budget: number;
-  propositions: Proposition[];
+  deadline: string;
+  propositions: any[];
   nbPropositions?: number;
 }
 
@@ -51,6 +44,11 @@ export class ProjectManagementComponent implements OnInit {
     deadline: ''
   };
 
+  editMode: boolean = false;
+  editProjectId: number | null = null;
+
+  categories: string[] = [];
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('projectModal') projectModal: TemplateRef<any>;
 
@@ -58,6 +56,7 @@ export class ProjectManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProjects();
+    this.loadCategories();
   }
 
   ngAfterViewInit() {
@@ -75,18 +74,53 @@ export class ProjectManagementComponent implements OnInit {
       },
       error => {
         console.error('Error fetching projects:', error);
+        if (error.error instanceof ErrorEvent) {
+          console.error('Error Event:', error.error.message);
+        } else {
+          console.error(`Backend returned code ${error.status}, body was: ${error.error.text}`);
+        }
       }
     );
   }
 
-  openProjectModal(): void {
+  loadCategories(): void {
+    this.marketplaceService.getCategories().subscribe(
+      (data: string[]) => {
+        this.categories = data;
+      },
+      error => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }
+
+  openProjectModal(edit: boolean = false, project?: ProjectData): void {
+    this.editMode = edit;
+    if (edit && project) {
+      this.newProject = {
+        title: project.title,
+        description: project.description,
+        category: project.category,
+        skillsRequired: project.skillsRequired,
+        budget: project.budget,
+        deadline: project.deadline
+      };
+      this.editProjectId = project.id;
+    } else {
+      this.resetNewProject();
+    }
+
     const dialogRef = this.dialog.open(this.projectModal, {
       width: '400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.addProject(this.newProject);
+        if (this.editMode && this.editProjectId) {
+          this.updateProject(this.editProjectId, this.newProject);
+        } else {
+          this.addProject(this.newProject);
+        }
       }
     });
   }
@@ -118,14 +152,17 @@ export class ProjectManagementComponent implements OnInit {
     }
   }
 
-  updateProject(project: ProjectData): void {
-    this.marketplaceService.updateProject(project.id, project).subscribe(
-      () => {
-        const index = this.projects.findIndex(p => p.id === project.id);
+  updateProject(id: number, projectDetails: ProjectDataCreation): void {
+    this.marketplaceService.updateProject(id, projectDetails).subscribe(
+      (updatedProject: ProjectData) => {
+        const index = this.projects.findIndex(p => p.id === id);
         if (index !== -1) {
-          this.projects[index] = { ...project };
+          this.projects[index] = updatedProject;
           this.dataSource.data = this.projects; // Update dataSource
         }
+        this.resetNewProject();
+        this.editMode = false;
+        this.editProjectId = null;
       },
       error => {
         console.error('Error updating project:', error);
