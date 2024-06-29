@@ -70,21 +70,21 @@ export class NavbarComponent implements OnInit {
   }
 
 
-
-
   logout(): void {
-    this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
-        this.storageService.signOut();
-
-        window.location.reload();
+    this.authService.logout().subscribe(
+      response => {
+        console.log('Logout successful', response);
+        localStorage.removeItem('authToken'); // Remove token or other session data
+        sessionStorage.clear(); // Clear session storage
+        this.router.navigate(['/login']); // Navigate to the login page after logout
       },
-      error: err => {
-        console.log(err);
+      error => {
+        console.error('Logout failed', error);
       }
-    });
+    );
   }
+  
+ 
 }
 
 

@@ -10,16 +10,13 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-
-
-
     if (this.authService.getToken()) {
      // this.router.navigate(['/accueil'], {queryParams: {returnUrl: state.url}});
       console.log('tttt');
 
       return true;
     }else{
-
+      console.log('saleeeeem');
       this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
       return false;
 
@@ -29,4 +26,15 @@ export class AuthGuard implements CanActivate {
 
 
   }
+
+
+
+  // canActivate(): boolean {
+  //   if (this.authService.isLoggedIn()) {
+  //     return true;
+  //   }
+
+  //   this.router.navigate(['login']);
+  //   return false;
+  // }
 }

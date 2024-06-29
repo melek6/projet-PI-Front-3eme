@@ -31,9 +31,9 @@ export class BlogPostComponent implements OnInit {
       }));
 
       this.blogPosts.forEach(post => {
-        this.blogPostService.getLikesCount(post.id).subscribe(likes => post.likes = likes);
-        this.blogPostService.getDislikesCount(post.id).subscribe(dislikes => post.dislikes = dislikes);
-        this.blogPostService.getUserReact(post.id).subscribe(react => post.userReact = react);
+        //this.blogPostService.getLikesCount(post.id).subscribe(likes => post.likes = likes);
+       // this.blogPostService.getDislikesCount(post.id).subscribe(dislikes => post.dislikes = dislikes);
+        //this.blogPostService.getUserReact(post.id).subscribe(react => post.userReact = react);
         this.blogPostService.getCommentsForBlogPost(post.id).subscribe(comments => post.commentaires = comments);
       });
     });
@@ -80,7 +80,7 @@ export class BlogPostComponent implements OnInit {
   }
 
   onCommentAdded(comment: any): void {
-    const post = this.blogPosts.find(p => p.id === comment.blogPost.id);
+    const post = this.blogPosts.find(p => p.id === comment?.blogPost?.id);
     if (post) {
       post.commentaires = post.commentaires || [];
       post.commentaires.push(comment);

@@ -17,6 +17,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/gestformation', title: 'Gestion des formations',  icon:'ni-bell-55 text-red', class: '' },
     { path: '/gestevalformation', title: 'Gestion des evaluations formation',  icon:'ni-bell-55 text-red', class: '' },
     { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
+    { path: '/gestionuser', title: 'gestion User',  icon:'ni-planet text-blue', class: '' },
 
 
 

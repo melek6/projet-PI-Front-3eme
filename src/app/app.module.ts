@@ -20,6 +20,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { AuthGuard } from './_helpers/auth/auth-guard.service';
 import { OffreComponent } from './pages/offre/offre.component';
 import { AddOffreComponent } from './pages/add-offre/add-offre.component';
+import { environment } from 'src/environments/environment';
+import { FrontLayoutComponent } from './layouts/front-layout/front-layout.component';
 
 @NgModule({
   imports: [
@@ -30,11 +32,15 @@ import { AddOffreComponent } from './pages/add-offre/add-offre.component';
     NgbModule,
     RouterModule,
     AppRoutingModule,
+
+
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    // FrontLayoutComponent
+
       ],
   providers: [
     AuthService,
