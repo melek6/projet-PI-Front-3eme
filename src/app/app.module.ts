@@ -30,13 +30,11 @@ import { AddOffreComponent } from './pages/add-offre/add-offre.component';
     NgbModule,
     RouterModule,
     AppRoutingModule,
-
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent
-
       ],
   providers: [
     AuthService,
