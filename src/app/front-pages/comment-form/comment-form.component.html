@@ -1,7 +1,7 @@
 <div class="comment-form">
-    <h3>Add a Comment</h3>
-    <form (ngSubmit)="onSubmit()">
-      <textarea [(ngModel)]="content" name="content" required></textarea>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+  <h3>Add a Comment</h3>
+  <form (ngSubmit)="onSubmit()">
+    <textarea [(ngModel)]="content" name="content" required placeholder="Write your comment here..."></textarea>
+    <button type="submit" class="submit-button">Submit</button>
+  </form>
+</div>

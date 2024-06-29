@@ -21,12 +21,12 @@ export class BlogPostFormComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.isEdit)
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+   /* if (id) {
       this.isEdit = true;
       this.blogPostService.getBlogPostById(+id).subscribe((data: any) => {
         this.blogPost = data;
       });
-    }
+    }*/
   }
 
   onSubmit(): void {
