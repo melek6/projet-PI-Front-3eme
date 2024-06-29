@@ -15,6 +15,7 @@ import { FrontLayoutComponent } from './front-layout.component';
 import { CommentFormComponent } from 'src/app/front-pages/comment-form/comment-form.component';
 import { ReactFormComponent } from 'src/app/front-pages/react-form/react-form.component';
 import { BlogPostFormComponent } from 'src/app/front-pages/blog-post-form/blog-post-form.component';
+import { EvaluationfComponent } from 'src/app/front-pages/EvaluationF/evaluationf.component';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import { BlogPostFormComponent } from 'src/app/front-pages/blog-post-form/blog-p
     FrontLayoutComponent,
     CommentFormComponent,
     ReactFormComponent,
-    BlogPostFormComponent
+    BlogPostFormComponent,
+    EvaluationfComponent
 
   ],
   exports:[FrontLayoutComponent]

@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+import { EvaluationfComponent } from 'src/app/front-pages/EvaluationF/evaluationf.component';
 
 import { AcceuilComponent } from 'src/app/front-pages/acceuil/acceuil.component';
 import { BlogPostFormComponent } from 'src/app/front-pages/blog-post-form/blog-post-form.component';
@@ -11,7 +12,7 @@ export const FrontLayoutRoutes: Routes = [
   { path: 'create-blog-post', component: BlogPostFormComponent },
   { path: 'edit-blog-post/:id', component: BlogPostFormComponent }
 
- 
+
 
 
 ];
