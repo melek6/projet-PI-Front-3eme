@@ -54,9 +54,8 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
-                <th scope="col">ID</th>
                 <th scope="col">NOM</th>
-                <th scope="col">PRÉNOM</th>
+                <th scope="col">MAIL</th>
                 <th scope="col">DATE</th>
                 <th scope="col">CV</th>
                 <th scope="col">OFFRE</th>
@@ -67,9 +66,8 @@
               <tr *ngFor="let candidat of candidats">
                 <!-- Filtrer les candidats par offre sélectionnée -->
                 <ng-container *ngIf="!selectedOffre || candidat.offre?.title === selectedOffre">
-                  <td>{{ candidat.id }}</td>
                   <td>{{ candidat.nom }}</td>
-                  <td>{{ candidat.prenom }}</td>
+                  <td>{{ candidat.mail }}</td>
                   <td>{{ candidat.date | date:'short' }}</td>
                   <td><a [href]="dataURItoPDF(candidat.cv)" target="_blank">Ouvrir le PDF</a></td>
                   <td>{{ candidat.offre?.title }}</td>

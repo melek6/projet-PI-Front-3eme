@@ -99,3 +99,30 @@ body {
 .offre-box .btn-primary:hover {
   background-color: #e68a00;
 }
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  padding: 0.5rem 1rem;
+  margin: 0 5px;
+  background-color: #ff9800;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:hover {
+  background-color: #da8e1c;
+}
+
+.pagination-info {
+  margin: 0 10px;
+  color: #555;
+  font-size: 0.9rem;
+}

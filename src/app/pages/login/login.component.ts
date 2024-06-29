@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
+
     }
   }
 
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.storageService.getUser().roles;
         console.log( this.roles )
+        console.log(this.storageService.getUser());
         if( this.roles.includes('ROLE_ADMIN')){
           this.redirectToDashboard();
 

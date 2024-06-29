@@ -15,7 +15,8 @@ export class ListeCondidatComponent implements OnInit {
 
   ngOnInit(): void {
     this.candidatService.getAllCandidats().subscribe((candidats: any[]) => {
-      this.candidats = candidats;
+      // Inverser l'ordre des candidats pour afficher le dernier ajouté en premier
+      this.candidats = candidats.reverse();
       // Récupérer les noms d'offres uniques
       this.offres = this.getUniqueOffres();
     });

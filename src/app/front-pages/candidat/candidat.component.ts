@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CandidatService } from 'src/app/_services/candidat/candidat.service';
+import { StorageService } from 'src/app/_services/storage.service';
 
 @Component({
   selector: 'app-candidat',
@@ -16,7 +17,8 @@ export class CandidatComponent implements OnInit {
 
   constructor(
     private candidatService: CandidatService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private storageService: StorageService
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +42,11 @@ export class CandidatComponent implements OnInit {
 
   addCandidature(): void {
     const formData = new FormData();
-    formData.append('nom', this.candidature.nom);
-    formData.append('prenom', this.candidature.prenom);
+    // formData.append('nom', this.candidature.nom);
+    // formData.append('prenom', this.candidature.prenom);
+     formData.append('nom', this.storageService.getUser().username);
+     console.log(this.storageService.getUser().username);
+     formData.append('mail', this.storageService.getUser().email);
     formData.append('cv', this.selectedFile);
 
     if (this.offreId) {

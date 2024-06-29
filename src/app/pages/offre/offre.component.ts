@@ -18,18 +18,23 @@ export class OffreComponent implements OnInit {
 
   nouvellesOffres: number = 0;
   offresExpirees: number = 0;
-  userId:any
-  constructor(private offreService: OffreService, private modalService: NgbModal,private storageService:StorageService) { }
+  userId: any;
+
+  constructor(private offreService: OffreService, private modalService: NgbModal, private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.loadAllOffres();
-   this.userId= this.storageService.getUser()
+    this.userId = this.storageService.getUser();
   }
 
   loadAllOffres(): void {
     this.offreService.getAllOffres().subscribe(
       (data: any[]) => {
-        this.offres = data;
+        // Tri des offres par ordre décroissant de date de création
+        this.offres = data.sort((a, b) => {
+          return new Date(b.createDate).getTime() - new Date(a.createDate).getTime();
+        });
+
         this.calculateStatistics();
         this.updateCurrentPageOffres();
       },
@@ -83,12 +88,11 @@ export class OffreComponent implements OnInit {
     modalRef.componentInstance.isEditing = isEditing;
 
     modalRef.componentInstance.save.subscribe((result: any) => {
-      //result.user=this.userId
-       console.log(result)
       this.offreService.addOffre(result).subscribe((newOffre: any) => {
         console.log('Offre ajoutée avec succès', newOffre);
         this.offres.push(newOffre);
-      })
+        this.loadAllOffres(); // Recharger toutes les offres pour refléter les modifications
+      });
       modalRef.close();
     });
 
@@ -118,5 +122,8 @@ export class OffreComponent implements OnInit {
     }, error => {
       console.error('Erreur lors de la mise à jour de l\'offre :', error);
     });
+  }
+  toggleDescription(offre: any) {
+    offre.showFullDescription = !offre.showFullDescription;
   }
 }
