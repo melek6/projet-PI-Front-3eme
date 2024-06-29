@@ -43,7 +43,8 @@ import { ListeCondidatComponent } from 'src/app/pages/liste-condidat/liste-condi
     FormationModalComponent,
     EvalformationModalComponent,
     GestionEvalformationComponent,
-    ListeCondidatComponent
+    ListeCondidatComponent,
+    OffreComponent
   ]
 })
 

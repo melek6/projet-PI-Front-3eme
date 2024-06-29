@@ -20,7 +20,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'offre',          component: OffreComponent },
     { path: 'gestformation',      component: GestionFormationComponent },
     { path: 'gestevalformation',      component: GestionEvalformationComponent },
-    { path: 'listecondidat',      component: ListeCondidatComponent }
+    { path: 'listecondidat',      component: ListeCondidatComponent },
+    { path: 'offre',           component: OffreComponent },
+    { path: 'Ajouter',           component: AddOffreComponent }
 
 
 ];
