@@ -19,7 +19,10 @@ export const FrontLayoutRoutes: Routes = [
   { path: 'candidat', component: CandidatComponent },
   { path: 'OffreCandidat', component: OffreCandidatComponent },
   { path: 'offre/:id', component: OffreDetailsComponent },
-  { path: 'candidat/:id', component: CandidatComponent } // Route pour afficher les détails de l'offre avec l'ID comme paramètre
+  { path: 'candidat/:id', component: CandidatComponent } ,// Route pour afficher les détails de l'offre avec l'ID comme paramètre
+  { path: 'evaluationf', component: EvaluationfComponent},
+
+ 
 
 
 ];
