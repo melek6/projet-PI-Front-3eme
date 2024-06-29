@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { EvaluationfComponent } from './front-pages/EvaluationF/evaluationf.component';
 
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +20,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { AuthGuard } from './_helpers/auth/auth-guard.service';
 import { OffreComponent } from './pages/offre/offre.component';
 import { AddOffreComponent } from './pages/add-offre/add-offre.component';
+import { environment } from 'src/environments/environment';
+import { FrontLayoutComponent } from './layouts/front-layout/front-layout.component';
 
 @NgModule({
   imports: [
@@ -30,11 +33,13 @@ import { AddOffreComponent } from './pages/add-offre/add-offre.component';
     RouterModule,
     AppRoutingModule,
 
+
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    // FrontLayoutComponent
 
       ],
   providers: [

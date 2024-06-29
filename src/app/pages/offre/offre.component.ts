@@ -25,6 +25,7 @@ export class OffreComponent implements OnInit {
   ngOnInit(): void {
     this.loadAllOffres();
     this.userId = this.storageService.getUser();
+
   }
 
   loadAllOffres(): void {
