@@ -75,7 +75,7 @@
             align-items: center !important;
             gap: 8px !important;
             margin-left: 87%;" (click)="updateComment(comment.id, comment.content)">Save</button>
-            
+
               <!-- Formulaire de sous-commentaire -->
           <button class="post-action" style="padding: 10px 20px !important;
           border: none !important;;
@@ -98,15 +98,15 @@
             transition: border-color 0.3s ease;" [(ngModel)]="replyContent[comment.id]" placeholder="Write a reply..." />
             <button class="submit-button post-action" (click)="addReply(comment.id, replyContent[comment.id])">Submit</button>
           </div>
-          
+
           <!-- Afficher les sous-commentaires -->
           <div *ngFor="let reply of comment.replies" class="reply-comment">
             <div class="post-actions">
               <small>By {{ reply.user.username }} on {{ reply.date | date: 'short' }}</small>
-            
+
             </div>
             <p *ngIf="!editCommentFormVisible[reply.id]">{{ reply.content }}</p>
-            
+
           </div>
           </div>
         </div>

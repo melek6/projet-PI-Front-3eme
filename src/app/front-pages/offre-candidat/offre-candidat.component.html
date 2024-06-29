@@ -1,0 +1,26 @@
+<h2 class="title">Liste des Offres</h2>
+<p class="description">Découvrez les dernières offres disponibles et trouvez celle qui correspond à vos compétences et aspirations professionnelles.</p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="offre-box" *ngFor="let offre of displayedOffres">
+        <h3>{{ offre.title }}</h3>
+        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ offre.description | slice:0:100 }}{{ offre.description.length > 100 ? '...' : '' }}</p>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Emplacement: </strong> {{ offre.location }}</p>
+        <p><i class="fas fa-calendar-alt"></i> <strong>Date de création: </strong> {{ offre.createDate | date:'short' }}</p>
+        <p><i class="fas fa-clock"></i> <strong>Date d'expiration: </strong> {{ offre.expiryDate | date:'short' }}</p>
+
+        <!-- Bouton "Lire plus" redirigeant vers une nouvelle page avec l'ID de l'offre -->
+        <a [routerLink]="['/offre', offre.id]" class="btn btn-primary mt-3">Lire plus</a>
+      </div>
+
+      <!-- Pagination controls -->
+      <div class="pagination-container">
+        <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
+        <span class="pagination-info">Page {{ currentPage }} sur {{ totalPages }}</span>
+        <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Suivant</button>
+      </div>
+    </div>
+  </div>
+</div>

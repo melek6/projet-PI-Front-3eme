@@ -140,7 +140,7 @@ export class BlogPostComponent implements OnInit {
       this.blogPosts.forEach(post => {
         post.commentaires = post.commentaires.map((comment: any) => comment.id === commentId ? updatedComment : comment);
         post.commentaires.forEach((comment: any) => {
-          comment.replies = comment.replies.map((reply: any) => reply.id === commentId ? updatedComment : reply);
+          comment.replies = comment.replies?.map((reply: any) => reply.id === commentId ? updatedComment : reply);
         });
       });
       this.editCommentFormVisible[commentId] = false;
@@ -175,5 +175,5 @@ export class BlogPostComponent implements OnInit {
   userIsOwner(userId: number): boolean {
     return this.storageService.getUser().id === userId;
   }
-  
+
 }

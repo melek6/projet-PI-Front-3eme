@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
     });
   }
   redirectToDashboard(): void {
-    this.router.navigate(['/dashboard']); // Rediriger vers la route '/dashboard'
+    this.router.navigate(['/login']); // Rediriger vers la route '/dashboard'
   }
 
 }

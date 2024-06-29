@@ -1,0 +1,84 @@
+/* CSS pour le Header */
+.header {
+  background-color: #003366; /* Couleur de fond du header en bleu foncé */
+  padding: 15px 0; /* Espacement intérieur du header */
+}
+
+.header .navbar-brand {
+  font-size: 1.8rem; /* Taille de police du logo */
+  font-weight: bold; /* Gras pour le logo */
+}
+
+.header .navbar-nav .nav-link {
+  font-size: 1rem; /* Taille de police des liens */
+  color: #fff; /* Couleur des liens */
+}
+
+.header .navbar-nav .nav-link:hover {
+  color: #0056b3; /* Couleur du texte au survol en bleu foncé */
+}
+
+.header .navbar-nav .nav-link.active {
+  color: #0056b3; /* Couleur du texte pour l'élément actif en bleu foncé */
+}
+
+.header .navbar-toggler-icon {
+  background-color: #fff; /* Couleur de l'icône du bouton toggle */
+}
+
+/* CSS pour le Footer */
+.footer {
+  background-color: #003366; /* Couleur de fond du footer en bleu foncé */
+  padding: 50px 0; /* Espacement intérieur du footer */
+  color: #fff; /* Couleur du texte du footer */
+}
+
+.footer h5 {
+  font-size: 1.5rem; /* Taille de police pour les titres */
+  color: #fff; /* Couleur des titres */
+}
+
+.footer p {
+  font-size: 0.9rem; /* Taille de police pour le texte */
+}
+
+.footer ul {
+  list-style-type: none; /* Suppression des puces */
+  padding: 0;
+}
+
+.footer ul li {
+  margin-bottom: 10px; /* Espacement entre les éléments de liste */
+}
+
+.footer ul li a {
+  color: #ccc; /* Couleur des liens */
+}
+
+.footer ul li a:hover {
+  color: #0056b3; /* Couleur des liens au survol en bleu foncé */
+}
+
+.social-icons {
+  list-style-type: none; /* Suppression des puces */
+  padding: 0;
+}
+
+.social-icons li {
+  display: inline-block; /* Affichage en ligne des icônes */
+  margin-right: 10px; /* Espacement entre les icônes */
+}
+
+.social-icons li a {
+  color: #ccc; /* Couleur des icônes */
+  font-size: 1.5rem; /* Taille de police des icônes */
+}
+
+.social-icons li a:hover {
+  color: #0056b3; /* Couleur des icônes au survol en bleu foncé */
+}
+
+.text-muted {
+  color: #888; /* Couleur du texte grisé */
+  font-size: 0.8rem; /* Taille de police du texte grisé */
+}

@@ -1,0 +1,71 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ isEditing ? 'Modifier la formation' : 'Créer une nouvelle formation' }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+      <div class="form-group">
+          <label for="title">Titre</label>
+          <input type="text" class="form-control" id="title" [(ngModel)]="formation.title" name="title">
+      </div>
+      <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" [(ngModel)]="formation.description" name="description"></textarea>
+      </div>
+      <!-- <div class="form-group">
+          <label for="schedule">Date d'expiration</label>
+          <input type="date" class="form-control" id="schedule" [(ngModel)]="formation.schedule" name="schedule">
+      </div> -->
+      <div class="form-group">
+        <label for="schedule">Schedule</label>
+        <input type="date" class="form-control" id="schedule" [(ngModel)]="formation.schedule" name="schedule">
+    </div>
+      <div class="form-group">
+          <label for="startDate">Date de début</label>
+          <input type="date" class="form-control" id="startDate" [(ngModel)]="formation.startDate" name="startDate">
+      </div>
+      <div class="form-group">
+          <label for="endDate">Date de fin</label>
+          <input type="date" class="form-control" id="endDate" [(ngModel)]="formation.endDate" name="endDate">
+      </div>
+      <div class="form-group">
+        <label for="user">Utilisateur</label>
+        <select class="form-control" id="user" [(ngModel)]="formation.user" name="user">
+            <option *ngFor="let user of users" [ngValue]="user">{{ user.id }}</option>
+        </select>
+    </div>
+      <div class="form-group">
+          <label for="location">Emplacement</label>
+          <input type="text" class="form-control" id="location" [(ngModel)]="formation.location" name="location">
+      </div>
+      <div class="form-group">
+          <label for="price">Prix</label>
+          <input type="number" class="form-control" id="price" [(ngModel)]="formation.price" name="price">
+      </div>
+      <div class="form-group">
+          <label for="numberOfHours">Nombre d'heures</label>
+          <input type="number" class="form-control" id="numberOfHours" [(ngModel)]="formation.numberOfHours" name="numberOfHours">
+      </div>
+      <!-- <div class="form-group">
+          <label for="category">Catégorie</label>
+          <select class="form-control" id="category" [(ngModel)]="formation.category" name="category">
+              <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+          </select>
+      </div> -->
+     
+      <div class="form-group">
+          <label for="newFormation">Nouvelle formation</label>
+          <input type="checkbox" class="form-control" id="newFormation" [(ngModel)]="formation.newFormation" name="newFormation">
+      </div>
+      <div class="form-group">
+          <label for="bestSeller">Best Seller</label>
+          <input type="checkbox" class="form-control" id="bestSeller" [(ngModel)]="formation.bestSeller" name="bestSeller">
+      </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+  <button type="button" class="btn btn-primary" (click)="onSave()">Enregistrer</button>
+</div>

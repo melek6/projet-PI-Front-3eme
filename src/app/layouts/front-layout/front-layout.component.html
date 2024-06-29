@@ -1,34 +1,83 @@
-<nav class="navbar navbar-expand-lg navbar navbar-light right" style="background: linear-gradient(to top, rgb(30,109,140) 0.5%, rgba(48, 49, 68, 1) 100%);">
+<!-- Header -->
+<nav class="navbar navbar-expand-lg header">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" routerLink="/accueil">VotreLogo</a>
 
+    <!-- Bouton de bascule pour le menu mobile -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2"   id="navbarSupportedContent" >
-
-    <ul class="navbar-nav ml-auto " >
-      <li class="nav-item active pt-3 " >
-        <a class="nav-link text-white "   routerLink="/accueil">Accueil</a>
-      </li>
-      <li class="nav-item pt-3">
-        <a class="nav-link  text-white" routerLink="/blog">Blog</a>
-      </li>
-      <li class="nav-item pt-3">
-        <a class="nav-link  text-white" routerLink="/profil">Profil</a>
-      </li>
-   
-
-
-
-
-
-
-
-
-
-
-    </ul>
-
+    <!-- Menu -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/accueil" routerLinkActive="active">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/OffreCandidat" routerLinkActive="active">Offres</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/profil" routerLinkActive="active">Profil</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<!-- Contenu Principal -->
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
 
-
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>À propos de nous</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Nos Services</h5>
+        <ul class="list-unstyled">
+          <li><a href="#">Service 1</a></li>
+          <li><a href="#">Service 2</a></li>
+          <li><a href="#">Service 3</a></li>
+          <li><a href="#">Service 4</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Contactez-nous</h5>
+        <ul class="list-unstyled">
+          <li><i class="fa fa-map-marker"></i> Adresse, Ville, Pays</li>
+          <li><i class="fa fa-phone"></i> +123456789</li>
+          <li><i class="fa fa-envelope"></i> <a href="mailto:info@example.com">info@example.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <!-- Liens vers les réseaux sociaux -->
+        <ul class="list-inline social-icons">
+          <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+          <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+          <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <!-- Droits d'auteur -->
+        <p class="text-muted small">&copy; 2024 VotreNom. Tous droits réservés.</p>
+      </div>
+    </div>
+  </div>
+</footer>

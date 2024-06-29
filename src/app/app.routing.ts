@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { FrontLayoutComponent } from './layouts/front-layout/front-layout.component';
+import { OffreComponent } from './pages/offre/offre.component';
 
 const routes: Routes =[
   {
@@ -21,9 +22,8 @@ const routes: Routes =[
         loadChildren: () => import('src/app/layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
       }
     ]
-  }, 
-  
-  {
+  },
+ {
     path: '',
     component: AuthLayoutComponent,
     children: [
@@ -43,14 +43,11 @@ const routes: Routes =[
       }
     ]
   },
-  
-  
-  
-  
   {
     path: '**',
-    redirectTo: 'dashboard'
-  }
+    redirectTo: 'login'
+  },
+
 ];
 
 @NgModule({

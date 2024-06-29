@@ -1,0 +1,55 @@
+/* Réinitialisation et styles globaux */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd; /* Bordure fine */
+}
+
+.offre-details {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.offre-details-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.offre-details-info {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #555;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.offre-details-info p {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 8px 24px;
+  background-color: #ff9800;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.btn-primary:hover {
+  background-color: #e68a00;
+}
