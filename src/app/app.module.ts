@@ -17,6 +17,8 @@ import { FrontLayoutModule } from './layouts/front-layout/front-layout.module';
 import { AuthService } from './_services/auth.service';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { AuthGuard } from './_helpers/auth/auth-guard.service';
+import { OffreComponent } from './pages/offre/offre.component';
+import { AddOffreComponent } from './pages/add-offre/add-offre.component';
 
 @NgModule({
   imports: [
@@ -32,7 +34,6 @@ import { AuthGuard } from './_helpers/auth/auth-guard.service';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent
-
 
       ],
   providers: [

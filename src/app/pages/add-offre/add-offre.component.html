@@ -1,0 +1,50 @@
+<div class="container-fluid mt-5 mb-5 d-flex justify-content-center align-items-center">
+  <div class="col-xl-8">
+    <div class="card shadow">
+      <div class="card-header border-0">
+        <h3 class="mb-0">Gestion des offres</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="title">Titre :</label>
+                <input type="text" class="form-control" id="title" [(ngModel)]="offre.title" name="title" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="location">Emplacement :</label>
+                <input type="text" class="form-control" id="location" [(ngModel)]="offre.location" name="location" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="description">Description :</label>
+                <textarea class="form-control" id="description" [(ngModel)]="offre.description" name="description" rows="4" required></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                <label for="expiryDate">Date d'expiration :</label>
+                <input type="date" class="form-control" id="expiryDate" [(ngModel)]="offre.expiryDate" name="expiryDate" required>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="status">Statut :</label>
+                <input type="text" class="form-control" id="status" [(ngModel)]="offre.status" name="status" required>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter Offre</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
