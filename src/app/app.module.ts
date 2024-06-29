@@ -31,7 +31,9 @@ import { AuthGuard } from './_helpers/auth/auth-guard.service';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent,
+    AuthLayoutComponent
+
+
       ],
   providers: [
     AuthService,

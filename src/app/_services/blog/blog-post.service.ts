@@ -13,7 +13,6 @@ export class BlogPostService {
   private apiUrl = 'http://localhost:8081/api/blogposts';
 
   constructor(private http: HttpClient) {}
-
   getAllBlogPosts(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
