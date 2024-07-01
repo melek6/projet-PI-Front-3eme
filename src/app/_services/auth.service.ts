@@ -84,15 +84,29 @@ export class AuthService {
 
   }
 
+  // register(username: string, email: string, password: string): Observable<any> {
+  //   return this.http.post(
+  //     AUTH_API + 'signup',
+  //     { username, email, password },
+  //     httpOptions
+  //   ).pipe(
+  //     catchError(this.handleError('register', []))
+  //   );
+  // }
   register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(
-      AUTH_API + 'signup',
-      { username, email, password },
-      httpOptions
-    ).pipe(
-      catchError(this.handleError('register', []))
-    );
+    return this.http.post(AUTH_API + 'signup', { username, email, password }, httpOptions)
+      .pipe(
+        catchError(this.handleError('register', []))
+      );
   }
+  
+  verify(token: string): Observable<any> {
+    return this.http.get(AUTH_API + 'verify?token=' + token, httpOptions)
+      .pipe(
+        catchError(this.handleError('verify', []))
+      );
+  }
+  
 
   logout(): Observable<any> {
     localStorage.removeItem('token');
