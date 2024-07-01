@@ -26,14 +26,14 @@ import { OffreDetailsComponent } from 'src/app/front-pages/offre-details/offre-d
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
-  ],
+    ClipboardModule,
+    
+    ],
+ 
   declarations: [
     BlogPostComponent,
     AcceuilComponent,
     FrontLayoutComponent,
-    BlogPostComponent,
-    AcceuilComponent,
     EvaluationfComponent,
     CommentFormComponent,
     ReactFormComponent,

@@ -9,6 +9,7 @@ import { FrontLayoutComponent } from './layouts/front-layout/front-layout.compon
 import { RoleGuard } from './_helpers/auth/RoleGuard';
 import { AuthGuard } from './_helpers/auth/auth-guard.service';
 
+import { EvaluationfComponent } from './front-pages/EvaluationF/evaluationf.component'; 
 
 const routes: Routes =[
   {
