@@ -21,6 +21,10 @@ import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformati
 import { ListeCondidatComponent } from 'src/app/pages/liste-condidat/liste-condidat.component';
 import { AdduserComponent } from 'src/app/pages/adduser/adduser.component';
 import { GestionuserComponent } from 'src/app/pages/gestionuser/gestionuser.component';
+import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gestion-questions.component';
+import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.component';
+import { QuestionModalComponent } from 'src/app/pages/question-modal/question-modal.component';
+import { QuizModalComponent } from 'src/app/pages/quiz-modal/quiz-modal.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -48,7 +52,12 @@ import { GestionuserComponent } from 'src/app/pages/gestionuser/gestionuser.comp
     ListeCondidatComponent,
     OffreComponent,
     AdduserComponent,
-    GestionuserComponent
+    GestionuserComponent,
+    GestionquestionsComponent,
+    GestionQuizComponent,
+    QuestionModalComponent,
+    QuizModalComponent
+
   ]
 })
 

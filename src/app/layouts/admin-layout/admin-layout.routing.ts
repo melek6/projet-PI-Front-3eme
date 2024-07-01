@@ -12,6 +12,8 @@ import { GestionEvalformationComponent } from 'src/app/pages/gestion-evalformati
 import { ListeCondidatComponent } from 'src/app/pages/liste-condidat/liste-condidat.component';
 import { GestionuserComponent } from 'src/app/pages/gestionuser/gestionuser.component';
 import { AdduserComponent } from 'src/app/pages/adduser/adduser.component';
+import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.component';
+import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gestion-questions.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -26,7 +28,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'offre',           component: OffreComponent },
     { path: 'Ajouter',           component: AddOffreComponent },
     { path: 'gestionuser',           component: GestionuserComponent },
-    { path: 'adduser',           component: AdduserComponent }
+    { path: 'adduser',           component: AdduserComponent },
+    { path: 'quiz',      component: GestionQuizComponent },
+    { path: 'questions',      component: GestionquestionsComponent },
+
 
 
 ];
