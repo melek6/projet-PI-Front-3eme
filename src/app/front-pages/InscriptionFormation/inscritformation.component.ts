@@ -9,7 +9,9 @@ import { InscritformationService } from 'src/app/_services/inscritformation/insc
 })
 export class InscritFormationComponent implements OnInit {  
 
-  inscription: any = { id : 0 ,registrationDate: '', status: '' };
+  // inscription: any = { id : 0 ,registrationDate: '', status: '' };
+  inscription: any = { id : 0 , status: '' };
+
   isEdit = false;
 
   constructor(
@@ -28,15 +30,15 @@ export class InscritFormationComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    if (this.isEdit) {
-      this.inscritformationService.updateInscription(this.inscription.id!, this.inscription).subscribe(() => {
-        this.router.navigate(['/inscrit']);
-      });
-    } else {
-      this.inscritformationService.createInscription(this.inscription).subscribe(() => {
-        this.router.navigate(['/inscrit']);
-      });
-    }
-  }
+  // onSubmit(): void {
+  //   if (this.isEdit) {
+  //     this.inscritformationService.updateInscription(this.inscription.id!, this.inscription).subscribe(() => {
+  //       this.router.navigate(['/inscrit']);
+  //     });
+  //   } else {
+  //     this.inscritformationService.createInscription(this.inscription.id!,this.inscription).subscribe(() => {
+  //       this.router.navigate(['/inscrit']);
+  //     });
+  //   }
+  // }
 }

@@ -1,24 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-inscrit-modal',
   templateUrl: './inscrit-modal.component.html',
   styleUrls: ['./inscrit-modal.component.css']
 })
-export class InscritModalComponent implements OnInit {
+export class InscritModalComponent {
   @Input() inscrit: any;
   @Output() save = new EventEmitter<any>();
-  @Output() cancel = new EventEmitter<void>();
 
-  constructor() { }
-  ngOnInit(): void {
-    console.log(this.inscrit)
-  }
+  constructor(public activeModal: NgbActiveModal) {}
+
   onSave(): void {
     this.save.emit(this.inscrit);
+    this.activeModal.close();
   }
 
-  onCancel(): void {
-    this.cancel.emit();
+  onClose(): void {
+    this.activeModal.dismiss();
   }
 }
+
+
+

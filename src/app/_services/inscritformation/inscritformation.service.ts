@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,15 +23,16 @@ export class InscritformationService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  createInscription(inscription: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, inscription);
-  }
+ 
 
   updateInscription(id: number, inscription: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, inscription);
 
   }
-
+  createInscription(inscription: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/hello`, inscription);
+  }
+  
   deleteInscription(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
