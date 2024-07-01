@@ -9,7 +9,7 @@ export class FormationModalComponent implements OnInit {
 
   @Input() formation: any;
   @Input() isEditing: boolean;
-  @Input() users: any[]; // Assuming users is an array of objects with username property
+  @Input() users: any[]; 
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
@@ -29,7 +29,6 @@ export class FormationModalComponent implements OnInit {
         price: null,
         numberOfHours: null,
         category: '',
-        user: null,
         newFormation: false,
         bestSeller: false
       };

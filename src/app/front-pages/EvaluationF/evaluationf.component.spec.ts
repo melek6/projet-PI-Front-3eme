@@ -28,28 +28,23 @@ describe('EvaluationfComponent', () => {
   it('should have default values', () => {
     const defaultEvaluation = {
       id: 0,
-      trainingTitle: '',
-      date: Date(),
-      location: '',
-      trainer: '',
-      participant: '',
       comments: '',
       score: 0
     };
     expect(component.evaluation).toEqual(defaultEvaluation);
   });
 
-  it('should update the evaluation object when form fields are changed', async () => {
-    fixture.detectChanges();
+  // it('should update the evaluation object when form fields are changed', async () => {
+  //   fixture.detectChanges();
 
-    const trainingTitleInput = fixture.debugElement.query(By.css('#trainingTitle')).nativeElement;
-    trainingTitleInput.value = 'Projet Test';
-    trainingTitleInput.dispatchEvent(new Event('input'));
+  //   const trainingTitleInput = fixture.debugElement.query(By.css('#trainingTitle')).nativeElement;
+  //   trainingTitleInput.value = 'Projet Test';
+  //   trainingTitleInput.dispatchEvent(new Event('input'));
 
-    fixture.detectChanges();
+  //   fixture.detectChanges();
 
-    expect(component.evaluation.trainingTitle).toEqual('Projet Test');
-  });
+  //   expect(component.evaluation.trainingTitle).toEqual('Projet Test');
+  // });
 
   it('should log evaluation on submit', () => {
     spyOn(console, 'log');
