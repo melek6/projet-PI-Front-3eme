@@ -24,14 +24,14 @@ export class FormationModalComponent implements OnInit {
       this.formation = {
         title: '',
         description: '',
-        schedule: '',
+        
         startDate: '',
         endDate: '',
         location: '',
         price: null,
         numberOfHours: null,
         category: '',
-        newFormation: false,
+        
         bestSeller: false
       };
     }
