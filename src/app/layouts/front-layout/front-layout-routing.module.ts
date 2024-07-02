@@ -15,7 +15,7 @@ export const FrontLayoutRoutes: Routes = [
   { path: 'blog',      component: BlogPostComponent },
   { path: 'create-blog-post', component: BlogPostFormComponent },
   { path: 'edit-blog-post/:id', component: BlogPostFormComponent },
-  { path: 'evaluationf', component: EvaluationfComponent},
+  { path: 'evalformation', component: EvaluationfComponent},
   { path: 'formation', component: FormationComponent },
   { path: 'candidat', component: CandidatComponent },
   { path: 'OffreCandidat', component: OffreCandidatComponent },
