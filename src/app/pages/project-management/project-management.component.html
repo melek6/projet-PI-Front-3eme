@@ -32,6 +32,15 @@
           <h3 class="mb-0">Gestion des Projets</h3>
           <button mat-raised-button color="primary" (click)="openProjectModal()">Créer un Projet</button>
         </div>
+        
+        <!-- Search Input Field -->
+        <div class="card-body">
+          <mat-form-field appearance="fill">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Projet Name">
+          </mat-form-field>
+        </div>
+        
         <div class="table-responsive">
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -41,37 +50,43 @@
               <td mat-cell *matCellDef="let project" class="hidden-column"> {{project.id}} </td>
             </ng-container>
 
-            <!-- Other Columns -->
+            <!-- Title Column -->
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef> Titre </th>
               <td mat-cell *matCellDef="let project"> {{project.title}} </td>
             </ng-container>
 
+            <!-- Description Column -->
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description </th>
               <td mat-cell *matCellDef="let project"> {{project.description}} </td>
             </ng-container>
 
+            <!-- Category Column -->
             <ng-container matColumnDef="category">
               <th mat-header-cell *matHeaderCellDef> Catégorie </th>
               <td mat-cell *matCellDef="let project"> {{project.category}} </td>
             </ng-container>
 
+            <!-- Skills Required Column -->
             <ng-container matColumnDef="skillsRequired">
               <th mat-header-cell *matHeaderCellDef> Compétences Requises </th>
               <td mat-cell *matCellDef="let project"> {{project.skillsRequired}} </td>
             </ng-container>
 
+            <!-- Budget Column -->
             <ng-container matColumnDef="budget">
               <th mat-header-cell *matHeaderCellDef> Budget </th>
               <td mat-cell *matCellDef="let project"> {{project.budget | currency}} </td>
             </ng-container>
 
+            <!-- Number of Propositions Column -->
             <ng-container matColumnDef="nbPropositions">
               <th mat-header-cell *matHeaderCellDef> Nb Propositions </th>
               <td mat-cell *matCellDef="let project"> {{project.nbPropositions}} </td>
             </ng-container>
 
+            <!-- Actions Column -->
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef> Actions </th>
               <td mat-cell *matCellDef="let project" class="d-flex align-items-center">
@@ -93,35 +108,44 @@
 <ng-template #projectModal>
   <h2 mat-dialog-title>{{ editMode ? 'Modifier le Projet' : 'Créer un Projet' }}</h2>
   <mat-dialog-content>
-    <mat-form-field>
-      <mat-label>Title</mat-label>
-      <input matInput [(ngModel)]="newProject.title">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Description</mat-label>
-      <input matInput [(ngModel)]="newProject.description">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Category</mat-label>
-      <mat-select [(ngModel)]="newProject.category">
-        <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Skills Required</mat-label>
-      <input matInput [(ngModel)]="newProject.skillsRequired">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Budget</mat-label>
-      <input matInput type="number" [(ngModel)]="newProject.budget">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Deadline</mat-label>
-      <input matInput type="date" [(ngModel)]="newProject.deadline">
-    </mat-form-field>
+    <form [formGroup]="projectForm">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" required>
+        <mat-error *ngIf="projectForm.get('title').hasError('required')">Title is required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" required>
+        <mat-error *ngIf="projectForm.get('description').hasError('required')">Description is required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" required>
+          <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="projectForm.get('category').hasError('required')">Category is required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Skills Required</mat-label>
+        <input matInput formControlName="skillsRequired" required>
+        <mat-error *ngIf="projectForm.get('skillsRequired').hasError('required')">Skills Required is required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Budget</mat-label>
+        <input matInput type="number" formControlName="budget" required>
+        <mat-error *ngIf="projectForm.get('budget').hasError('required')">Budget is required</mat-error>
+        <mat-error *ngIf="projectForm.get('budget').hasError('min')">Budget must be greater than zero</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Deadline</mat-label>
+        <input matInput type="date" formControlName="deadline" required>
+        <mat-error *ngIf="projectForm.get('deadline').hasError('required')">Deadline is required</mat-error>
+      </mat-form-field>
+    </form>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button (click)="dialog.closeAll()">Cancel</button>
-    <button mat-button (click)="dialog.closeAll(); editMode ? updateProject(editProjectId, newProject) : addProject(newProject)">{{ editMode ? 'Update' : 'Save' }}</button>
+    <button mat-button (click)="dialog.closeAll(); editMode ? updateProject(editProjectId, projectForm.value) : addProject(projectForm.value)" [disabled]="projectForm.invalid">{{ editMode ? 'Update' : 'Save' }}</button>
   </mat-dialog-actions>
 </ng-template>

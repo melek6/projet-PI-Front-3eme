@@ -3,6 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MarketplaceService } from 'src/app/_services/ProjectManagement/marketplace.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpParams } from '@angular/common/http';
 
 export interface ProjectData {
   id: number;
@@ -35,15 +37,7 @@ export class ProjectManagementComponent implements OnInit {
   dataSource: MatTableDataSource<ProjectData> = new MatTableDataSource<ProjectData>([]);
   displayedColumns: string[] = ['id', 'title', 'description', 'category', 'skillsRequired', 'budget', 'nbPropositions', 'actions'];
 
-  newProject: ProjectDataCreation = {
-    title: '',
-    description: '',
-    category: '',
-    skillsRequired: '',
-    budget: 0,
-    deadline: ''
-  };
-
+  projectForm: FormGroup;
   editMode: boolean = false;
   editProjectId: number | null = null;
 
@@ -52,7 +46,16 @@ export class ProjectManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('projectModal') projectModal: TemplateRef<any>;
 
-  constructor(private marketplaceService: MarketplaceService, public dialog: MatDialog) { }
+  constructor(private marketplaceService: MarketplaceService, private fb: FormBuilder, public dialog: MatDialog) {
+    this.projectForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      category: ['', Validators.required],
+      skillsRequired: ['', Validators.required],
+      budget: [0, [Validators.required, Validators.min(1)]],
+      deadline: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     this.loadProjects();
@@ -68,7 +71,7 @@ export class ProjectManagementComponent implements OnInit {
       (data: ProjectData[]) => {
         this.projects = data.map(project => ({
           ...project,
-          nbPropositions: project.propositions ? project.propositions.length : 0
+          nbPropositions: project.nbPropositions || 0 // Ensure nbPropositions is set
         }));
         this.dataSource.data = this.projects;
       },
@@ -97,14 +100,14 @@ export class ProjectManagementComponent implements OnInit {
   openProjectModal(edit: boolean = false, project?: ProjectData): void {
     this.editMode = edit;
     if (edit && project) {
-      this.newProject = {
+      this.projectForm.setValue({
         title: project.title,
         description: project.description,
         category: project.category,
         skillsRequired: project.skillsRequired,
         budget: project.budget,
         deadline: project.deadline
-      };
+      });
       this.editProjectId = project.id;
     } else {
       this.resetNewProject();
@@ -116,10 +119,10 @@ export class ProjectManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (this.editMode && this.editProjectId) {
-          this.updateProject(this.editProjectId, this.newProject);
+        if (this.editMode && this.editProjectId !== null) {
+          this.updateProject(this.editProjectId, this.projectForm.value);
         } else {
-          this.addProject(this.newProject);
+          this.addProject(this.projectForm.value);
         }
       }
     });
@@ -153,7 +156,15 @@ export class ProjectManagementComponent implements OnInit {
   }
 
   updateProject(id: number, projectDetails: ProjectDataCreation): void {
-    this.marketplaceService.updateProject(id, projectDetails).subscribe(
+    const params = new HttpParams()
+      .set('title', projectDetails.title)
+      .set('description', projectDetails.description)
+      .set('category', projectDetails.category)
+      .set('skillsRequired', projectDetails.skillsRequired)
+      .set('budget', projectDetails.budget.toString())
+      .set('deadline', projectDetails.deadline);
+
+    this.marketplaceService.updateProject(id, params).subscribe(
       (updatedProject: ProjectData) => {
         const index = this.projects.findIndex(p => p.id === id);
         if (index !== -1) {
@@ -171,13 +182,18 @@ export class ProjectManagementComponent implements OnInit {
   }
 
   resetNewProject() {
-    this.newProject = {
+    this.projectForm.reset({
       title: '',
       description: '',
       category: '',
       skillsRequired: '',
       budget: 0,
       deadline: ''
-    };
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

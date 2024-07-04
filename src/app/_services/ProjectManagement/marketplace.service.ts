@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,9 +23,20 @@ export class MarketplaceService {
     return this.http.post<any>(`${this.baseUrl}/create`, project, { headers });
   }
 
-  updateProject(id: number, project: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<any>(`${this.baseUrl}/update/${id}`, project, { headers });
+  createProjectWithParams(project: any): Observable<any> {
+    const params = new URLSearchParams();
+    params.append('title', project.title);
+    params.append('description', project.description);
+    params.append('category', project.category);
+    params.append('skillsRequired', project.skillsRequired);
+    params.append('deadline', project.deadline);
+    params.append('budget', project.budget.toString());
+
+    return this.http.post<any>(`${this.baseUrl}/create?${params.toString()}`, {});
+  }
+
+  updateProject(id: number, params: HttpParams): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/update/${id}`, {}, { params });
   }
 
   deleteProject(id: number): Observable<any> {
