@@ -21,8 +21,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/quiz', title: 'Gestion des quiz',  icon:'ni-planet text-blue', class: '' },
     { path: '/questions', title: 'Gestion des questions ',  icon:'ni-planet text-blue', class: '' },
 
-    { path: '/project-management', title: 'Project Management',  icon:'ni-archive-2 text-orange', class: '' },
-    { path: '/marketplace', title: 'Marketplace',  icon:'ni-shop text-green', class: '' },
+    // { path: '/project-management', title: 'Project Management',  icon:'ni-archive-2 text-orange', class: '' },
+    // { path: '/marketplace', title: 'Marketplace',  icon:'ni-shop text-green', class: '' },
     { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
     { path: '/gestionuser', title: 'gestion User',  icon:'ni-planet text-blue', class: '' },
 
