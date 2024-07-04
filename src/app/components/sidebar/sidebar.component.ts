@@ -15,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/offre', title: 'Gestion des offres',  icon:'ni-bell-55 text-red', class: '' },
     { path: '/listecondidat', title: 'Liste des candidats',  icon:'ni-planet text-blue', class: '' },
     { path: '/listeinscripteur', title: 'Liste des Inscripteurs',  icon:'ni-planet text-blue', class: '' },
-    { path: '/gestformation', title: 'Gestion des formations',  icon:'ni-bell-55 text-red', class: '' },
+    { path: '/gestformation', title: 'Gestion des formations',  icon:'briefcase-24', class: '' },
     { path: '/gestevalformation', title: 'Gestion des evaluations formation',  icon:'ni-bell-55 text-red', class: '' },
     { path: '/projects', title: 'Gestion des Projets',  icon:'ni-bell-55 text-red', class: '' }, 
     { path: '/proposals', title: 'Gestion des Propositions', icon: 'ni-bell-55 text-red', class: '' }, 

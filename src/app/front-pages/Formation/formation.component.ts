@@ -42,9 +42,8 @@ export class FormationComponent implements OnInit {
   onSaveInscription(course: any): void {
     const modalRef = this.modalService.open(InscritModalComponent);
     modalRef.componentInstance.inscrit = { ...this.inscrit, formationId: course.id };
-  
+
     modalRef.componentInstance.save.subscribe((result: any) => {
-      console.log('Payload being sent:', result);  // Log the payload to ensure it's correct
       this.inscritService.createInscription(result).subscribe(
         newInscription => {
           console.log('Inscription added successfully', newInscription);
@@ -57,8 +56,12 @@ export class FormationComponent implements OnInit {
       );
     });
   }
-  
-  
+
+  isExpired(course: any): boolean {
+    const today = new Date();
+    const endDate = new Date(course.endDate);
+    return endDate < today;
+  }
 
   get displayedOffres(): any[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
