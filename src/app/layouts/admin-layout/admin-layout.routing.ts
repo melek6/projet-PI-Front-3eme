@@ -14,6 +14,7 @@ import { GestionuserComponent } from 'src/app/pages/gestionuser/gestionuser.comp
 import { AdduserComponent } from 'src/app/pages/adduser/adduser.component';
 import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.component';
 import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gestion-questions.component';
+import { ProjectManagementComponent } from 'src/app/pages/project-management/project-management.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -30,6 +31,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'gestionuser',           component: GestionuserComponent },
     { path: 'adduser',           component: AdduserComponent },
     { path: 'quiz',      component: GestionQuizComponent },
+    { path: 'projects',       component: ProjectManagementComponent },
     { path: 'questions',      component: GestionquestionsComponent },
 
 

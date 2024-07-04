@@ -34,6 +34,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ProjectManagementComponent } from 'src/app/pages/project-management/project-management.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -50,13 +53,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         MatInputModule,
         MatTableModule,
         MatPaginatorModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatButtonModule, // Add this import
+        MatDialogModule, // Add this import
+        MatInputModule // Add this import
+        
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     TablesComponent,
-    IconsComponent,
+    IconsComponent, 
     MapsComponent,
     AddOffreComponent,
     OffreComponent,
@@ -71,6 +78,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     GestionquestionsComponent,
     GestionQuizComponent,
     QuestionModalComponent,
+    ProjectManagementComponent,
     QuizModalComponent
 
   ]
