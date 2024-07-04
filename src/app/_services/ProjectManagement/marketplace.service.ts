@@ -21,7 +21,8 @@ export class MarketplaceService {
   }
 
   createProject(project: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/create`, project);
+    const headers = { 'Authorization': `Bearer ${this.token}` };
+    return this.http.post(`${this.baseUrl}/create`, project, { headers });
   }
 
   updateProject(id: number, value: any): Observable<Object> {
@@ -29,7 +30,8 @@ export class MarketplaceService {
   }
 
   deleteProject(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/delete/${id}`, { responseType: 'text' });
+    const headers = { 'Authorization': `Bearer ${this.token}` };
+    return this.http.delete(`${this.baseUrl}/delete/${id}`, { responseType: 'text' ,  headers });
   }
 
   searchProjects(category: string, skillsRequired: string): Observable<any> {

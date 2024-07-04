@@ -1,71 +1,72 @@
 // src/app/marketplace/marketplace.component.ts
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MarketplaceService } from '../../_services/ProjectManagement/marketplace.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/overlay';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+export interface ProjectData {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  skillsRequired: string;
+  budget: number;
+  nbPropositions: number;
+}
 
 @Component({
   selector: 'app-marketplace',
   templateUrl: './marketplace.component.html',
-  styleUrls: ['./marketplace.component.css']
+  styleUrls: ['./marketplace.component.css'],
+  standalone: true,
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
 })
-export class MarketplaceComponent implements OnInit {
+export class MarketplaceComponent implements AfterViewInit {
   displayedColumns: string[] = ['title', 'description', 'category', 'skillsRequired', 'budget', 'nbPropositions'];
-  projects: any[] = [];
-  displayedProjects: any[] = [];
-  filteredProjects = new MatTableDataSource<any>(this.displayedProjects);
-  loading = false;
-  private filterSubject: Subject<string> = new Subject();
-  private currentIndex = 0;
-  private readonly batchSize = 10;
+  dataSource: MatTableDataSource<ProjectData>;
 
-  constructor(private marketplaceService: MarketplaceService,private scrollDispatcher: ScrollDispatcher) { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  ngOnInit(): void {
-    this.getProjects();
-    this.filterSubject.pipe(debounceTime(300)).subscribe(filterValue => {
-      this.filteredProjects.filter = filterValue.trim().toLowerCase();
-    });
+  constructor(private marketplaceService: MarketplaceService) {
+    this.dataSource = new MatTableDataSource([]);
+   }
 
-    this.scrollDispatcher.scrolled().subscribe((event: CdkScrollable) => {
-      if (event.measureScrollOffset('bottom') === 0) {
-        this.onScroll();
-      }
-    });
-  }
-
-  getProjects(): void {
-    this.loading = true;
+   ngAfterViewInit() {
     this.marketplaceService.getAllProjects().subscribe(
       (data) => {
-        this.projects = data;
-        this.loadMoreProjects();
-        this.loading = false;
+        const projects = data.map(project => ({
+          id: project.id,
+          title: project.title,
+          description: project.description,
+          category: project.category,
+          skillsRequired: project.skillsRequired,
+          budget: project.budget,
+          nbPropositions: project.propositions.length
+        }));
+        this.dataSource.data = projects;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       (error) => {
         console.error('Error fetching projects:', error);
-        this.loading = false;
       }
     );
   }
 
-  loadMoreProjects(): void {
-    const nextBatch = this.projects.slice(this.currentIndex, this.currentIndex + this.batchSize);
-    this.displayedProjects = [...this.displayedProjects, ...nextBatch];
-    this.filteredProjects.data = this.displayedProjects;
-    this.currentIndex += this.batchSize;
-  }
-
-  applyFilter(event: Event): void {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filterSubject.next(filterValue);
-  }
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  onScroll(): void {
-    if (this.currentIndex < this.projects.length) {
-      this.loadMoreProjects();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
+  
 }

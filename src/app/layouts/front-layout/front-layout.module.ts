@@ -19,14 +19,12 @@ import { CandidatComponent } from 'src/app/front-pages/candidat/candidat.compone
 import { OffreCandidatComponent } from 'src/app/front-pages/offre-candidat/offre-candidat.component';
 import { OffreDetailsComponent } from 'src/app/front-pages/offre-details/offre-details.component';
 import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal.component';
-import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(FrontLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
-    BrowserModule,
     HttpClientModule,
     NgbModule,
     ClipboardModule,
