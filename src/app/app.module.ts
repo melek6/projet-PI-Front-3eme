@@ -29,6 +29,7 @@ import { FrontLayoutComponent } from './layouts/front-layout/front-layout.compon
     HttpClientModule,
     ComponentsModule,
     NgbModule,
+    FormsModule,
     RouterModule,
     AppRoutingModule,
 
