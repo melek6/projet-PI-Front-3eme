@@ -1,0 +1,51 @@
+.title {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.description {
+  font-size: 0.9em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.offre-box {
+  border: 1px solid #ccc;
+  padding: 1em ;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.offre-box h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+}
+
+.offre-box p {
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+}
+
+.btn-container {
+  margin-top: auto; /* Place le contenu au bas de la boîte */
+  display: flex;
+  justify-content: right; /* Aligner horizontalement le contenu */
+
+}
+
+.offre-box .btn-primary {
+  background-color: #ff9800;
+  border-color: #ff9800;
+  font-size: 0.9em;
+  padding: 0.3em 1em;
+}
+
+.offre-box .btn-primary:hover {
+  background-color: #e68900;
+  border-color: #e68900;
+}
