@@ -39,6 +39,27 @@
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Projet Name">
           </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <mat-select [(value)]="selectedCategory" (selectionChange)="applyCategoryAndBudgetFilter()">
+              <mat-option value="">All Categories</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Min Budget</mat-label>
+                <input matInput type="number" [(ngModel)]="minBudget" (ngModelChange)="applyCategoryAndBudgetFilter()" placeholder="Min Budget">
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Max Budget</mat-label>
+                <input matInput type="number" [(ngModel)]="maxBudget" (ngModelChange)="applyCategoryAndBudgetFilter()" placeholder="Max Budget">
+              </mat-form-field>
+            </div>
+          </div>
         </div>
         
         <div class="table-responsive">

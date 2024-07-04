@@ -42,6 +42,9 @@ export class ProjectManagementComponent implements OnInit {
   editProjectId: number | null = null;
 
   categories: string[] = [];
+  selectedCategory: string = '';
+  minBudget: number | null = null;
+  maxBudget: number | null = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('projectModal') projectModal: TemplateRef<any>;
@@ -129,7 +132,7 @@ export class ProjectManagementComponent implements OnInit {
   }
 
   addProject(newProject: ProjectDataCreation): void {
-    this.marketplaceService.createProject(newProject).subscribe(
+    this.marketplaceService.createProjectWithParams(newProject).subscribe(
       (project: ProjectData) => {
         this.projects.push(project);
         this.dataSource.data = this.projects; // Update dataSource
@@ -195,5 +198,24 @@ export class ProjectManagementComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyCategoryAndBudgetFilter() {
+    console.log('Selected Category:', this.selectedCategory);
+    console.log('Min Budget:', this.minBudget);
+    console.log('Max Budget:', this.maxBudget);
+    this.marketplaceService.searchProjects(this.selectedCategory, this.minBudget, this.maxBudget).subscribe(
+      (data: ProjectData[]) => {
+        console.log('Projects fetched by category and budget:', data);
+        this.projects = data.map(project => ({
+          ...project,
+          nbPropositions: project.nbPropositions || 0
+        }));
+        this.dataSource.data = this.projects;
+      },
+      error => {
+        console.error('Error fetching projects by category and budget:', error);
+      }
+    );
   }
 }

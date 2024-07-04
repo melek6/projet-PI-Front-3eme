@@ -18,11 +18,6 @@ export class MarketplaceService {
     return this.http.get<any>(`${this.baseUrl}/view/${id}`);
   }
 
-  createProject(project: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(`${this.baseUrl}/create`, project, { headers });
-  }
-
   createProjectWithParams(project: any): Observable<any> {
     const params = new URLSearchParams();
     params.append('title', project.title);
@@ -43,14 +38,22 @@ export class MarketplaceService {
     return this.http.delete(`${this.baseUrl}/delete/${id}`, { responseType: 'text' });
   }
 
-  searchProjects(category: string, skillsRequired: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/search`, {
-      params: {
-        category: category,
-        skillsRequired: skillsRequired
-      }
-    });
+  searchProjects(category: string, minBudget: number, maxBudget: number): Observable<any[]> {
+    let params = new HttpParams();
+    if (category) {
+      params = params.append('category', category);
+    }
+    if (minBudget !== null) {
+      params = params.append('minBudget', minBudget.toString());
+    }
+    if (maxBudget !== null) {
+      params = params.append('maxBudget', maxBudget.toString());
+    }
+    return this.http.get<any[]>(`${this.baseUrl}/search`, { params });
   }
+  
+  
+  
 
   getCategories(): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/categories`);
