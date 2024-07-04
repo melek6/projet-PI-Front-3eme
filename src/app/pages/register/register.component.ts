@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        alert("inscription par succes");
+        console.log("bravooo");
         this.redirectToDashboard();
 
       },

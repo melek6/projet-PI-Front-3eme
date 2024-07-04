@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../../pages/login/login.component';
 import { RegisterComponent } from '../../pages/register/register.component';
 import { ForgotMDPComponent } from 'src/app/pages/forgot-mdp/forgot-mdp.component';
+import { VerifyComponent } from 'src/app/pages/Verify/verify/verify.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +19,8 @@ import { ForgotMDPComponent } from 'src/app/pages/forgot-mdp/forgot-mdp.componen
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ForgotMDPComponent
+    ForgotMDPComponent,
+    VerifyComponent
   ]
 })
 export class AuthLayoutModule { }

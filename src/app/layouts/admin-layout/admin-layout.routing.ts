@@ -14,6 +14,7 @@ import { GestionuserComponent } from 'src/app/pages/gestionuser/gestionuser.comp
 import { AdduserComponent } from 'src/app/pages/adduser/adduser.component';
 import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.component';
 import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gestion-questions.component';
+import { AdminGuard } from 'src/app/_helpers/auth/AdminGuard';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -27,7 +28,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listecondidat',      component: ListeCondidatComponent },
     { path: 'offre',           component: OffreComponent },
     { path: 'Ajouter',           component: AddOffreComponent },
-    { path: 'gestionuser',           component: GestionuserComponent },
+    // { path: 'gestionuser',           component: GestionuserComponent },
+    { path: 'gestionuser', component: GestionuserComponent, canActivate: [AdminGuard] },
+
     { path: 'adduser',           component: AdduserComponent },
     { path: 'quiz',      component: GestionQuizComponent },
     { path: 'questions',      component: GestionquestionsComponent },

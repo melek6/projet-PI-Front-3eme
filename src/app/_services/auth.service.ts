@@ -17,52 +17,7 @@ const httpOptions = {
 export class AuthService {
   private roles: string[] = [];
 
-  //  constructor(private http: HttpClient){}
   
-  // login(username: string, password: string ): Observable<any> {
-  //   return this.http.post(
-  //     AUTH_API + 'signin',
-  //     {
-  //       username,
-  //       password,
-  //     },
-  //     httpOptions
-  //   );
-  // }
-
-  // register(username: string, email: string, password: string): Observable<any> {
-  //   return this.http.post(
-  //     AUTH_API + 'signup',
-  //     {
-  //       username,
-  //       email,
-  //       password,
-  //     },
-  //     httpOptions
-  //   );
-  // }
- 
-  // getCurrentUser(): any {
-  //   const user = sessionStorage.getItem('auth-user');
-  //   return user ? JSON.parse(user) : null;
-  // }
-  
-
-  // logout(): Observable<any> {
-  //   sessionStorage.removeItem('currentUser');
-  //   return this.http.post(AUTH_API + 'logout',{});
-  // }
-  // isLoggedIn(): boolean {
-  //   return this.roles.length > 0;
-  // }
-  // hasRole(role: string): boolean {
-  //   return this.roles.includes(role);
-  // }
-
-  // hasAnyRole(roles: string[]): boolean {
-  //   return roles.some(role => this.roles.includes(role));
-  // }
-
 
   constructor(private http: HttpClient, private router: Router) {}
 
