@@ -49,3 +49,15 @@ th.mat-header-cell:last-child,
 tr.mat-row {
   border-bottom: 1px solid #ddd; /* Bordure inférieure pour chaque ligne */
 }
+.success-icon {
+  color: green;
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

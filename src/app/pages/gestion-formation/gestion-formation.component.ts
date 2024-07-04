@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormationService } from 'src/app/_services/formation/formation.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { FormationModalComponent } from '../formation-modal/formation-modal.component';
@@ -21,9 +21,11 @@ export class GestionFormationComponent implements OnInit {
   categories: string[] = Object.values(FormationCategory);
   selectedCategory: string = 'Toutes';
   userId: any;
-  
+  errorMessage: string = '';
+  confirmationModalRef: NgbModalRef;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('confirmationModal') confirmationModal: TemplateRef<any>; // Ajoutez cette ligne
 
   constructor(private formationService: FormationService, private modalService: NgbModal, private storageService: StorageService) { }
 
@@ -69,12 +71,22 @@ export class GestionFormationComponent implements OnInit {
     modalRef.componentInstance.isEditing = isEditing;
 
     modalRef.componentInstance.save.subscribe((result: any) => {
-      this.formationService.createFormation(result).subscribe((newformation: any) => {
-        console.log('formation ajoutée avec succès', newformation);
-        this.formations.push(newformation);
-        this.dataSource.data = this.formations; // Mettre à jour le dataSource
-        modalRef.close();
-      });
+      if (new Date(result.startDate) >= new Date(result.endDate)) {
+        this.errorMessage = 'La date de début doit être antérieure à la date de fin';
+        return;
+      }
+
+      if (isEditing) {
+        this.updateFormation(result);
+      } else {
+        this.formationService.createFormation(result).subscribe((newformation: any) => {
+          console.log('formation ajoutée avec succès', newformation);
+          this.formations.push(newformation);
+          this.dataSource.data = this.formations; // Mettre à jour le dataSource
+          modalRef.close();
+          this.openConfirmationModal();
+        });
+      }
     });
 
     modalRef.componentInstance.cancel.subscribe(() => {
@@ -82,15 +94,26 @@ export class GestionFormationComponent implements OnInit {
     });
   }
 
+  openConfirmationModal(): void {
+    this.confirmationModalRef = this.modalService.open(this.confirmationModal, { size: 'sm' });
+  }
+
+  closeConfirmationModal(): void {
+    if (this.confirmationModalRef) {
+      this.confirmationModalRef.close();
+    }
+  }
+
   deleteFormation(id: number): void {
-    if (confirm('Are you sure to delete this formation ?'))
-    this.formationService.deleteFormation(id).subscribe(() => {
-      this.formations = this.formations.filter(formation => formation.id !== id);
-      this.dataSource.data = this.formations; // Mettre à jour le dataSource
-      this.calculateStatistics();
-    }, error => {
-      console.error('Erreur lors de la suppression de l\'formation :', error);
-    });
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')) {
+      this.formationService.deleteFormation(id).subscribe(() => {
+        this.formations = this.formations.filter(formation => formation.id !== id);
+        this.dataSource.data = this.formations; // Mettre à jour le dataSource
+        this.calculateStatistics();
+      }, error => {
+        console.error('Erreur lors de la suppression de l\'formation :', error);
+      });
+    }
   }
 
   updateFormation(formation: any): void {
@@ -105,6 +128,7 @@ export class GestionFormationComponent implements OnInit {
       console.error('Erreur lors de la mise à jour de l\'formation :', error);
     });
   }
+
   uploadPlanning(event: any, formationId: number): void {
     const file: File = event.target.files[0];
     if (file) {
@@ -118,6 +142,7 @@ export class GestionFormationComponent implements OnInit {
       );
     }
   }
+
   filterByCategory(): void {
     if (this.selectedCategory === 'Toutes') {
       this.dataSource.data = this.formations;

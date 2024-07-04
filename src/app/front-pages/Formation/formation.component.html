@@ -1,24 +1,36 @@
-<!-- Featured Courses Section -->
 <section class="featured-courses container my-5">
-  <h2 class="title">Liste des Formations</h2>
-  <p class="description">Découvrez les dernières formations disponibles et trouvez celle qui correspond à vos compétences et aspirations professionnelles.</p>
+
+  <h3 class="subtitle">Formations recommandées</h3>
   <div class="row">
     <div class="col-lg-8 offset-lg-2">
-      <div class="formation-box" *ngFor="let course of courses">
+      <div class="formation-box" *ngFor="let course of recommendedCourses">
         <h3>{{ course.title }}</h3>
         <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.description | slice:0:100 }}{{ course.description.length > 100 ? '...' : '' }}</p>
         <p><i class="fas fa-calendar-alt"></i> <strong>Date de début: </strong> {{ course.startDate | date:'short' }}</p>
         <p><i class="fas fa-calendar-check"></i> <strong>Date de fin: </strong> {{ course.endDate | date:'short' }}</p>
         <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.numberOfHours }} heures</p>
         <button class="btn btn-primary mt-3" (click)="onSaveInscription(course)">S'inscrire</button>
-
-      </div>
-        <div class="pagination-container">
-          <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
-          <span class="pagination-info">Page {{ currentPage }} sur {{ totalPages }}</span>
-          <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Suivant</button>
-        </div>
       </div>
     </div>
-</section>
+  </div>
 
+  <h3 class="subtitle">Toutes les formations</h3>
+  <div class="row">
+    <div class="col-lg-6" *ngFor="let course of displayedOffres; let i = index">
+      <div class="formation-box">
+        <h3>{{ course.title }}</h3>
+        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.description | slice:0:100 }}{{ course.description.length > 100 ? '...' : '' }}</p>
+        <p><i class="fas fa-calendar-alt"></i> <strong>Date de début: </strong> {{ course.startDate | date:'short' }}</p>
+        <p><i class="fas fa-calendar-check"></i> <strong>Date de fin: </strong> {{ course.endDate | date:'short' }}</p>
+        <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.numberOfHours }} heures</p>
+        <button class="btn btn-primary mt-3" (click)="onSaveInscription(course)">S'inscrire</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagination-container">
+    <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
+    <span class="pagination-info">Page {{ currentPage }} sur {{ totalPages }}</span>
+    <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Suivant</button>
+  </div>
+</section>

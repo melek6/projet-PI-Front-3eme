@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-  max-width: 1600px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -25,6 +25,12 @@ body {
   margin-right: auto;
 }
 
+.col-lg-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 10px; /* Ajout d'espacement entre les colonnes */
+}
+
 .mt-3 {
   margin-top: 1rem;
 }
@@ -33,7 +39,16 @@ body {
 .title {
   font-size: 2rem;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
   color: #444;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -48,17 +63,15 @@ body {
 
 .formation-box {
   border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
-  width: 100%; /* S'assure que la boîte utilise toute la largeur de son conteneur */
-  max-width: 1400px; /* Limite la largeur maximale */
-  margin: 20px 0px ; /* Centre les boîtes */
+  width: 100%;
 }
 
 .formation-box:hover {
@@ -68,26 +81,26 @@ body {
 
 .formation-box h3 {
   font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #555;
+  margin-bottom: 15px;
+  color: #333;
 }
 
 .formation-box p {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
+  font-size: 1rem;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
 }
 
 .formation-box p i {
-  margin-right: 8px;
+  margin-right: 10px;
   color: #ff9800;
 }
 
 .formation-box .btn-primary {
-  align-self: flex-end; /* Aligne le bouton à la droite de la boîte */
-  padding: 0.4rem 0.8rem;
-  font-size: 0.8rem;
+  align-self: flex-end;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
   background-color: #ff9800;
   border: none;
   border-radius: 5px;
@@ -119,7 +132,7 @@ body {
 }
 
 .pagination-button:hover {
-  background-color: #da8e1c;
+  background-color: #e68a00;
 }
 
 .pagination-info {

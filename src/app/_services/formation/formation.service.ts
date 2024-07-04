@@ -20,6 +20,13 @@ export class FormationService {
       catchError(this.handleError<any[]>('getAllformations', []))
     );
   }
+  getRecommendedFormations(): Observable<any[]> {
+    const url = `${this.apiUrl}/recommended`;
+    return this.http.get<any[]>(url).pipe(
+      tap(data => console.log('Recommended formations:', data)),
+      catchError(this.handleError<any[]>('getRecommendedFormations', []))
+    );
+  }
     // Méthode générique pour la gestion des erreurs
     private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {

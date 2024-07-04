@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormationService } from 'src/app/_services/formation/formation.service';
@@ -12,9 +11,10 @@ import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal
 })
 export class FormationComponent implements OnInit {
   courses: any[] = [];
+  recommendedCourses: any[] = [];
   inscrit: any = { status: '', formationId: 0 };
   currentPage: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 10;
 
   constructor(
     private formationService: FormationService,
@@ -24,6 +24,7 @@ export class FormationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllFormations();
+    this.getRecommendedFormations();
   }
 
   getAllFormations(): void {
@@ -31,14 +32,19 @@ export class FormationComponent implements OnInit {
       this.courses = data;
     });
   }
-  get totalPages(): number {
-    return Math.ceil(this.courses.length / this.pageSize);
+
+  getRecommendedFormations(): void {
+    this.formationService.getRecommendedFormations().subscribe(data => {
+      this.recommendedCourses = data;  // Affichez les 5 meilleures formations
+    });
   }
+
   onSaveInscription(course: any): void {
     const modalRef = this.modalService.open(InscritModalComponent);
     modalRef.componentInstance.inscrit = { ...this.inscrit, formationId: course.id };
-
+  
     modalRef.componentInstance.save.subscribe((result: any) => {
+      console.log('Payload being sent:', result);  // Log the payload to ensure it's correct
       this.inscritService.createInscription(result).subscribe(
         newInscription => {
           console.log('Inscription added successfully', newInscription);
@@ -51,6 +57,9 @@ export class FormationComponent implements OnInit {
       );
     });
   }
+  
+  
+
   get displayedOffres(): any[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.courses.slice(startIndex, startIndex + this.pageSize);
@@ -67,6 +76,8 @@ export class FormationComponent implements OnInit {
       this.currentPage--;
     }
   }
+
+  get totalPages(): number {
+    return Math.ceil(this.courses.length / this.pageSize);
+  }
 }
-
-

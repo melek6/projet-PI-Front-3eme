@@ -16,39 +16,44 @@ export class FormationModalComponent implements OnInit {
   @Output() cancel = new EventEmitter<void>();
   @Output() uploadPlanning = new EventEmitter<any>();
   categories: string[] = Object.values(FormationCategory);
+
+  errorMessage: string = '';
+
   constructor() { }
 
   ngOnInit(): void {
-    // Initialize formation object if needed
     if (!this.formation) {
       this.formation = {
         title: '',
         description: '',
-        
         startDate: '',
         endDate: '',
         location: '',
         price: null,
         numberOfHours: null,
         category: '',
-        
         bestSeller: false
       };
     }
   }
 
   onSave(): void {
-    this.save.emit(this.formation);
+    if (new Date(this.formation.startDate) >= new Date(this.formation.endDate)) {
+      this.errorMessage = 'La date de début doit être antérieure à la date de fin';
+    } else {
+      this.errorMessage = '';
+      this.save.emit(this.formation);
+    }
   }
 
   onCancel(): void {
     this.cancel.emit();
   }
+
   onUploadPlanning(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
       this.uploadPlanning.emit({ file: file });
     }
   }
-
 }
