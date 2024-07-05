@@ -32,7 +32,8 @@ export class FormationModalComponent implements OnInit {
         price: null,
         numberOfHours: null,
         category: '',
-        bestSeller: false
+        bestSeller: false,
+        trainer: '' 
       };
     }
   }

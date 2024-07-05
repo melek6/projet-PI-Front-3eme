@@ -1,63 +1,74 @@
-/* Appliquer un style spécifique aux en-têtes de table */
-th.mat-header-cell {
-  background-color: #4CAF50; /* Couleur de fond des titres */
-  color: white;              /* Couleur du texte des titres */
-  text-align: center;        /* Centrer le texte des titres */
-  padding: 10px;             /* Espacement intérieur des titres */
-  font-weight: bold;         /* Texte en gras */
-  font-size: 16px;           /* Taille du texte */
-  border-bottom: 2px solid #ddd; /* Bordure inférieure */
-  border-right: 1px solid #ddd;  /* Bordure droite pour la séparation des colonnes */
+/* Container for each post card */
+.post-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles personnalisés pour les en-têtes de colonne avec icônes */
-.custom-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px;
-  font-weight: bold;
-  font-size: 14px;
-  border-right: 1px solid #ddd;  /* Bordure droite pour la séparation des colonnes */
-}
-
-.custom-header mat-icon {
-  margin-right: 5px; /* Espacement entre l'icône et le texte */
-}
-
-/* Appliquer un style spécifique aux cellules de table */
-td.mat-cell {
-  padding: 12px 8px;           /* Espacement intérieur des cellules */
-  border-right: 1px solid #ddd; /* Bordure droite pour la séparation des colonnes */
-  text-align: left;            /* Alignement à gauche du texte */
-}
-
-/* Supprimer la bordure droite de la dernière cellule pour éviter une double bordure */
-td.mat-cell:last-child {
-  border-right: none;
-}
-
-/* Supprimer la bordure droite du dernier en-tête pour éviter une double bordure */
-th.mat-header-cell:last-child,
-.custom-header:last-child {
-  border-right: none;
-}
-
-/* Style optionnel pour les lignes de tableau */
-tr.mat-row {
-  border-bottom: 1px solid #ddd; /* Bordure inférieure pour chaque ligne */
-}
-.success-icon {
-  color: green;
-  font-size: 3rem;
+/* Header for each post */
+.post-header {
+  border-bottom: 1px solid #eee;
   margin-bottom: 15px;
+  padding-bottom: 10px;
 }
 
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.post-header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.post-header small {
+  color: #777;
+}
+
+/* Content of each post */
+.post-content {
+  margin: 20px 0;
+  color: #555;
+}
+
+/* Actions for each post */
+.post-actions {
+  margin-top: 10px;
+}
+
+.post-actions button {
+  margin-right: 10px;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Comments section */
+.post-comments {
+  margin-top: 20px;
+}
+
+.post-comments h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.comment {
+  border-top: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.comment p {
+  margin: 0;
+  color: #555;
+}
+
+.comment small {
+  color: #777;
 }

@@ -14,12 +14,15 @@
           <label for="description">Description</label>
           <textarea class="form-control" id="description" [(ngModel)]="formation.description" name="description"></textarea>
       </div>
-
-     <div class="form-group">
-        <label for="category">Catégorie</label>
-        <select class="form-control" id="category" [(ngModel)]="formation.category" name="category">
-          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-        </select>
+      <div class="form-group">
+        <label for="trainer">Formateur</label>
+        <input type="text" class="form-control" id="trainer" [(ngModel)]="formation.trainer" name="trainer">
+      </div>
+      <div class="form-group">
+         <label for="category">Catégorie</label>
+         <select class="form-control" id="category" [(ngModel)]="formation.category" name="category">
+           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+         </select>
       </div>
       <div class="form-group">
           <label for="startDate">Date de début</label>
