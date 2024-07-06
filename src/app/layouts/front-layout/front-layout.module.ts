@@ -28,6 +28,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { UserProjectsManagementComponent } from 'src/app/front-pages/user-projects-management/user-projects-management.component';
 import { ProjectNotificationsComponent } from 'src/app/front-pages/project-notifications/project-notifications.component';
 import { ChatComponent } from 'src/app/front-pages/chat/chat.component';
+import { QuizComponent } from 'src/app/front-pages/quiz/quiz.component';
+import { QuizDetailsComponent } from 'src/app/front-pages/quiz-details/quiz-details.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -62,7 +64,9 @@ import { ChatComponent } from 'src/app/front-pages/chat/chat.component';
     UserMarketplaceComponent,
     UserProjectsManagementComponent,
     ProjectNotificationsComponent,
-    ChatComponent
+    ChatComponent,
+    QuizComponent,
+    QuizDetailsComponent
   ],
   exports: [FrontLayoutComponent]
 })

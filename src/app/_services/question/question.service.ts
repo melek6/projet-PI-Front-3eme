@@ -14,9 +14,8 @@ export class QuestionService {
 
   constructor(private http: HttpClient) { }
 
-
-  createOrUpdateQuestion(question: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, question, httpOptions);
+  createOrUpdateQuestion(question: any, quizId: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}?quizId=${quizId}`, question, httpOptions);
   }
 
   getQuestionById(id: number): Observable<any> {
@@ -36,5 +35,10 @@ export class QuestionService {
   updateQuestion(id: number, question: any): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.put<any>(url, question, httpOptions);
+  }
+
+  getReponsesByQuestionId(id: number): Observable<string[]> {
+    const url = `${this.apiUrl}/${id}/responses`;
+    return this.http.get<string[]>(url);
   }
 }

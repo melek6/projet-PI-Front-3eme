@@ -25,6 +25,9 @@ import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gesti
 import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.component';
 import { QuestionModalComponent } from 'src/app/pages/question-modal/question-modal.component';
 import { QuizModalComponent } from 'src/app/pages/quiz-modal/quiz-modal.component';
+import { ModalAffQuestionComponent } from 'src/app/pages/modal-aff-question/modal-aff-question.component';
+import { ReponseComponent } from 'src/app/pages/reponse/reponse.component';
+import { ReponseModalComponent } from 'src/app/pages/reponse-modal/ReponseModalComponent';
 // import { ToastrModule } from 'ngx-toastr';
 
 // Angular Material imports
@@ -81,8 +84,14 @@ import { PropositionManagementComponent } from 'src/app/pages/proposition-manage
     QuestionModalComponent,
     ProjectManagementComponent,
     PropositionManagementComponent,
-    QuizModalComponent
+    QuizModalComponent,
+    
+    ModalAffQuestionComponent,
+    ReponseComponent,
+    ReponseModalComponent,
+    
 
+    
   ]
 })
 
