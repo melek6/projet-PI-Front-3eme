@@ -48,16 +48,16 @@ import { PropositionManagementComponent } from 'src/app/pages/proposition-manage
     NgbModule,
     ClipboardModule,
     ReactiveFormsModule,
-        // Angular Material modules
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatCheckboxModule,
-        MatButtonModule, // Add this import
-        MatDialogModule, // Add this import
-        MatInputModule // Add this import
+       // Angular Material modules
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule
         
   ],
   declarations: [

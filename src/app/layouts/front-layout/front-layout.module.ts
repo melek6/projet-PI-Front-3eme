@@ -6,6 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 
+
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FrontLayoutRoutes } from '../front-layout/front-layout-routing.module';
 import { FrontLayoutComponent } from './front-layout.component';
 import { BlogPostComponent } from 'src/app/front-pages/blog/blog.component';
@@ -19,6 +23,9 @@ import { CandidatComponent } from 'src/app/front-pages/candidat/candidat.compone
 import { OffreCandidatComponent } from 'src/app/front-pages/offre-candidat/offre-candidat.component';
 import { OffreDetailsComponent } from 'src/app/front-pages/offre-details/offre-details.component';
 import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal.component';
+import { UserMarketplaceComponent } from 'src/app/front-pages/user-marketplace/user-marketplace.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { UserProjectsManagementComponent } from 'src/app/front-pages/user-projects-management/user-projects-management.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +34,13 @@ import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    MatCardModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatDialogModule,
     ClipboardModule,
+    
+    
     
     ],
  
@@ -44,6 +57,8 @@ import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal
     OffreCandidatComponent,
     OffreDetailsComponent,
     InscritModalComponent,
+    UserMarketplaceComponent,
+    UserProjectsManagementComponent
   ],
   exports: [FrontLayoutComponent]
 })

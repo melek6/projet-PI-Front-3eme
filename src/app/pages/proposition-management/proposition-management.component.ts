@@ -3,12 +3,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PropositionService } from 'src/app/_services/PropositionManagement/proposition.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export interface PropositionData {
   id: number;
   detail: string;
   amount: number;
-  date: string;
   status: string;
   project: {
     id: number;
@@ -20,14 +20,6 @@ export interface PropositionData {
   };
 }
 
-export interface PropositionDataCreation {
-  detail: string;
-  amount: number;
-  date: string;
-  status: string;
-  projectId: number;
-}
-
 @Component({
   selector: 'app-proposition-management',
   templateUrl: './proposition-management.component.html',
@@ -36,22 +28,26 @@ export interface PropositionDataCreation {
 export class PropositionManagementComponent implements OnInit {
   propositions: PropositionData[] = [];
   dataSource: MatTableDataSource<PropositionData> = new MatTableDataSource<PropositionData>([]);
-  displayedColumns: string[] = ['detail', 'amount', 'date', 'status', 'project', 'user', 'actions'];
+  displayedColumns: string[] = ['detail', 'amount', 'status', 'project', 'user', 'actions'];
 
-  newProposition: PropositionDataCreation = {
-    detail: '',
-    amount: 0,
-    date: '',
-    status: 'PENDING',
-    projectId: 0
-  };
-
+  propositionForm: FormGroup;
   projects: any[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('propositionModal') propositionModal: TemplateRef<any>;
 
-  constructor(private propositionService: PropositionService, public dialog: MatDialog) { }
+  constructor(
+    private propositionService: PropositionService,
+    public dialog: MatDialog,
+    private fb: FormBuilder
+  ) {
+    this.propositionForm = this.fb.group({
+      detail: ['', Validators.required],
+      amount: [0, [Validators.required, Validators.min(1)]],
+      projectId: [null, Validators.required],
+      file: [null, Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     this.loadPropositions();
@@ -92,17 +88,35 @@ export class PropositionManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.addProposition(this.newProposition);
+        this.addProposition();
       }
     });
   }
 
-  addProposition(newProposition: PropositionDataCreation): void {
-    this.propositionService.createProposition(newProposition.projectId, newProposition).subscribe(
+  handleFileInput(event: any): void {
+    const file = event.target.files[0];
+    this.propositionForm.patchValue({
+      file: file
+    });
+    this.propositionForm.get('file').updateValueAndValidity();
+  }
+
+  addProposition(): void {
+    if (this.propositionForm.invalid) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('detail', this.propositionForm.get('detail').value);
+    formData.append('amount', this.propositionForm.get('amount').value);
+    formData.append('projectId', this.propositionForm.get('projectId').value);
+    formData.append('file', this.propositionForm.get('file').value);
+
+    this.propositionService.createProposition(this.propositionForm.get('projectId').value, formData).subscribe(
       (proposition: PropositionData) => {
         this.propositions.push(proposition);
         this.dataSource.data = this.propositions; // Update dataSource
-        this.resetNewProposition();
+        this.resetForm();
       },
       error => {
         console.error('Error adding proposition:', error);
@@ -146,13 +160,12 @@ export class PropositionManagementComponent implements OnInit {
     );
   }
 
-  resetNewProposition() {
-    this.newProposition = {
+  resetForm() {
+    this.propositionForm.reset({
       detail: '',
       amount: 0,
-      date: '',
-      status: 'PENDING',
-      projectId: 0
-    };
+      projectId: null,
+      file: null
+    });
   }
 }
