@@ -73,4 +73,9 @@ export class UserMarketplaceService {
   declineProposition(propositionId: number): Observable<any> {
     return this.http.post(`${this.proposalUrl}/${propositionId}/decline`, {});
   }
+
+  getUsersWithApprovedPropositions(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.proposalUrl}/approvedUsers`);
+  }
+  
 }

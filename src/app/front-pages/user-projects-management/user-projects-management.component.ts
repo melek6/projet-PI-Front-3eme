@@ -40,9 +40,10 @@ export class UserProjectsManagementComponent implements OnInit {
   projectForm: FormGroup;
   selectedProject: ProjectDTO | null = null;
   propositions: PropositionDTO[] = [];
-  isEditing = false; // Ensure isEditing is correctly initialized
-  showModal = false; // New state to control the visibility of the modal
-  showPropositionsModal = false; // State to control the visibility of the propositions modal
+  isEditing = false;
+  showModal = false;
+  showPropositionsModal = false;
+  approvedProposition: PropositionDTO | null = null; // Store the approved proposition for chat
 
   @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
 
@@ -76,11 +77,6 @@ export class UserProjectsManagementComponent implements OnInit {
       },
       error => {
         console.error('Error fetching user projects:', error);
-        if (error.error instanceof ErrorEvent) {
-          console.error('Error Event:', error.error.message);
-        } else {
-          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-        }
       }
     );
   }
@@ -100,7 +96,7 @@ export class UserProjectsManagementComponent implements OnInit {
     this.isEditing = false;
     this.selectedProject = null;
     this.projectForm.reset();
-    this.showModal = true; // Show the modal
+    this.showModal = true;
   }
 
   openEditForm(project: ProjectDTO): void {
@@ -114,7 +110,7 @@ export class UserProjectsManagementComponent implements OnInit {
       deadline: project.deadline,
       budget: project.budget
     });
-    this.showModal = true; // Show the modal
+    this.showModal = true;
   }
 
   openDetails(project: ProjectDTO): void {
@@ -131,11 +127,12 @@ export class UserProjectsManagementComponent implements OnInit {
   }
 
   closeForm(): void {
-    this.showModal = false; // Hide the modal
+    this.showModal = false;
   }
 
   closePropositionsModal(): void {
-    this.showPropositionsModal = false; // Hide the propositions modal
+    this.showPropositionsModal = false;
+    this.approvedProposition = null; // Reset the approved proposition when closing the modal
   }
 
   saveProject(): void {
@@ -147,7 +144,7 @@ export class UserProjectsManagementComponent implements OnInit {
             this.loadUserProjects();
             this.selectedProject = null;
             this.isEditing = false;
-            this.closeForm(); // Close the form after saving
+            this.closeForm();
           },
           (error) => {
             console.error('Error updating project', error);
@@ -157,7 +154,7 @@ export class UserProjectsManagementComponent implements OnInit {
         this.marketplaceService.createProject(projectData).subscribe(
           (response) => {
             this.loadUserProjects();
-            this.closeForm(); // Close the form after saving
+            this.closeForm();
           },
           (error) => {
             console.error('Error creating project', error);
@@ -183,6 +180,7 @@ export class UserProjectsManagementComponent implements OnInit {
     this.marketplaceService.approveProposition(propositionId).subscribe(
       (response) => {
         this.propositions = this.propositions.map(p => p.id === propositionId ? { ...p, status: 'APPROVED' } : p);
+        this.approvedProposition = this.propositions.find(p => p.id === propositionId) || null;
       },
       (error) => {
         console.error('Error approving proposition:', error);
