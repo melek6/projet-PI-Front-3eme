@@ -34,6 +34,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ProjectManagementComponent } from 'src/app/pages/project-management/project-management.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { PropositionManagementComponent } from 'src/app/pages/proposition-management/proposition-management.component';
 
 @NgModule({
   imports: [
@@ -44,19 +48,23 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     NgbModule,
     ClipboardModule,
     ReactiveFormsModule,
-        // Angular Material modules
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatCheckboxModule
+       // Angular Material modules
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule
+        
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     TablesComponent,
-    IconsComponent,
+    IconsComponent, 
     MapsComponent,
     AddOffreComponent,
     OffreComponent,
@@ -71,6 +79,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     GestionquestionsComponent,
     GestionQuizComponent,
     QuestionModalComponent,
+    ProjectManagementComponent,
+    PropositionManagementComponent,
     QuizModalComponent
 
   ]

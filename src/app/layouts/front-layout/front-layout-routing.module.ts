@@ -9,6 +9,9 @@ import { CandidatComponent } from 'src/app/front-pages/candidat/candidat.compone
 import { OffreCandidatComponent } from 'src/app/front-pages/offre-candidat/offre-candidat.component';
 import { OffreDetailsComponent } from 'src/app/front-pages/offre-details/offre-details.component';
 import { InscritFormationComponent } from 'src/app/front-pages/InscriptionFormation/inscritformation.component';
+import { UserMarketplaceComponent } from 'src/app/front-pages/user-marketplace/user-marketplace.component';
+import { UserProjectsManagementComponent } from 'src/app/front-pages/user-projects-management/user-projects-management.component';
+import { ChatComponent } from 'src/app/front-pages/chat/chat.component';
 
 export const FrontLayoutRoutes: Routes = [
   { path: 'accueil',      component: AcceuilComponent },
@@ -21,9 +24,10 @@ export const FrontLayoutRoutes: Routes = [
   { path: 'OffreCandidat', component: OffreCandidatComponent },
   { path: 'offre/:id', component: OffreDetailsComponent },
   { path: 'candidat/:id', component: CandidatComponent }, // Route pour afficher les détails de l'offre avec l'ID comme paramètre
-  { path: 'inscrit', component: InscritFormationComponent }
-
-
+  { path: 'inscrit', component: InscritFormationComponent },
+  { path: 'Marketplace', component: UserMarketplaceComponent },
+  { path: 'UserProjects', component:  UserProjectsManagementComponent },
+  { path: 'chat', component:  ChatComponent }
+ 
 
 ];
-

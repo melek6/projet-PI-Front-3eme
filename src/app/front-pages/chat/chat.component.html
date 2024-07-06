@@ -1,0 +1,30 @@
+<div class="chat-container">
+    <div class="user-list">
+      <h3>Users</h3>
+      <ul>
+        <li *ngFor="let user of users" (click)="selectUser(user.id)">
+          {{ user.username }}
+        </li>
+      </ul>
+    </div>
+    <div class="conversations-list">
+      <h3>Conversations</h3>
+      <ul>
+        <li *ngFor="let conversation of conversations" (click)="selectUser(conversation.senderId === loggedInUserId ? conversation.recipientId : conversation.senderId)">
+          {{ conversation.senderId === loggedInUserId ? conversation.recipientUsername : conversation.senderUsername }}
+        </li>
+      </ul>
+    </div>
+    <div class="chat-box">
+      <div class="message-list">
+        <div *ngFor="let message of messages" [ngClass]="{'sent': message.senderId === loggedInUserId, 'received': message.senderId !== loggedInUserId}">
+          <span>{{ message.content }}</span>
+        </div>
+      </div>
+      <div class="message-input">
+        <input [(ngModel)]="newMessage" placeholder="Type your message..." />
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+  

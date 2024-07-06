@@ -16,9 +16,13 @@ export const ROUTES: RouteInfo[] = [
     { path: '/listecondidat', title: 'Liste des candidats',  icon:'ni-planet text-blue', class: '' },
     { path: '/gestformation', title: 'Gestion des formations',  icon:'ni-bell-55 text-red', class: '' },
     { path: '/gestevalformation', title: 'Gestion des evaluations formation',  icon:'ni-bell-55 text-red', class: '' },
+    { path: '/projects', title: 'Gestion des Projets',  icon:'ni-bell-55 text-red', class: '' }, 
+    { path: '/proposals', title: 'Gestion des Propositions', icon: 'ni-bell-55 text-red', class: '' }, 
     { path: '/quiz', title: 'Gestion des quiz',  icon:'ni-planet text-blue', class: '' },
     { path: '/questions', title: 'Gestion des questions ',  icon:'ni-planet text-blue', class: '' },
 
+    // { path: '/project-management', title: 'Project Management',  icon:'ni-archive-2 text-orange', class: '' },
+    // { path: '/marketplace', title: 'Marketplace',  icon:'ni-shop text-green', class: '' },
     { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
     { path: '/gestionuser', title: 'gestion User',  icon:'ni-planet text-blue', class: '' },
 
