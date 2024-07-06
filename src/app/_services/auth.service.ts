@@ -48,13 +48,23 @@ export class AuthService {
   //     catchError(this.handleError('register', []))
   //   );
   // }
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', { username, email, password }, httpOptions)
-      .pipe(
-        catchError(this.handleError('register', []))
-      );
+  // registerr(username: string, email: string, password: string): Observable<any> {
+  //   return this.http.post(AUTH_API + 'signup', { username, email, password }, httpOptions)
+  //     .pipe(
+  //       catchError(this.handleError('register', []))
+  //     );
+  // }
+  register(signUpRequest: any, file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('signUpRequest', JSON.stringify(signUpRequest));
+    formData.append('file', file);
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+
+    return this.http.post(AUTH_API + 'signup', formData, { headers });
   }
-  
+
   verify(token: string): Observable<any> {
     return this.http.get(AUTH_API + 'verify?token=' + token, httpOptions)
       .pipe(
@@ -75,6 +85,7 @@ export class AuthService {
 
   getCurrentUser(): any {
     const user = sessionStorage.getItem('auth-user');
+    console.log(user);
     return user ? JSON.parse(user) : null;
   }
 

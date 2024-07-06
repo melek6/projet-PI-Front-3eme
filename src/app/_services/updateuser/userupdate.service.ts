@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserupdateService {
 
-  private baseUrl = 'http://localhost:8081/api/users';
+  private baseUrl = 'http://localhost:8081/api/users/';
 
   constructor(private http: HttpClient) { }
   getUserDetails(userId: string): Observable<any> {
@@ -21,5 +21,8 @@ export class UserupdateService {
     const formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.post<string>(`${this.baseUrl}/${id}/uploadProfilePicture`, formData);
+  }
+  getNearestModerators(latitude: number, longitude: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl +'nearest-moderators'}?latitude=${latitude}&longitude=${longitude}`);
   }
 }
