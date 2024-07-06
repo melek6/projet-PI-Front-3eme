@@ -26,6 +26,7 @@ import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal
 import { UserMarketplaceComponent } from 'src/app/front-pages/user-marketplace/user-marketplace.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UserProjectsManagementComponent } from 'src/app/front-pages/user-projects-management/user-projects-management.component';
+import { ProjectNotificationsComponent } from 'src/app/front-pages/project-notifications/project-notifications.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -58,7 +59,8 @@ import { UserProjectsManagementComponent } from 'src/app/front-pages/user-projec
     OffreDetailsComponent,
     InscritModalComponent,
     UserMarketplaceComponent,
-    UserProjectsManagementComponent
+    UserProjectsManagementComponent,
+    ProjectNotificationsComponent
   ],
   exports: [FrontLayoutComponent]
 })

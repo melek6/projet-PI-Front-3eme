@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
+import { ProjectNotificationService } from 'src/app/_services/Notification/project-notification.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -15,8 +16,14 @@ export class FrontLayoutComponent implements OnInit {
   user: any;
   image: any;
   username: any;
+  notifications: any[] = [];
 
-  constructor(private tokenStorage: StorageService, private utilisateurService: UserService, private authService :AuthService, router:Router) { }
+  constructor(
+            private tokenStorage: StorageService, 
+            private utilisateurService: UserService,
+            private authService :AuthService, router:Router,
+            private notificationService: ProjectNotificationService,
+          ) { }
 
  /* getUserbyid() {
     this.utilisateurService.findByUsername(this.username).subscribe(data => {
@@ -29,7 +36,7 @@ export class FrontLayoutComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       //this.getUserbyid();
       this.username = this.tokenStorage.getUser().username;
-    
+      this.loadNotifications();
     }
   }
   logout(): void {
@@ -42,6 +49,17 @@ export class FrontLayoutComponent implements OnInit {
       },
       error => {
         console.error('Logout failed', error);
+      }
+    );
+  }
+
+  loadNotifications(): void {
+    this.notificationService.getNotifications().subscribe(
+      (data) => {
+        this.notifications = data;
+      },
+      (error) => {
+        console.error('Error fetching notifications', error);
       }
     );
   }
