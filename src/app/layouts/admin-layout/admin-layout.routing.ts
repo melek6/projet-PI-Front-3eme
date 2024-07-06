@@ -16,6 +16,7 @@ import { GestionQuizComponent } from 'src/app/pages/gestion-quiz/gestion-quiz.co
 import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gestion-questions.component';
 import { ProjectManagementComponent } from 'src/app/pages/project-management/project-management.component';
 import { PropositionManagementComponent } from 'src/app/pages/proposition-management/proposition-management.component';
+import { ReponseComponent} from 'src/app/pages/reponse/reponse.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -34,7 +35,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'quiz',      component: GestionQuizComponent },
     { path: 'projects',       component: ProjectManagementComponent },
     { path: 'proposals', component: PropositionManagementComponent },
+    { path: 'reponse',      component: ReponseComponent },
+
     { path: 'questions',      component: GestionquestionsComponent },
+
+   
 
 
 

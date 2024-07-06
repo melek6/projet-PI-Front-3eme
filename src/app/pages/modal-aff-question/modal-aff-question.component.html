@@ -1,0 +1,13 @@
+<!-- modal-aff-question.component.html -->
+<div *ngIf="question?.length > 0">
+    <ul>
+      <li *ngFor="let q of question">
+        {{ q.content }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="question?.length === 0">
+    <p>No questions available for this quiz.</p>
+  </div>
+  <button (click)="closeModal()">Close</button>
+  

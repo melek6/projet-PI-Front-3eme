@@ -1,0 +1,39 @@
+<div *ngIf="questions && questions.length > 0; else noQuestions">
+  <div class="container mt-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div *ngIf="!showScore">
+          <h5 class="card-title text-primary">{{ questions[currentQuestionIndex].title }}</h5>
+          <p class="card-text">{{ questions[currentQuestionIndex].content }}</p>
+          <input 
+            type="text" 
+            [(ngModel)]="userAnswer" 
+            placeholder="Votre réponse" 
+            class="form-control mb-3" 
+            (input)="resetTimer()"
+          />
+          <div class="text-center mb-3">
+            <p *ngIf="timeLeft > 0" class="text-danger">Temps restant : {{ timeLeft }} secondes</p>
+          </div>
+          <button 
+            (click)="submitAnswer()" 
+            class="btn btn-primary"
+          >
+            {{ isLastQuestion() ? 'Valider et Afficher le résultat' : 'Valider' }}
+          </button>
+        </div>
+        <div *ngIf="showScore" class="mt-3 result-container">
+          <p class="result-message">Votre score est :</p>
+          <p class="result-score">{{ score }}</p>
+          <button class="btn btn-success" (click)="navigateToResultPage()">Afficher le résultat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noQuestions>
+  <div class="container mt-4">
+    <p class="alert alert-info text-center">Aucune question disponible.</p>
+  </div>
+</ng-template>

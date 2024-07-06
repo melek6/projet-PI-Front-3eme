@@ -1,0 +1,40 @@
+<div *ngIf="quizzes && quizzes.length > 0; else noQuizzes">
+  <div class="container mt-4">
+    <div class="list-group">
+      <a *ngFor="let quiz of quizzes" class="list-group-item list-group-item-action">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="mb-1">{{ quiz.title }}</h5>
+            <p class="mb-1">{{ quiz.description }}</p>
+          </div>
+          <button class="btn btn-primary" (click)="participate(quiz)">Participer</button>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<ng-template #noQuizzes>
+  <div class="container mt-4">
+    <p class="alert alert-info">Aucun quiz disponible.</p>
+  </div>
+</ng-template>
+
+<!-- Bouton pour afficher/masquer le chatbot -->
+<button class="btn btn-secondary chatbot-toggle" id="toggle-chatbot" (click)="toggleChatbot()">Chat</button>
+
+<!-- Chatbot -->
+<div id="chatbot" class="chatbot" [ngClass]="{'visible': isChatbotVisible, 'hidden': !isChatbotVisible}">
+  <div class="chatbot-header">
+    <h4>Chatbot</h4>
+    <button class="close-chatbot" (click)="toggleChatbot()">×</button>
+  </div>
+  <div id="chatbot-messages" class="chatbot-messages">
+    <div *ngFor="let msg of chatMessages" [ngClass]="{'user-message': msg.from === 'user', 'bot-message': msg.from === 'bot'}" class="chatbot-message">
+      {{ msg.message }}
+    </div>
+  </div>
+  <div class="chatbot-input">
+    <input type="text" #userInput placeholder="Posez votre question ici..." (keyup.enter)="sendMessage(userInput.value); userInput.value=''"/>
+    <button class="btn btn-primary" (click)="sendMessage(userInput.value); userInput.value=''">Envoyer</button>
+  </div>
+</div>

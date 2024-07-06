@@ -23,6 +23,7 @@ export const ROUTES: RouteInfo[] = [
 
     // { path: '/project-management', title: 'Project Management',  icon:'ni-archive-2 text-orange', class: '' },
     // { path: '/marketplace', title: 'Marketplace',  icon:'ni-shop text-green', class: '' },
+    { path: '/reponse', title: 'Gestion des reponse ',  icon:'ni-planet text-blue', class: '' },
     { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
     { path: '/gestionuser', title: 'gestion User',  icon:'ni-planet text-blue', class: '' },
 

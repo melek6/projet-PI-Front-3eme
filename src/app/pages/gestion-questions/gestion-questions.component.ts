@@ -18,12 +18,13 @@ export class GestionquestionsComponent implements OnInit {
 
   nouvellesquestion: number = 0;
   questionExpirees: number = 0;
-  userId:any
-  constructor(private questionService: QuestionService, private modalService: NgbModal,private storageService:StorageService) { }
+  userId: any;
+
+  constructor(private questionService: QuestionService, private modalService: NgbModal, private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.loadAllquestion();
-   this.userId= this.storageService.getUser()
+    this.userId = this.storageService.getUser();
   }
 
   loadAllquestion(): void {
@@ -66,6 +67,7 @@ export class GestionquestionsComponent implements OnInit {
       this.updateCurrentPagequestion();
     }
   }
+
   deletequestion(id: number): void {
     this.questionService.deleteQuestionById(id).subscribe(() => {
       this.question = this.question.filter(question => question.id !== id);
@@ -82,12 +84,11 @@ export class GestionquestionsComponent implements OnInit {
     modalRef.componentInstance.isEditing = isEditing;
 
     modalRef.componentInstance.save.subscribe((result: any) => {
-      //result.user=this.userId
-       console.log(result)
-      this.questionService.createOrUpdateQuestion(result).subscribe((newquestion: any) => {
-        console.log('question ajoutée avec succès', newquestion);
-        this.question.push(newquestion);
-      })
+      if (isEditing) {
+        this.updatequestion(result); // Appel de la méthode updatequestion pour mettre à jour la question existante
+      } else {
+        this.addquestion(result); // Appel de la méthode addquestion pour ajouter une nouvelle question
+      }
       modalRef.close();
     });
 
@@ -96,8 +97,8 @@ export class GestionquestionsComponent implements OnInit {
     });
   }
 
-  addquestion(question: any): void {
-    this.questionService.createOrUpdateQuestion(question).subscribe((newquestion: any) => {
+  addquestion(result: any): void {
+    this.questionService.createOrUpdateQuestion(result, result.quizId).subscribe((newquestion: any) => {
       this.question.push(newquestion);
       this.calculateStatistics();
       this.updateCurrentPagequestion();
@@ -107,10 +108,10 @@ export class GestionquestionsComponent implements OnInit {
   }
 
   updatequestion(question: any): void {
-    this.questionService.updateQuestion(question.id, question).subscribe(() => {
+    this.questionService.updateQuestion(question.id, question).subscribe((updatedQuestion: any) => {
       const index = this.question.findIndex(o => o.id === question.id);
       if (index !== -1) {
-        this.question[index] = { ...question };
+        this.question[index] = { ...updatedQuestion }; // Mise à jour de la question dans la liste avec les nouvelles données
       }
       this.calculateStatistics();
       this.updateCurrentPagequestion();

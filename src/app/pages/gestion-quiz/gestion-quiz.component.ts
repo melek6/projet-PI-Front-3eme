@@ -1,29 +1,36 @@
+// gestion-quiz.component.ts
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuizService } from 'src/app/_services/quiz/quiz.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { QuizModalComponent } from '../quiz-modal/quiz-modal.component';
+import { ModalAffQuestionComponent } from '../modal-aff-question/modal-aff-question.component';
 
 @Component({
   selector: 'app-gestion-quiz',
   templateUrl: './gestion-quiz.component.html',
   styleUrls: ['./gestion-quiz.component.css']
 })
-export class GestionQuizComponent  implements OnInit {
+export class GestionQuizComponent implements OnInit {
   quiz: any[] = [];
+  question: any[] = [];
   currentPagequiz: any[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 0;
-
   nouvellesquiz: number = 0;
   quizExpirees: number = 0;
-  userId:any
-  constructor(private quizService: QuizService, private modalService: NgbModal,private storageService:StorageService) { }
+  userId: any;
+
+  constructor(
+    private quizService: QuizService,
+    private modalService: NgbModal,
+    private storageService: StorageService
+  ) {}
 
   ngOnInit(): void {
     this.loadAllquiz();
-   this.userId= this.storageService.getUser()
+    this.userId = this.storageService.getUser();
   }
 
   loadAllquiz(): void {
@@ -66,6 +73,7 @@ export class GestionQuizComponent  implements OnInit {
       this.updateCurrentPagequiz();
     }
   }
+
   deletequiz(id: number): void {
     this.quizService.deleteQuizById(id).subscribe(() => {
       this.quiz = this.quiz.filter(quiz => quiz.id !== id);
@@ -82,12 +90,12 @@ export class GestionQuizComponent  implements OnInit {
     modalRef.componentInstance.isEditing = isEditing;
 
     modalRef.componentInstance.save.subscribe((result: any) => {
-      //result.user=this.userId
-       console.log(result)
       this.quizService.createOrUpdateQuiz(result).subscribe((newquiz: any) => {
         console.log('quiz ajoutée avec succès', newquiz);
         this.quiz.push(newquiz);
-      })
+        this.calculateStatistics();
+        this.updateCurrentPagequiz();
+      });
       modalRef.close();
     });
 
@@ -116,6 +124,23 @@ export class GestionQuizComponent  implements OnInit {
       this.updateCurrentPagequiz();
     }, error => {
       console.error('Erreur lors de la mise à jour de l\'quiz :', error);
+    });
+  }
+
+  openModal2(question: any): void {
+    const modalRef = this.modalService.open(ModalAffQuestionComponent);
+    modalRef.componentInstance.question = question || []; // Pass the questions to the modal
+
+    modalRef.componentInstance.close.subscribe(() => {
+      modalRef.close(); // Close the modal on close event
+    });
+  }
+
+  getQuiz(id: any): void {
+    this.quizService.getQuestionsByQuizId(id).subscribe((question: any) => {
+      this.openModal2(question); // Open the modal with the questions
+    }, error => {
+      console.error('Erreur lors de la récupération des questions :', error);
     });
   }
 }

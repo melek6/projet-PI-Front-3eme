@@ -1,0 +1,15 @@
+.result-container {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .result-message {
+    color: #4CAF50; /* Couleur verte */
+  }
+  
+  .result-score {
+    color: #2196F3; /* Couleur bleue */
+    font-size: 36px; /* Taille de police plus grande */
+  }
+  

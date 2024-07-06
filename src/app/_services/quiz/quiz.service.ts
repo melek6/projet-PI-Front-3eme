@@ -34,7 +34,12 @@ export class QuizService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
   getQuestionsByQuizId(quizId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/quizzes/${quizId}/questions`);
+    return this.http.get<any[]>(`${this.apiUrl}/questions/${quizId}`);
+  }
+  checkUserAttempt(quizId: number, userId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${quizId}/participate`, {
+      params: { userId: userId.toString() }
+    });
   }
 }
 
