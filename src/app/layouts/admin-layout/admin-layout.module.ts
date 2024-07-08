@@ -41,6 +41,7 @@ import { ProjectManagementComponent } from 'src/app/pages/project-management/pro
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PropositionManagementComponent } from 'src/app/pages/proposition-management/proposition-management.component';
+import { ListeInscritComponent } from 'src/app/pages/liste-inscrit/liste-inscrit.component';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { PropositionManagementComponent } from 'src/app/pages/proposition-manage
     EvalformationModalComponent,
     GestionEvalformationComponent,
     ListeCondidatComponent,
+    ListeInscritComponent,
     OffreComponent,
     AdduserComponent,
     GestionuserComponent,

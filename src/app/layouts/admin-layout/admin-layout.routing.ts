@@ -17,6 +17,7 @@ import { GestionquestionsComponent } from 'src/app/pages/gestion-questions/gesti
 import { ProjectManagementComponent } from 'src/app/pages/project-management/project-management.component';
 import { PropositionManagementComponent } from 'src/app/pages/proposition-management/proposition-management.component';
 import { ReponseComponent} from 'src/app/pages/reponse/reponse.component';
+import { ListeInscritComponent } from 'src/app/pages/liste-inscrit/liste-inscrit.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -28,6 +29,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'gestformation',      component: GestionFormationComponent },
     { path: 'gestevalformation',      component: GestionEvalformationComponent },
     { path: 'listecondidat',      component: ListeCondidatComponent },
+    { path: 'listeinscripteur',      component: ListeInscritComponent },
     { path: 'offre',           component: OffreComponent },
     { path: 'Ajouter',           component: AddOffreComponent },
     { path: 'gestionuser',           component: GestionuserComponent },

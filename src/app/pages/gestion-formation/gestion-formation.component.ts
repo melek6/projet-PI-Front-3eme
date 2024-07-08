@@ -19,6 +19,7 @@ export class GestionFormationComponent implements OnInit {
   nouvellesformations: number = 0;
   formationsExpirees: number = 0;
   categories: string[] = Object.values(FormationCategory);
+  selectedCategory: string = 'Toutes';
   userId: any;
   
 
@@ -116,5 +117,13 @@ export class GestionFormationComponent implements OnInit {
         }
       );
     }
+  }
+  filterByCategory(): void {
+    if (this.selectedCategory === 'Toutes') {
+      this.dataSource.data = this.formations;
+    } else {
+      this.dataSource.data = this.formations.filter(formation => formation.category === this.selectedCategory);
+    }
+    this.dataSource.paginator?.firstPage(); // Retour à la première page après le filtrage
   }
 }

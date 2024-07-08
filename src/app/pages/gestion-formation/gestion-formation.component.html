@@ -64,9 +64,15 @@
       <div class="col">
         <div class="card shadow">
           <div class="card-header border-0 d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">Gestion des formations</h3>
+            
             <button class="btn btn-primary" (click)="openModal(false)">Créer une formation</button>
+            <label for="categoryFilter">Filtrer par catégorie :</label>
+            <select class="form-control" id="categoryFilter" [(ngModel)]="selectedCategory" (change)="filterByCategory()">
+              <option value="Toutes">Toutes</option>
+              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+            </select>
           </div>
+          
           <div class="table-responsive">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
               <!-- Colonnes définies -->

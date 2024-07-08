@@ -13,6 +13,8 @@ import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal
 export class FormationComponent implements OnInit {
   courses: any[] = [];
   inscrit: any = { status: '', formationId: 0 };
+  currentPage: number = 1;
+  pageSize: number = 5;
 
   constructor(
     private formationService: FormationService,
@@ -29,7 +31,9 @@ export class FormationComponent implements OnInit {
       this.courses = data;
     });
   }
-
+  get totalPages(): number {
+    return Math.ceil(this.courses.length / this.pageSize);
+  }
   onSaveInscription(course: any): void {
     const modalRef = this.modalService.open(InscritModalComponent);
     modalRef.componentInstance.inscrit = { ...this.inscrit, formationId: course.id };
@@ -46,6 +50,22 @@ export class FormationComponent implements OnInit {
         }
       );
     });
+  }
+  get displayedOffres(): any[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return this.courses.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 }
 
