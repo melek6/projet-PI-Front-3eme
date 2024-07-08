@@ -1,0 +1,13 @@
+<div class="payment-container">
+  <h2>Payment Information</h2>
+  <form (submit)="handleForm($event)">
+    <div>
+      <label for="cardNumber">Card Number</label>
+      <div id="card-element" #cardElement></div>
+    </div>
+    <button type="submit">Submit Payment</button>
+  </form>
+  <div *ngIf="paymentResult" class="payment-result">
+    {{ paymentResult }}
+  </div>
+</div>

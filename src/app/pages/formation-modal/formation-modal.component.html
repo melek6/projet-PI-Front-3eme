@@ -44,10 +44,10 @@
           <label for="numberOfHours">Nombre d'heures</label>
           <input type="number" class="form-control" id="numberOfHours" [(ngModel)]="formation.numberOfHours" name="numberOfHours">
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
           <label for="bestSeller">Meilleur vendeur</label>
           <input type="checkbox" class="form-control" id="bestSeller" [(ngModel)]="formation.bestSeller" name="bestSeller">
-      </div>
+      </div> -->
       <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
   </form>
 </div>

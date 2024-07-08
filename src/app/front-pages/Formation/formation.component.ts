@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormationService } from 'src/app/_services/formation/formation.service';
 import { InscritformationService } from 'src/app/_services/inscritformation/inscritformation.service';
@@ -20,6 +21,7 @@ export class FormationComponent implements OnInit {
     private formationService: FormationService,
     private inscritService: InscritformationService,
     private modalService: NgbModal,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +51,8 @@ export class FormationComponent implements OnInit {
           console.log('Inscription added successfully', newInscription);
           this.inscrit = newInscription;
           modalRef.close();
+         // Navigate to the payment component
+         this.router.navigate(['/payment']);
         },
         error => {
           console.error('Failed to save inscription:', error);

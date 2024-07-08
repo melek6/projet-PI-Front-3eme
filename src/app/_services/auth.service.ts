@@ -4,6 +4,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from 'src/auth.config';
 import { Router } from '@angular/router';
+import { StorageService } from './storage.service';
 
 const AUTH_API = 'http://localhost:8081/api/auth/';
 
@@ -64,7 +65,7 @@ export class AuthService {
   // }
 
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,private storageService: StorageService) {}
 
   login(username: string, password: string): Observable<any> {
     return this.http.post(
@@ -74,9 +75,12 @@ export class AuthService {
     ).pipe(
       tap((response: any) => {
         if (response.token) {
-          localStorage.setItem('token', response.token);
+          // localStorage.setItem('token', response.token);
+          // this.roles = response.roles || [];
+          // sessionStorage.setItem('auth-user', JSON.stringify(response.user));
+          this.storageService.saveToken(response.token); // Save token using StorageService
           this.roles = response.roles || [];
-          sessionStorage.setItem('auth-user', JSON.stringify(response.user));
+          this.storageService.saveUser(response.user); // Save user using StorageService
         }
       }),
       catchError(this.handleError('login', []))
@@ -104,15 +108,21 @@ export class AuthService {
     );
   }
 
+  // getCurrentUser(): any {
+  //   const user = sessionStorage.getItem('auth-user');
+  //   return user ? JSON.parse(user) : null;
+  // }
   getCurrentUser(): any {
-    const user = sessionStorage.getItem('auth-user');
-    return user ? JSON.parse(user) : null;
+    return this.storageService.getUser(); // Get user using StorageService
   }
 
+  // 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.storageService.getToken(); // Check token using StorageService
   }
-
+  getToken(): string {
+    return this.storageService.getToken(); // Get token using StorageService
+  }
   getUserRoles(): string[] {
     if (!this.roles.length) {
       const user = this.getCurrentUser();
