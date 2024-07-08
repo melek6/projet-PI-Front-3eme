@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -15,8 +16,10 @@ export class PaymentComponent implements OnInit {
   stripe: Stripe;
   card: StripeCardElement;
   paymentResult: string;
+  amount: number;
+  title: string;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+ constructor(private route: ActivatedRoute, private http: HttpClient, private authService: AuthService) {
     this.stripePromise = loadStripe('pk_test_51PZgEnRvbv0RG6bl4GrB72YeDkh9FK2sKCLpCpWlfYQYiyOYHfhxlcsQwyspbCISK4U6FoGWg21XX9wbOc8qRrQZ00jDUzOarY'); // Replace with your Stripe public key
   }
 
@@ -25,6 +28,12 @@ export class PaymentComponent implements OnInit {
     const elements = this.stripe.elements();
     this.card = elements.create('card');
     this.card.mount(this.cardElement.nativeElement);
+
+    // Get amount and title from query params
+    this.route.queryParams.subscribe(params => {
+      this.amount = +params['price'];
+      this.title = params['title'];
+    });
   }
 
   async handleForm(event: Event): Promise<void> {
@@ -33,6 +42,7 @@ export class PaymentComponent implements OnInit {
       await this.submitPayment();
     } catch (error) {
       this.paymentResult = 'Payment failed. Please try again.';
+      this.openModal();
     }
   }
 
@@ -42,10 +52,11 @@ export class PaymentComponent implements OnInit {
     if (error) {
       console.error('Error generating token:', error);
       this.paymentResult = 'Invalid card details. Please check and try again.';
+      this.openModal();
     } else {
       const paymentData = {
         token: token.id,
-        amount: 50
+        amount: this.amount
       };
 
       const authToken = this.authService.getToken();
@@ -58,12 +69,28 @@ export class PaymentComponent implements OnInit {
         response => {
           console.log('Payment successful', response);
           this.paymentResult = 'Payment successful';
+          this.openModal();
         },
         error => {
           console.error('Payment failed', error);
           this.paymentResult = 'Payment failed. Please try again.';
+          this.openModal();
         }
       );
+    }
+  }
+
+  openModal() {
+    const modal = document.getElementById("payment-result-modal");
+    if (modal) {
+      modal.style.display = "block";
+    }
+  }
+
+  closeModal() {
+    const modal = document.getElementById("payment-result-modal");
+    if (modal) {
+      modal.style.display = "none";
     }
   }
 }

@@ -51,8 +51,8 @@ export class FormationComponent implements OnInit {
           console.log('Inscription added successfully', newInscription);
           this.inscrit = newInscription;
           modalRef.close();
-         // Navigate to the payment component
-         this.router.navigate(['/payment']);
+          // Navigate to the payment component with formation data
+          this.router.navigate(['/payment'], { queryParams: { price: course.price, title: course.title, id: course.id } });
         },
         error => {
           console.error('Failed to save inscription:', error);
