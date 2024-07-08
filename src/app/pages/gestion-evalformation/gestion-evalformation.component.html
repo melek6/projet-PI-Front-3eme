@@ -66,9 +66,9 @@
         <div class="card-header border-0">
           <h3 class="mb-0">Gestion des evalformations</h3>
         </div>
-        <div class="card-header border-0">
+        <!-- <div class="card-header border-0">
           <button class="btn btn-primary" (click)="openModal(false)">Créer une evaluation pour formation</button>
-        </div>
+        </div> -->
         <div class="table-responsive">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
@@ -81,17 +81,17 @@
               <tr *ngFor="let evalformation of evalformations">
                 <td>{{ evalformation.score }}</td>
                 <td>{{ evalformation.comments }}</td>
-                <td class="text-right">
+                <!-- <td class="text-right">
                   <div ngbDropdown placement="bottom-right">
                     <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
                       <i class="fas fa-ellipsis-v"></i>
-                    </a>
-                    <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
+                    </a> -->
+                    <!-- <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
                       <a class="dropdown-item" (click)="openModal(true, evalformation)">MODIFIER</a>
                       <a class="dropdown-item" (click)="deleteEvaluation(evalformation.id)">SUPPRIMER</a>
-                    </div>
-                  </div>
-                </td>
+                    </div> -->
+                  <!-- </div>
+                </td> -->
               </tr>
             </tbody>
           </table>
