@@ -1,4 +1,3 @@
-<!-- chat.component.html -->
 <div class="container-fluid h-100 mt-5">
   <div class="row justify-content-center h-100">
     <div class="col-md-4 col-xl-2 chat">
@@ -11,7 +10,9 @@
             <li *ngFor="let user of allUsers" (click)="goToChat(user.username)">
               <div class="d-flex bd-highlight">
                 <div class="img_cont">
-                  <div class="rounded-circle user_img text_inside_circle">{{ user.username.charAt(0) }}</div>
+                  <div class="rounded-circle user_img text_inside_circle">
+                    {{ user.username.charAt(0) }}
+                  </div>
                 </div>
                 <div class="user_info">
                   <div>{{ user.username }}</div>
@@ -29,32 +30,52 @@
         <div class="card-header msg_head">
           <div class="d-flex bd-highlight">
             <div class="img_cont">
-              <div class="rounded-circle user_img text_inside_circle1">{{ secondUserUsername?.charAt(0) }}</div>
+              <div class="rounded-circle user_img text_inside_circle1">
+                {{ otherUserUsername?.charAt(0) }}
+              </div>
             </div>
             <div class="user_info">
-              <span>{{ secondUserUsername }}</span>
+              <span>{{ otherUserUsername }}</span>
               <p>Message</p>
             </div>
           </div>
         </div>
-        <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+        <div
+          class="card-body msg_card_body"
+          #scrollMe
+          [scrollTop]="scrollMe.scrollHeight"
+        >
           <div *ngFor="let msg of messageList">
-            <div class="d-flex justify-content-end mb-4" *ngIf="msg.senderUsername === senderCheck">
+            <div
+              class="d-flex justify-content-end mb-4"
+              *ngIf="msg.senderUsername === senderCheck"
+            >
               <div class="msg_cotainer_send">
                 {{ msg.replyMessage }}
-                <span class="msg_time_send">{{ msg.time | date: 'shortTime' }}</span>
+                <span class="msg_time_send">{{
+                  msg.time | date : "shortTime"
+                }}</span>
               </div>
               <div class="img_cont_msg">
-                <span class="rounded-circle user_img_msg text_inside_circle2">{{ msg.senderUsername.charAt(0) }}</span>
+                <span class="rounded-circle user_img_msg text_inside_circle2">{{
+                  msg.senderUsername.charAt(0)
+                }}</span>
               </div>
             </div>
-            <div class="d-flex justify-content-start mb-4" *ngIf="msg.senderUsername !== senderCheck">
+            <div
+              class="d-flex justify-content-start mb-4"
+              *ngIf="msg.senderUsername !== senderCheck"
+            >
               <div class="img_cont_msg">
-                <span class="rounded-circle user_img_msg text_inside_circle3">{{ msg.senderUsername.charAt(0) }}</span>
+                <span class="rounded-circle user_img_msg text_inside_circle3">{{
+                  msg.senderUsername.charAt(0)
+                }}</span>
               </div>
               <div class="msg_cotainer">
                 {{ msg.replyMessage }}
-                <span class="msg_time">{{ msg.time | date: 'shortTime' }}</span>
+                <span class="msg_time">{{
+                  msg.time | date : "shortTime"
+                }}</span>
               </div>
             </div>
           </div>
@@ -62,9 +83,16 @@
         <div class="card-footer">
           <form [formGroup]="chatForm">
             <div class="input-group">
-              <textarea class="form-control type_msg" placeholder="Type your message..." formControlName="replyMessage"></textarea>
+              <textarea
+                class="form-control type_msg"
+                placeholder="Type your message..."
+                formControlName="replyMessage"
+              ></textarea>
               <div class="input-group-append">
-                <button class="input-group-text send_btn" (click)="sendMessage()">
+                <button
+                  class="input-group-text send_btn"
+                  (click)="sendMessage()"
+                >
                   <i class="fa fa-location-arrow"></i>
                 </button>
               </div>
@@ -81,14 +109,21 @@
         </div>
         <div class="card-body contacts_body">
           <ul class="contacts chatList">
-            <li *ngFor="let chat of chatList" (click)="loadChatByEmail(chat.firstUser.username, chat.secondUser.username)">
+            <li
+              *ngFor="let chat of chatList"
+              (click)="
+                loadChatByEmail(chat.user1.username, chat.user2.username)
+              "
+            >
               <div class="d-flex bd-highlight">
                 <div class="img_cont">
-                  <div class="rounded-circle user_img text_inside_circle">{{ chat.firstUser.username.charAt(0) }}</div>
+                  <div class="rounded-circle user_img text_inside_circle">
+                    {{ chat.user1.username.charAt(0) }}
+                  </div>
                 </div>
                 <div class="user_info">
-                  <div>{{ chat.firstUser.username }}</div>
-                  <div>{{ chat.secondUser.username }}</div>
+                  <div>{{ chat.user1.username }}</div>
+                  <div>{{ chat.user2.username }}</div>
                 </div>
               </div>
             </li>
