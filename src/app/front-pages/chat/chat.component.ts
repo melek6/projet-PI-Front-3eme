@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ChatService } from 'src/app/_services/chat/chat.service';
+import { StorageService } from 'src/app/_services/storage.service';
 import { UserService } from 'src/app/_services/user.service';
 
 
@@ -21,14 +22,26 @@ export class ChatComponent implements OnInit {
   chatId: any = sessionStorage.getItem('chatId');
   secondUserUsername = '';
   allUsers: any[] = [];
-  firstUserUsername = sessionStorage.getItem('username');
-  senderUsername = sessionStorage.getItem('username');
-  senderCheck = sessionStorage.getItem('username');
+  firstUserUsername: string;
+  senderUsername: string;
+  senderCheck: string;
 
-  constructor(private chatService: ChatService, private router: Router, private userService: UserService) {
+  constructor(
+    private chatService: ChatService,
+    private router: Router,
+    private userService: UserService,
+    private storageService: StorageService
+  ) {
     this.chatForm = new FormGroup({
       replyMessage: new FormControl()
     });
+
+    const user = this.storageService.getUser();
+    if (user) {
+      this.firstUserUsername = user.username;
+      this.senderUsername = user.username;
+      this.senderCheck = user.username;
+    }
   }
 
   ngOnInit(): void {
@@ -39,7 +52,7 @@ export class ChatComponent implements OnInit {
         this.loadChatById();
       }
     } else {
-      console.error('Username is null or undefined in sessionStorage.');
+      console.error('User is not logged in.');
       // Redirect to login page or show a message to the user
       this.router.navigate(['/login']);
     }
@@ -136,24 +149,23 @@ export class ChatComponent implements OnInit {
 
 // Models
 
-class Chat {
+export class Chat {
   chatId: number;
   firstUser: User;
   secondUser: User;
   messageList: Message[];
 }
 
-class Message {
+export class Message {
+  id: number;
+  chat: Chat;
   senderUsername: string;
-  time: Date = new Date();
+  time: Date;
   replyMessage: string;
 }
 
-class User {
+export class User {
   id: number;
   username: string;
   email: string;
-  blocked: boolean;
-  profilePictureUrl: string;
-  password: string;
 }

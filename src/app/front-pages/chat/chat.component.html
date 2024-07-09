@@ -1,137 +1,101 @@
-<body>
-  <div class="container-fluid h-100 mt-5">
-    <div class="row justify-content-center h-100">
-
-      <div class="col-md-0 col-xl-1 order-lg-1"></div>
-      <!-- =======================left Body================================ -->
-      <div class="col-md-4 col-xl-2 chat order-last order-lg-2">
-        <div class="card mb-sm-3 mb-md-0 contacts_card">
-          <div class="card-header">
-            <h1 class="chat-list-title">All User</h1>
-          </div>
-          <div class="card-body contacts_body ">
-            <ul class="contacts chatList" *ngFor="let user of allUsers">
-              <li *ngIf="user.username !== check">
-                <div class="d-flex bd-highlight">
-                  <div class="img_cont">
-                    <div class="rounded-circle user_img text_inside_circle">
-                      {{user.username.substring(0,1)}}
-                    </div>
-                  </div>
-                  <div class="user_info" (click)="goToChat(user.username)">
-                    <div style="margin-top: 1rem;">
-                      {{user.username}}
-                    </div>
-                    <br>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="card-footer"></div>
+<!-- chat.component.html -->
+<div class="container-fluid h-100 mt-5">
+  <div class="row justify-content-center h-100">
+    <div class="col-md-4 col-xl-2 chat">
+      <div class="card mb-sm-3 mb-md-0 contacts_card">
+        <div class="card-header">
+          <h1 class="chat-list-title">All User</h1>
         </div>
+        <div class="card-body contacts_body">
+          <ul class="contacts chatList">
+            <li *ngFor="let user of allUsers" (click)="goToChat(user.username)">
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                  <div class="rounded-circle user_img text_inside_circle">{{ user.username.charAt(0) }}</div>
+                </div>
+                <div class="user_info">
+                  <div>{{ user.username }}</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer"></div>
       </div>
+    </div>
 
-      <div class="col-md-0 col-xl-1 order-lg-3"></div>
-
-      <!-- =============================Middle Body============================= -->
-      <div class="col-md-8 col-xl-5 chat order-md-1 order-lg-4">
-        <div class="card">
-          <div class="card-header msg_head">
-            <div class="d-flex bd-highlight">
-              <div class="img_cont">
-                <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserUsername !== senderCheck">
-                  {{secondUserUsername.substring(0,1)}}
-                </div>
-                <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserUsername === senderCheck">
-                  {{firstUserUsername.substring(0,1)}}
-                </div>
-              </div>
-              <div class="user_info">
-                <span *ngIf="secondUserUsername !== senderCheck">{{secondUserUsername}}</span>
-                <span *ngIf="secondUserUsername === senderCheck">{{firstUserUsername}}</span>
-                <p>Message</p>
-              </div>
-              <div class="video_cam"></div>
+    <div class="col-md-8 col-xl-5 chat">
+      <div class="card">
+        <div class="card-header msg_head">
+          <div class="d-flex bd-highlight">
+            <div class="img_cont">
+              <div class="rounded-circle user_img text_inside_circle1">{{ secondUserUsername?.charAt(0) }}</div>
             </div>
-            <span id="action_menu_btn"></span>
+            <div class="user_info">
+              <span>{{ secondUserUsername }}</span>
+              <p>Message</p>
+            </div>
           </div>
-          <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-            <div *ngFor="let msg of messageList">
-              <div class="d-flex justify-content-end mb-4" *ngIf="msg.senderUsername === senderCheck">
-                <div class="msg_cotainer_send">
-                  {{msg.replyMessage}}
-                  <span class="msg_time_send">{{msg.time | date:'shortTime'}}</span>
-                </div>
-                <div class="img_cont_msg">
-                  <span class="rounded-circle user_img_msg text_inside_circle2">{{msg.senderUsername.substring(0,1)}}</span>
-                </div>
+        </div>
+        <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+          <div *ngFor="let msg of messageList">
+            <div class="d-flex justify-content-end mb-4" *ngIf="msg.senderUsername === senderCheck">
+              <div class="msg_cotainer_send">
+                {{ msg.replyMessage }}
+                <span class="msg_time_send">{{ msg.time | date: 'shortTime' }}</span>
               </div>
-              <div class="d-flex justify-content-start mb-4" *ngIf="msg.senderUsername !== senderCheck">
-                <div class="img_cont_msg">
-                  <span class="rounded-circle user_img_msg text_inside_circle3">{{msg.senderUsername.substring(0,1)}}</span>
-                </div>
-                <div class="msg_cotainer">
-                  {{msg.replyMessage}}
-                  <span class="msg_time">{{msg.time | date:'shortTime'}}</span>
-                </div>
+              <div class="img_cont_msg">
+                <span class="rounded-circle user_img_msg text_inside_circle2">{{ msg.senderUsername.charAt(0) }}</span>
+              </div>
+            </div>
+            <div class="d-flex justify-content-start mb-4" *ngIf="msg.senderUsername !== senderCheck">
+              <div class="img_cont_msg">
+                <span class="rounded-circle user_img_msg text_inside_circle3">{{ msg.senderUsername.charAt(0) }}</span>
+              </div>
+              <div class="msg_cotainer">
+                {{ msg.replyMessage }}
+                <span class="msg_time">{{ msg.time | date: 'shortTime' }}</span>
               </div>
             </div>
           </div>
-          <div class="card-footer">
-            <form [formGroup]="chatForm">
-              <div class="input-group">
-                <div class="input-group-append">
-                  <span class="input-group-text attach_btn"></span>
+        </div>
+        <div class="card-footer">
+          <form [formGroup]="chatForm">
+            <div class="input-group">
+              <textarea class="form-control type_msg" placeholder="Type your message..." formControlName="replyMessage"></textarea>
+              <div class="input-group-append">
+                <button class="input-group-text send_btn" (click)="sendMessage()">
+                  <i class="fa fa-location-arrow"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-2 chat">
+      <div class="card mb-sm-3 mb-md-0 contacts_card">
+        <div class="card-header">
+          <h1 class="chat-list-title">Chat List</h1>
+        </div>
+        <div class="card-body contacts_body">
+          <ul class="contacts chatList">
+            <li *ngFor="let chat of chatList" (click)="loadChatByEmail(chat.firstUser.username, chat.secondUser.username)">
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                  <div class="rounded-circle user_img text_inside_circle">{{ chat.firstUser.username.charAt(0) }}</div>
                 </div>
-                <textarea name="" class="form-control type_msg" placeholder="Type your message..."
-                  formControlName="replyMessage" (keyup.enter)="sendMessage()"></textarea>
-                <div class="input-group-append">
-                  <button mat-raised-button class="input-group-text send_btn" (click)="sendMessage()">
-                    <i class="fa fa-location-arrow"></i> </button>
+                <div class="user_info">
+                  <div>{{ chat.firstUser.username }}</div>
+                  <div>{{ chat.secondUser.username }}</div>
                 </div>
               </div>
-            </form>
-          </div>
+            </li>
+          </ul>
         </div>
+        <div class="card-footer"></div>
       </div>
-
-      <!-- ========================Right Body========================= -->
-      <div class="col-md-4 col-xl-2 chat order-md-2 order-lg-5">
-        <div class="card mb-sm-3 mb-md-0 contacts_card">
-          <div class="card-header">
-            <h1 class="chat-list-title">Chat List</h1>
-          </div>
-          <div class="card-body contacts_body ">
-            <ul class="contacts chatList" *ngFor="let chat of chatList">
-              <li>
-                <div class="d-flex bd-highlight" (click)="loadChatByEmail(chat.secondUser.username, chat.firstUser.username)">
-                  <div class="img_cont">
-                    <div class="rounded-circle user_img text_inside_circle" *ngIf="chat.secondUser.username !== senderCheck">
-                      {{chat.secondUser.username.substring(0,1)}}
-                    </div>
-                    <div class="rounded-circle user_img text_inside_circle" *ngIf="chat.secondUser.username === senderCheck">
-                      {{chat.firstUser.username.substring(0,1)}}
-                    </div>
-                  </div>
-                  <div class="user_info">
-                    <div *ngIf="chat.secondUser.username !== senderCheck" style="margin-top: 1rem;">
-                      {{chat.secondUser.username}}
-                    </div>
-                    <div *ngIf="chat.secondUser.username === senderCheck" style="margin-top: 1rem;">
-                      {{chat.firstUser.username}}
-                    </div>
-                    <br>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="card-footer"></div>
-        </div>
-      </div>
-
-      <div class="col-md-0 col-xl-1 order-lg-6"></div>
     </div>
   </div>
-</body>
+</div>
