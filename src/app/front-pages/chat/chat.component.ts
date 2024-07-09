@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/_services/auth.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ChatService } from 'src/app/_services/chat/chat.service';
+import { UserService } from 'src/app/_services/user.service';
+
 
 @Component({
   selector: 'app-chat',
@@ -8,83 +11,149 @@ import { ChatService } from 'src/app/_services/chat/chat.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  users: any[] = [];
-  messages: any[] = [];
-  selectedUserId: number | null = null;
-  newMessage: string = '';
-  loggedInUserId: number | null = null;
-  conversations: any[] = [];
 
-  constructor(
-    private chatService: ChatService,
-    private authService: AuthService
-  ) {}
+  chatForm: FormGroup;
+  chatObj: Chat = new Chat();
+  messageObj: Message = new Message();
+  messageList: Message[] = [];
+  chatList: Chat[] = [];
+  chatData: Chat;
+  chatId: any = sessionStorage.getItem('chatId');
+  secondUserUsername = '';
+  allUsers: any[] = [];
+  firstUserUsername = sessionStorage.getItem('username');
+  senderUsername = sessionStorage.getItem('username');
+  senderCheck = sessionStorage.getItem('username');
 
-  ngOnInit() {
-    this.loggedInUserId = this.authService.getCurrentUser()?.id;
-    this.loadUsersWithApprovedPropositions();
-    this.loadConversations();
-  }
-
-  loadUsersWithApprovedPropositions() {
-    this.chatService.getUsersWithApprovedPropositionsForProjectOwner().subscribe({
-      next: users => {
-        this.users = users;
-      },
-      error: error => {
-        console.error('Error loading users:', error);
-      }
+  constructor(private chatService: ChatService, private router: Router, private userService: UserService) {
+    this.chatForm = new FormGroup({
+      replyMessage: new FormControl()
     });
   }
 
-  loadConversations() {
-    if (this.loggedInUserId !== null) {
-      this.chatService.getConversations(this.loggedInUserId).subscribe({
-        next: conversations => {
-          this.conversations = conversations;
-        },
-        error: error => {
-          console.error('Error loading conversations:', error);
-        }
-      });
+  ngOnInit(): void {
+    if (this.firstUserUsername) {
+      this.loadChats();
+      this.loadUsers();
+      if (this.chatId) {
+        this.loadChatById();
+      }
+    } else {
+      console.error('Username is null or undefined in sessionStorage.');
+      // Redirect to login page or show a message to the user
+      this.router.navigate(['/login']);
     }
   }
 
-  selectUser(userId: number) {
-    this.selectedUserId = userId;
-    this.loadMessages();
+  loadChats(): void {
+    setInterval(() => {
+      if (this.firstUserUsername) {
+        this.chatService.getChatByFirstUserUsernameOrSecondUserUsername(this.firstUserUsername).subscribe(data => {
+          this.chatList = data;
+        }, error => {
+          console.error('Error loading chats:', error);
+        });
+      }
+    }, 1000);
   }
 
-  loadMessages() {
-    if (this.selectedUserId !== null && this.loggedInUserId !== null) {
-      this.chatService.getMessages(this.loggedInUserId, this.selectedUserId).subscribe({
-        next: messages => {
-          this.messages = messages;
-        },
-        error: error => {
-          console.error('Error loading messages:', error);
-        }
+  loadUsers(): void {
+    setInterval(() => {
+      this.userService.getall().subscribe(data => {
+        this.allUsers = data;
+      }, error => {
+        console.error('Error loading users:', error);
       });
-    }
+    }, 1000);
   }
 
-  sendMessage() {
-    if (this.selectedUserId !== null && this.loggedInUserId !== null && this.newMessage.trim()) {
-      const chatMessage = {
-        senderId: this.loggedInUserId,
-        recipientId: this.selectedUserId,
-        content: this.newMessage
-      };
+  loadChatById(): void {
+    setInterval(() => {
+      if (this.chatId) {
+        this.chatService.getChatById(this.chatId).subscribe((data: Chat) => {
+          this.chatData = data;
+          this.messageList = this.chatData.messageList;
+          this.secondUserUsername = this.chatData.secondUser.username;
+          this.firstUserUsername = this.chatData.firstUser.username;
+        }, error => {
+          console.error('Error loading chat by ID:', error);
+        });
+      }
+    }, 1000);
+  }
 
-      this.chatService.sendMessage(chatMessage).subscribe({
-        next: response => {
-          this.messages.push(response);
-          this.newMessage = '';
-        },
-        error: error => {
-          console.error('Error sending message:', error);
+  loadChatByEmail(event: string, event1: string): void {
+    sessionStorage.removeItem('chatId');
+    this.chatService.getChatByFirstUserUsernameOrSecondUserUsername(event).subscribe((data: Chat[]) => {
+      this.chatData = data.find(chat => chat.secondUser.username === event1 || chat.firstUser.username === event1);
+      if (this.chatData) {
+        this.chatId = this.chatData.chatId.toString(); // Convert number to string
+        sessionStorage.setItem('chatId', this.chatId);
+
+        this.loadChatById();
+      }
+    }, error => {
+      console.error('Error loading chat by email:', error);
+    });
+  }
+
+  sendMessage(): void {
+    this.messageObj.replyMessage = this.chatForm.value.replyMessage;
+    this.messageObj.senderUsername = this.senderUsername;
+    this.chatService.updateChat(this.messageObj, this.chatId).subscribe(() => {
+      this.chatForm.reset();
+      this.loadChatById();
+    }, error => {
+      console.error('Error sending message:', error);
+    });
+  }
+
+  goToChat(username: string): void {
+    this.chatService.getChatByFirstUserUsernameOrSecondUserUsername(username).subscribe(
+      (data: Chat[]) => {
+        const existingChat = data.find(chat => chat.firstUser.username === this.firstUserUsername || chat.secondUser.username === this.firstUserUsername);
+        if (existingChat) {
+          this.chatId = existingChat.chatId.toString(); // Convert number to string
+          sessionStorage.setItem('chatId', this.chatId);
+        } else {
+          this.chatObj.firstUser = { username: this.firstUserUsername } as User;
+          this.chatObj.secondUser = { username: username } as User;
+          this.chatService.createChatRoom(this.chatObj).subscribe((data: any) => {
+            this.chatData = data;
+            this.chatId = this.chatData.chatId.toString(); // Convert number to string
+            sessionStorage.setItem('chatId', this.chatId);
+          }, err => {
+            console.error('Error creating chat room:', err);
+          });
         }
-      });
-    }
+      },
+      error => {
+        console.error('Error loading chat by username:', error);
+      }
+    );
   }
+}
+
+// Models
+
+class Chat {
+  chatId: number;
+  firstUser: User;
+  secondUser: User;
+  messageList: Message[];
+}
+
+class Message {
+  senderUsername: string;
+  time: Date = new Date();
+  replyMessage: string;
+}
+
+class User {
+  id: number;
+  username: string;
+  email: string;
+  blocked: boolean;
+  profilePictureUrl: string;
+  password: string;
 }

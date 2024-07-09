@@ -2,30 +2,52 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+const BASE_URL = 'http://localhost:8081/api/chats';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
-  private baseUrl = 'http://localhost:8081/api/chats';
-  private PropbaseUrl = 'http://localhost:8081/api/propositions';
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  getMessages(senderId: number, recipientId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${senderId}/${recipientId}`);
+  updateChat(message: Message, chatId: string): Observable<Chat> {
+    return this.httpClient.put<Chat>(`${BASE_URL}/message/${chatId}`, message);
   }
 
-  sendMessage(message: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/send`, message);
+  getChatById(chatId: string): Observable<Chat> {
+    return this.httpClient.get<Chat>(`${BASE_URL}/${chatId}`);
   }
 
-  getUsersWithApprovedPropositionsForProjectOwner(): Observable<any> {
-    return this.http.get<any>(`${this.PropbaseUrl}/users-with-approved-propositions-for-owner`);
+  createChatRoom(chat: Chat): Observable<Chat> {
+    return this.httpClient.post<Chat>(`${BASE_URL}/add`, chat);
   }
 
-
-  getConversations(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/conversations/${userId}`);
+  getChatByFirstUserUsernameOrSecondUserUsername(username: string): Observable<Chat[]> {
+    return this.httpClient.get<Chat[]>(`${BASE_URL}/username/${username}`);
   }
-  
+}
+
+// Models
+
+export class Chat {
+  chatId: number;
+  firstUser: User;
+  secondUser: User;
+  messageList: Message[];
+}
+
+export class Message {
+  senderUsername: string;
+  time: Date = new Date();
+  replyMessage: string;
+}
+
+export class User {
+  id: number;
+  username: string;
+  email: string;
+  blocked: boolean;
+  profilePictureUrl: string;
+  password: string;
 }
