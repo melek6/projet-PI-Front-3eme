@@ -120,4 +120,12 @@ export class UserMarketplaceService {
       formData
     );
   }
+
+  downloadFile(fileName: string): Observable<Blob> {
+    const params = new HttpParams().set("filePath", fileName.split("?")[0]);
+    return this.http.get(`${this.proposalUrl}/download`, {
+      params,
+      responseType: "blob",
+    });
+  }
 }

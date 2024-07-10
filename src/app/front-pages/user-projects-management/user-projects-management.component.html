@@ -97,7 +97,8 @@
     </div>
   </div>
 
-  <!-- Propositions Modal -->
+  <!-- Propositions Modal inside projects-->
+
   <div *ngIf="showPropositionsModal" class="modal">
     <div class="modal-content">
       <span class="close" (click)="closePropositionsModal()">&times;</span>
@@ -118,6 +119,13 @@
             (click)="declineProposition(proposition.id)"
           >
             Decline
+          </button>
+          <button
+            *ngIf="proposition.filePath"
+            class="btn btn-primary"
+            (click)="downloadFile(proposition.filePath)"
+          >
+            Download
           </button>
         </li>
       </ul>
@@ -152,7 +160,7 @@
     </div>
   </section>
 
-  <!-- Proposal Form Modal -->
+  <!-- Proposal Form Modal users-->
   <div *ngIf="showProposalModal" class="modal">
     <div class="modal-content">
       <span class="close" (click)="closeProposalModal()">&times;</span>

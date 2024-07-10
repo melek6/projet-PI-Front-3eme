@@ -297,4 +297,24 @@ export class UserProjectsManagementComponent implements OnInit {
   openConfirmationDialog(): void {
     this.dialog.open(this.confirmationDialog);
   }
+
+  downloadFile(filePath: string): void {
+    const fileName = filePath.split("/").pop() || filePath;
+    this.marketplaceService.downloadFile(fileName).subscribe(
+      (data) => {
+        const blob = new Blob([data], { type: "application/octet-stream" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+      },
+      (error) => {
+        console.error("Error downloading file:", error);
+      }
+    );
+  }
 }
