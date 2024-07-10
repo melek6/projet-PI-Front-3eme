@@ -37,6 +37,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.7.1",
     "ngx-clipboard": "15.0.1",
+    "ngx-qrcode2": "^9.0.0",
     "ngx-toastr": "14.2.2",
     "nouislider": "15.5.1",
     "rxjs": "~7.5.0",

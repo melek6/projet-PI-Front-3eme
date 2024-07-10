@@ -50,8 +50,10 @@ export class UserProjectsManagementComponent implements OnInit {
   approvedProposition: PropositionDTO | null = null;
   selectedProposal: PropositionDTO | null = null;
   removeExistingFile = false;
+  qrCodeUrl: string | null = null;
 
   @ViewChild("confirmationDialog") confirmationDialog!: TemplateRef<any>;
+  @ViewChild("qrCodeDialog") qrCodeDialog!: TemplateRef<any>;
 
   constructor(
     private marketplaceService: UserMarketplaceService,
@@ -316,5 +318,11 @@ export class UserProjectsManagementComponent implements OnInit {
         console.error("Error downloading file:", error);
       }
     );
+  }
+
+  showQRCode(filePath: string): void {
+    const fileName = filePath.split("/").pop() || filePath;
+    this.qrCodeUrl = this.marketplaceService.getDownloadUrl(fileName);
+    this.dialog.open(this.qrCodeDialog);
   }
 }

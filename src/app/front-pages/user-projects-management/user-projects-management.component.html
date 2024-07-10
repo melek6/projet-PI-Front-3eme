@@ -127,10 +127,29 @@
           >
             Download
           </button>
+          <button
+            *ngIf="proposition.filePath"
+            class="btn btn-secondary"
+            (click)="showQRCode(proposition.filePath)"
+          >
+            QR Code
+          </button>
         </li>
       </ul>
     </div>
   </div>
+
+  <!-- QR Code Dialog -->
+  <ng-template #qrCodeDialog>
+    <div class="qr-code-dialog">
+      <h3>Scan QR Code to Download</h3>
+      <ngx-qrcode
+        [qrc-element-type]="'url'"
+        [qrc-value]="qrCodeUrl"
+        [qrc-error-correction-level]="'L'"
+      ></ngx-qrcode>
+    </div>
+  </ng-template>
 
   <!-- User Proposals Section -->
   <section class="user-proposals container my-5">

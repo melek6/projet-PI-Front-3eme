@@ -128,4 +128,9 @@ export class UserMarketplaceService {
       responseType: "blob",
     });
   }
+
+  getDownloadUrl(fileName: string): string {
+    const params = new HttpParams().set("filePath", fileName.split("?")[0]);
+    return `${this.proposalUrl}/download?${params.toString()}`;
+  }
 }
