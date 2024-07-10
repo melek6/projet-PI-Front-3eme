@@ -7,7 +7,7 @@
         </div>
         <div class="card-body contacts_body">
           <ul class="contacts chatList">
-            <li *ngFor="let user of allUsers" (click)="goToChat(user.username)">
+            <li *ngFor="let user of allUsers" (click)="goToChat(user.id)">
               <div class="d-flex bd-highlight">
                 <div class="img_cont">
                   <div class="rounded-circle user_img text_inside_circle">
@@ -21,6 +21,7 @@
             </li>
           </ul>
         </div>
+
         <div class="card-footer"></div>
       </div>
     </div>
@@ -45,36 +46,38 @@
           #scrollMe
           [scrollTop]="scrollMe.scrollHeight"
         >
-          <div *ngFor="let msg of messageList">
+          <div *ngFor="let msg of userMessages">
+            <!-- Check if the current user sent the message -->
             <div
               class="d-flex justify-content-end mb-4"
-              *ngIf="msg.senderUsername === senderCheck"
+              *ngIf="msg.userFromId === user.id"
             >
               <div class="msg_cotainer_send">
-                {{ msg.replyMessage }}
+                {{ msg.text }}
                 <span class="msg_time_send">{{
-                  msg.time | date : "shortTime"
+                  msg.sendTime | date : "shortTime"
                 }}</span>
               </div>
               <div class="img_cont_msg">
                 <span class="rounded-circle user_img_msg text_inside_circle2">{{
-                  msg.senderUsername.charAt(0)
+                  msg.userFromUsername.charAt(0)
                 }}</span>
               </div>
             </div>
+            <!-- If the message was received by the current user -->
             <div
               class="d-flex justify-content-start mb-4"
-              *ngIf="msg.senderUsername !== senderCheck"
+              *ngIf="msg.userFromId !== user.id"
             >
               <div class="img_cont_msg">
                 <span class="rounded-circle user_img_msg text_inside_circle3">{{
-                  msg.senderUsername.charAt(0)
+                  msg.userFromUsername.charAt(0)
                 }}</span>
               </div>
               <div class="msg_cotainer">
-                {{ msg.replyMessage }}
+                {{ msg.text }}
                 <span class="msg_time">{{
-                  msg.time | date : "shortTime"
+                  msg.sendTime | date : "shortTime"
                 }}</span>
               </div>
             </div>

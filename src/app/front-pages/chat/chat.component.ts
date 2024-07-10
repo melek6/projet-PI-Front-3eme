@@ -19,6 +19,8 @@ export class ChatComponent implements OnInit {
   chatId: any = sessionStorage.getItem("chatId");
   otherUserUsername = "";
   allUsers: User[] = [];
+  userMessages: any[] = [];
+  user: any;
   currentUserUsername: string;
   senderUsername: string;
   senderCheck: string;
@@ -42,14 +44,31 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.currentUserUsername) {
-      this.loadChats();
-      this.loadUsers();
       if (this.chatId) {
         this.loadChatById();
       }
     } else {
       console.error("User is not logged in.");
       this.router.navigate(["/login"]);
+    }
+
+    this.chatService.getUsers().subscribe((data) => {
+      this.allUsers = data;
+    });
+    this.user = this.chatService.getUserIdFromToken();
+    console.log("hey", this.user);
+    if (this.user) {
+      console.log("User ID:", this.user.id); // Ensure user ID is correctly set
+
+      this.chatService.getUserMessages(this.user.id).subscribe(
+        (messages) => {
+          this.userMessages = messages;
+          console.log("Messages received in component:", this.userMessages); // Log here to see the data
+        },
+        (error) => {
+          console.error("Error fetching messages:", error);
+        }
+      );
     }
   }
 
@@ -65,19 +84,6 @@ export class ChatComponent implements OnInit {
           }
         );
       }
-    }, 1000);
-  }
-
-  loadUsers(): void {
-    setInterval(() => {
-      this.chatService.getAllUsers().subscribe(
-        (data) => {
-          this.allUsers = data;
-        },
-        (error) => {
-          console.error("Error loading users:", error);
-        }
-      );
     }, 1000);
   }
 
@@ -134,34 +140,20 @@ export class ChatComponent implements OnInit {
   }
 
   goToChat(username: string): void {
-    this.chatService.getChatByUsername(username).subscribe(
-      (data: Chat[]) => {
-        const existingChat = data.find(
-          (chat) =>
-            chat.user1.username === this.currentUserUsername ||
-            chat.user2.username === this.currentUserUsername
-        );
-        if (existingChat) {
-          this.chatId = existingChat.id.toString();
-          sessionStorage.setItem("chatId", this.chatId);
-        } else {
-          this.chatObj.user1 = { username: this.currentUserUsername } as User;
-          this.chatObj.user2 = { username: username } as User;
-          this.chatService.createChatRoom(this.chatObj).subscribe(
-            (data: any) => {
-              this.chatData = data;
-              this.chatId = this.chatData.id.toString();
-              sessionStorage.setItem("chatId", this.chatId);
-            },
-            (err) => {
-              console.error("Error creating chat room:", err);
-            }
-          );
-        }
-      },
-      (error) => {
-        console.error("Error loading chat by username:", error);
-      }
+    const selectedUser = this.allUsers.find(
+      (user) => user.username === username
+    );
+    if (selectedUser) {
+      this.filterMessages(selectedUser.id);
+    }
+  }
+  filterMessages(selectedUserId: number): void {
+    this.userMessages = this.userMessages.filter(
+      (message) =>
+        (message.userFromId === this.user &&
+          message.userToId === selectedUserId) ||
+        (message.userFromId === selectedUserId &&
+          message.userToId === this.user)
     );
   }
 }
