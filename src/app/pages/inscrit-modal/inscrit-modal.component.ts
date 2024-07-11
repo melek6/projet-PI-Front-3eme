@@ -1,4 +1,3 @@
-
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,7 +9,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class InscritModalComponent {
   @Input() inscrit: any;
   @Output() save = new EventEmitter<any>();
-
+  
+  statusOptions: string[] = ['PENDING', 'IN_PROGRESS', 'COMPLETED'];
   constructor(public activeModal: NgbActiveModal) {}
 
   onSave(): void {
@@ -22,6 +22,3 @@ export class InscritModalComponent {
     this.activeModal.dismiss();
   }
 }
-
-
-

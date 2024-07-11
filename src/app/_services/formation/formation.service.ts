@@ -42,7 +42,21 @@ export class FormationService {
       catchError(this.handleError<any>(`getformationById id=${id}`))
     );
   }
+  getFormationsByCategory(category: string): Observable<any[]> {
+    const url = `${this.apiUrl}/category/${category}`;
+    return this.http.get<any[]>(url).pipe(
+      tap(data => console.log(`Formations for category ${category}:`, data)),
+      catchError(this.handleError<any[]>('getFormationsByCategory', []))
+    );
+  }
 
+  getAllCategories(): Observable<any[]> {
+    const url = `${this.apiUrl}/categories`;
+    return this.http.get<any[]>(url).pipe(
+      tap(data => console.log('Categories:', data)),
+      catchError(this.handleError<any[]>('getAllCategories', []))
+    );
+  }
   createFormation(formation: any): Observable<any> {
     // Assurez-vous que la formation inclut une catégorie valide
     if (!Object.values(FormationCategory).includes(formation.category)) {

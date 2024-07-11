@@ -138,7 +138,10 @@ export class AuthService {
   hasAnyRole(roles: string[]): boolean {
     return roles.some(role => this.getUserRoles().includes(role));
   }
-
+  getUserId(): number {
+    const user = this.getCurrentUser();
+    return user ? user.id : null;
+  }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

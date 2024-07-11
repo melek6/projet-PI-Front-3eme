@@ -16,7 +16,8 @@ export class FormationComponent implements OnInit {
   inscrit: any = { status: '', formationId: 0 };
   currentPage: number = 1;
   pageSize: number = 10;
-
+  categories: string[] = []; // Pour stocker les catégories de formation
+  selectedCategory: string = ''; // Catégorie sélectionnée par l'utilisateur
   constructor(
     private formationService: FormationService,
     private inscritService: InscritformationService,
@@ -27,6 +28,7 @@ export class FormationComponent implements OnInit {
   ngOnInit(): void {
     this.getAllFormations();
     this.getRecommendedFormations();
+    this.getCategories();
   }
 
   getAllFormations(): void {
@@ -34,7 +36,25 @@ export class FormationComponent implements OnInit {
       this.courses = data;
     });
   }
+  getFormationsByCategory(category: string): void {
+    this.formationService.getFormationsByCategory(category).subscribe(data => {
+      this.courses = data;
+    });
+  }
+  getCategories(): void {
+    this.formationService.getAllCategories().subscribe(data => {
+      this.categories = data;
+    });
+  }
 
+  onCategoryChange(category: string): void {
+    this.selectedCategory = category;
+    if (category === '') {
+      this.getAllFormations();
+    } else {
+      this.getFormationsByCategory(category);
+    }
+  }
   getRecommendedFormations(): void {
     this.formationService.getRecommendedFormations().subscribe(data => {
       this.recommendedCourses = data;  // Affichez les 5 meilleures formations

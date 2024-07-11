@@ -55,6 +55,8 @@
                 <th scope="col">EMAIL</th>
                 <th scope="col">DATE</th>
                 <th scope="col">FORMATION</th>
+                <th scope="col">STATUS</th>
+                <th scope="col">ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -64,6 +66,20 @@
                   <td>{{ inscrit.user?.email || 'N/A' }}</td>
                   <td>{{ inscrit.registrationDate | date:'short' }}</td>
                   <td>{{ inscrit.formation?.title }}</td>
+                  <td>
+                    <span [ngClass]="{
+                      'badge badge-pending': inscrit.etat === 'PENDING',
+                      'badge badge-in-progress': inscrit.etat === 'IN_PROGRESS',
+                      'badge badge-completed': inscrit.etat === 'COMPLETED'
+                    }">
+                      {{ inscrit.etat }}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary btn-sm" (click)="openModal(inscrit)">
+                      Modifier
+                    </button>
+                  </td>
                 </ng-container>
               </tr>
             </tbody>

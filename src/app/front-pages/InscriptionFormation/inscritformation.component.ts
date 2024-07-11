@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InscritformationService } from 'src/app/_services/inscritformation/inscritformation.service'; 
+import { InscriptionFormation } from 'src/app/pages/liste-inscrit/inscription-formation.model';
 
 @Component({
   selector: 'app-inscritformation',
@@ -9,9 +10,10 @@ import { InscritformationService } from 'src/app/_services/inscritformation/insc
 })
 export class InscritFormationComponent implements OnInit {  
 
-  // inscription: any = { id : 0 ,registrationDate: '', status: '' };
-  inscription: any = { id : 0 , status: '' };
-
+  inscriptions: InscriptionFormation[] = [];
+  filteredInscriptions: InscriptionFormation[] = [];
+  selectedEtat: string = '';
+  inscription: any = { id: 0, status: '', etat: '' };
   isEdit = false;
 
   constructor(
@@ -27,18 +29,24 @@ export class InscritFormationComponent implements OnInit {
       this.inscritformationService.getInscriptionById(+id).subscribe((data: any) => {
         this.inscription = data;
       });
+    } else {
+      this.loadInscriptions();
     }
   }
 
-  // onSubmit(): void {
-  //   if (this.isEdit) {
-  //     this.inscritformationService.updateInscription(this.inscription.id!, this.inscription).subscribe(() => {
-  //       this.router.navigate(['/inscrit']);
-  //     });
-  //   } else {
-  //     this.inscritformationService.createInscription(this.inscription.id!,this.inscription).subscribe(() => {
-  //       this.router.navigate(['/inscrit']);
-  //     });
-  //   }
-  // }
+  loadInscriptions(): void {
+    this.inscritformationService.getAllInscriptions().subscribe((inscriptions: InscriptionFormation[]) => {
+      this.inscriptions = inscriptions;
+      this.filterInscriptions(this.selectedEtat);
+    });
+  }
+
+  filterInscriptions(etat: string): void {
+    this.selectedEtat = etat;
+    this.filteredInscriptions = this.inscriptions.filter(inscrit => inscrit.etat === etat || etat === '');
+  }
+
+  onEtatChange(etat: string): void {
+    this.filterInscriptions(etat);
+  }
 }

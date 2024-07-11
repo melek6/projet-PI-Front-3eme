@@ -1,4 +1,11 @@
 <section class="container my-5">
+  <div class="filter-container">
+    <span class="filter-title">Catégorie:</span>
+    <select id="category" class="filter-select" [(ngModel)]="selectedCategory" (change)="onCategoryChange(selectedCategory)">
+      <option value="">Toutes les catégories</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+  </div>
   <h2 class="formation-title">⭐ Formations Recommandées ⭐</h2>
   <div class="featured-courses">
     <div class="formation-box" *ngFor="let course of recommendedCourses">
@@ -7,13 +14,20 @@
       <p><i class="fas fa-chalkboard-teacher"></i> <strong>Formateur: </strong> {{ course.trainer }}</p>
       <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.numberOfHours }} heures</p>
       <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.price }} $US</p>
-      <button class="btn btn-primary mt-3" (click)="onSaveInscription(course)" [disabled]="isExpired(course)">
+      <!-- <button class="btn btn-primary mt-3" (click)="onSaveInscription(course)" [disabled]="isExpired(course)">
         S'inscrire
-      </button>
+      </button> -->
     </div>
   </div>
 
   <h2 class="formation-title">📚 Toutes les Formations 📚</h2>
+  <!-- <div class="category-filter">
+    <label for="category">Filtrer par catégorie:</label>
+    <select id="category" [(ngModel)]="selectedCategory" (change)="onCategoryChange(selectedCategory)">
+      <option value="">Toutes les catégories</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+  </div> -->
   <div class="featured-courses">
     <div class="formation-box" *ngFor="let course of displayedOffres; let i = index">
       <h3>{{ course.title }}</h3>
