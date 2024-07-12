@@ -1,6 +1,6 @@
 <div class="blog-header">
   <h1>Blog Posts</h1>
-  <button (click)="toggleCreateForm()" class="create-button">Create New Blog Post</button>
+  <button (click)="toggleCreateForm()" class="create-button">➕</button>
 </div>
 
 <div *ngIf="createFormVisible" class="create-form">
@@ -9,17 +9,26 @@
       <label for="newTitle">Title</label>
       <input type="text" id="newTitle" [(ngModel)]="newPost.title" name="title" required />
     </div>
- <!--  <button type="button" class="rephrase-button" (click)="rephraseContent()">Rephrase Content with AI</button>-->
-
     <div class="form-group">
-      <label for="newContent">Content</label>
-      <textarea id="newContent" [(ngModel)]="newPost.content" name="content" required></textarea>
+      <div class="button-container">
+        <button type="button" class="rephrase-button" (click)="rephraseContent()">Rephrase Content with AI</button>
+      </div>
+      <div class="content-container" style="    margin-top: -31px;">
+        <label for="newContent">Content</label>
+        <textarea id="newContent" [(ngModel)]="newPost.content" name="content" required></textarea>
+      </div>
     </div>
+    
     <div class="form-actions">
-      <button type="submit" class="submit-button">Create Post</button>
+      <button type="submit" class="submit-button">➕</button>
       <button type="button" class="cancel-button" (click)="toggleCreateForm()">❌</button>
     </div>
   </form>
+  <div *ngIf="errorMessage" class="modal" id="errorModal">
+    <div class="modal-content">
+      <p class="error-message">{{ errorMessage }}</p>
+    </div>
+  </div>
 </div>
 
 <div *ngIf="blogPosts?.length > 0; else noPosts" class="blog-container">
@@ -96,7 +105,7 @@
             font-size: 16px;
             font-family: 'Arial, sans-serif';
             transition: border-color 0.3s ease;" [(ngModel)]="replyContent[comment.id]" placeholder="Write a reply..." />
-            <button class="submit-button post-action" (click)="addReply(comment.id, replyContent[comment.id])">Submit</button>
+            <button class="submit-button1 post-action" (click)="addReply(comment.id, replyContent[comment.id])">Submit</button>
           </div>
 
           <!-- Afficher les sous-commentaires -->

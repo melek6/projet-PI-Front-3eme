@@ -91,9 +91,58 @@
     </div>
   </div>
 </div>
+
 <div class="container-fluid mt--7">
+  <div class="container">
+    <div class="row">
+      <!-- Graphique des Likes -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Blogs triés par Likes</h3>
+          </div>
+          <div class="card-body">
+            <canvas #likesChart width="400" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Graphique des Dislikes -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Blogs triés par Dislikes</h3>
+          </div>
+          <div class="card-body">
+            <canvas #dislikesChart width="400" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Graphique des Comments -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Blogs triés par Comments</h3>
+          </div>
+          <div class="card-body">
+            <canvas #commentsChart width="400" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
   <div class="row">
+ 
+    
+    <br>    
+
     <div class="col-xl-8 mb-5 mb-xl-0">
+      <br>    
+
       <div class="card bg-gradient-default shadow">
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
@@ -129,6 +178,8 @@
       </div>
     </div>
     <div class="col-xl-4">
+      <br>    
+
       <div class="card shadow">
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
