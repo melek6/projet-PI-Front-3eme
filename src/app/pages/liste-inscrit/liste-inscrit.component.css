@@ -72,3 +72,40 @@
 .comment small {
   color: #777;
 }
+
+/* styles.css */
+
+/* Ajuster l'alignement des éléments dans les colonnes auto */
+.row .col-auto {
+  display: flex;
+  align-items: center;
+}
+
+/* Ajuster la marge gauche du bouton pour le séparer légèrement du sélecteur */
+.row .col-auto .btn {
+  margin-left: 0.5rem; /* Ajustez la marge selon vos besoins */
+}
+
+/* Badge styles */
+.badge {
+  border-radius: 0;
+  font-size: 12px;
+  line-height: 1;
+  padding: .375rem .5625rem;
+  font-weight: normal;
+}
+
+.badge-pending {
+  background-color: #dc3545;  /* Red */
+  color: white;
+}
+
+.badge-in-progress {
+  background-color: #ffc107;  /* Yellow */
+  color: white;
+}
+
+.badge-completed {
+  background-color: #28a745;  /* Green */
+  color: white;
+}

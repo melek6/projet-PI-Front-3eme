@@ -20,6 +20,13 @@ export class FormationService {
       catchError(this.handleError<any[]>('getAllformations', []))
     );
   }
+  getRecommendedFormations(): Observable<any[]> {
+    const url = `${this.apiUrl}/recommended`;
+    return this.http.get<any[]>(url).pipe(
+      tap(data => console.log('Recommended formations:', data)),
+      catchError(this.handleError<any[]>('getRecommendedFormations', []))
+    );
+  }
     // Méthode générique pour la gestion des erreurs
     private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {
@@ -35,7 +42,21 @@ export class FormationService {
       catchError(this.handleError<any>(`getformationById id=${id}`))
     );
   }
+  getFormationsByCategory(category: string): Observable<any[]> {
+    const url = `${this.apiUrl}/category/${category}`;
+    return this.http.get<any[]>(url).pipe(
+      tap(data => console.log(`Formations for category ${category}:`, data)),
+      catchError(this.handleError<any[]>('getFormationsByCategory', []))
+    );
+  }
 
+  getAllCategories(): Observable<any[]> {
+    const url = `${this.apiUrl}/categories`;
+    return this.http.get<any[]>(url).pipe(
+      tap(data => console.log('Categories:', data)),
+      catchError(this.handleError<any[]>('getAllCategories', []))
+    );
+  }
   createFormation(formation: any): Observable<any> {
     // Assurez-vous que la formation inclut une catégorie valide
     if (!Object.values(FormationCategory).includes(formation.category)) {
@@ -60,10 +81,10 @@ export class FormationService {
     );
   }
 
-  addEvaluationToFormation(formationId: number, evaluation: any): Observable<any> {
-    const url = `${this.apiUrl}/${formationId}/evaluations`;
-    return this.http.post<any>(url, evaluation);
-  }
+  // addEvaluationToFormation(formationId: number, evaluation: any): Observable<any> {
+  //   const url = `${this.apiUrl}/${formationId}/evaluations`;
+  //   return this.http.post<any>(url, evaluation);
+  // }
   uploadPlanning(formationId: number, file: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('file', file);
@@ -71,6 +92,16 @@ export class FormationService {
     const url = `${this.apiUrl}/${formationId}/uploadPlanning`;
     return this.http.post(url, formData, { responseType: 'json' }).pipe(
       catchError(this.handleError<any>('uploadPlanning'))
+    );
+  }
+  getCompletedFormationsByUser(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:8081/api/inscriptions/user/${userId}/completed`);
+  }
+  addEvaluationToFormation(formationId: number, evaluation: any): Observable<any> {
+    const url = `${this.apiUrl}/${formationId}/evaluations`;
+    return this.http.post<any>(url, evaluation, httpOptions).pipe(
+      tap(_ => console.log('Évaluation ajoutée')),
+      catchError(this.handleError<any>('addEvaluationToFormation'))
     );
   }
 }

@@ -14,25 +14,16 @@
           <label for="description">Description</label>
           <textarea class="form-control" id="description" [(ngModel)]="formation.description" name="description"></textarea>
       </div>
-
-     <div class="form-group">
-        <label for="category">Catégorie</label>
-        <select class="form-control" id="category" [(ngModel)]="formation.category" name="category">
-          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-        </select>
+      <div class="form-group">
+        <label for="trainer">Formateur</label>
+        <input type="text" class="form-control" id="trainer" [(ngModel)]="formation.trainer" name="trainer">
       </div>
-      <!-- <div class="form-group">
-        <label for="category">Catégorie</label>
-        <app-category-select [categories]="categories" [(ngModel)]="formation.category" name="category"></app-category-select>
-      </div> -->
-      <!-- <div class="form-group">
-          <label for="schedule">Date d'expiration</label>
-          <input type="date" class="form-control" id="schedule" [(ngModel)]="formation.schedule" name="schedule">
-      </div> -->
-      <!-- <div class="form-group">
-        <label for="schedule">Schedule</label>
-        <input type="date" class="form-control" id="schedule" [(ngModel)]="formation.schedule" name="schedule">
-    </div> -->
+      <div class="form-group">
+         <label for="category">Catégorie</label>
+         <select class="form-control" id="category" [(ngModel)]="formation.category" name="category">
+           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+         </select>
+      </div>
       <div class="form-group">
           <label for="startDate">Date de début</label>
           <input type="date" class="form-control" id="startDate" [(ngModel)]="formation.startDate" name="startDate">
@@ -41,7 +32,6 @@
           <label for="endDate">Date de fin</label>
           <input type="date" class="form-control" id="endDate" [(ngModel)]="formation.endDate" name="endDate">
       </div>
-     
       <div class="form-group">
           <label for="location">Emplacement</label>
           <input type="text" class="form-control" id="location" [(ngModel)]="formation.location" name="location">
@@ -55,21 +45,10 @@
           <input type="number" class="form-control" id="numberOfHours" [(ngModel)]="formation.numberOfHours" name="numberOfHours">
       </div>
       <!-- <div class="form-group">
-          <label for="category">Catégorie</label>
-          <select class="form-control" id="category" [(ngModel)]="formation.category" name="category">
-              <option *ngFor="let category of categories" [value]="category">{{category}}</option>
-          </select>
-      </div> -->
-     
-      <!-- <div class="form-group">
-          <label for="newFormation">Nouvelle formation</label>
-          <input type="checkbox" class="form-control" id="newFormation" [(ngModel)]="formation.newFormation" name="newFormation">
-      </div> -->
-      <div class="form-group">
-          <label for="bestSeller">Best Seller</label>
+          <label for="bestSeller">Meilleur vendeur</label>
           <input type="checkbox" class="form-control" id="bestSeller" [(ngModel)]="formation.bestSeller" name="bestSeller">
-      </div>
-      
+      </div> -->
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
   </form>
 </div>
 <div class="modal-footer">

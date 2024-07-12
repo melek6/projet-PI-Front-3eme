@@ -1,220 +1,141 @@
-/* General Styles */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-header {
-  background-color: #fff;
-  border-bottom: 1px solid #e6e6e6;
-  padding: 10px 20px;
+.title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
 }
 
-.navbar {
+.subtitle {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.featured-courses {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.logo img {
-  height: 40px;
+.formation-box {
+  background-color: #fff; /* Blanc pour une meilleure lisibilité */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  flex-basis: 48%; /* Deux éléments par ligne */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour l'effet de carte */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajoute une transition pour l'effet de survol */
 }
 
-.search-bar input {
-  width: 400px;
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
+.formation-box:hover {
+  transform: translateY(-5px); /* Légèrement soulève la carte au survol */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Augmente l'ombre au survol */
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
+.formation-box h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #343a40; /* Noir pour une meilleure lisibilité */
 }
 
-.nav-links li {
-  margin-left: 20px;
+.formation-box p {
+  font-size: 1em;
+  color: #6c757d; /* Gris pour un contraste agréable */
+  line-height: 1.6;
+  margin-bottom: 5px;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: #333;
-  font-size: 16px;
-  transition: color 0.3s;
+.formation-box p strong {
+  color: #343a40; /* Noir pour une meilleure lisibilité */
 }
 
-.nav-links a:hover {
-  color: #1c87c9;
+.formation-box i {
+  margin-right: 5px;
+  color: #777;
 }
 
-.nav-links a .icon {
-  font-size: 20px;
-}
-
-.user-profile {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  background-color: #333;
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-}
-
-/* Hero Section */
-.hero {
-  background-size: cover;
-  color: #fff;
-  text-align: center;
-  padding: 100px 20px;
-}
-
-.hero-content h1 {
-  font-size: 48px;
-  margin: 0;
-}
-
-.hero-content p {
-  font-size: 24px;
-  margin: 20px 0;
-}
-
-.btn-primary {
-  background-color: #1c87c9;
-  color: #fff;
-  padding: 10px 20px;
+.formation-box button {
+  width: 100%;
+  font-size: 1em;
+  padding: 10px;
+  background-color: #007bff; /* Bleu pour les boutons */
+  color: white;
   border: none;
   border-radius: 5px;
+  margin-top: 10px;
+}
+
+.formation-box button:hover {
+  background-color: #0056b3; /* Bleu plus foncé au survol */
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  border-radius: 5px;
 }
 
-.btn-primary:hover {
-  background-color: #155a8a;
+.pagination-info {
+  font-size: 1em;
 }
 
-/* Featured Courses Section */
-.featured-courses {
-  padding: 50px 20px;
-  text-align: center;
+.formation-title {
+  background-color: #28a745; /* Couleur de fond verte */
+  color: white; /* Couleur du texte en blanc */
+  padding: 10px 20px; /* Espacement interne pour donner de l'espace autour du texte */
+  border-radius: 50px; /* Bords arrondis */
+  display: inline-block; /* Pour s'assurer que le titre ne prend que l'espace nécessaire */
+  font-size: 1.5em; /* Taille de la police */
+  text-align: center; /* Centrer le texte */
+  margin-bottom: 20px; /* Espacement en bas */
+  text-decoration: none; /* Supprime les soulignements par défaut des liens */
 }
 
-.featured-courses h2 {
-  font-size: 36px;
+.formation-title:hover {
+  background-color: #218838; /* Couleur de fond lors du survol */
+}
+
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
   margin-bottom: 20px;
 }
 
-.courses {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.filter-title {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.course-card {
-  background: #fff;
-  border: 1px solid #e6e6e6;
-  border-radius: 5px;
-  width: 300px;
-  margin: 10px;
-  padding: 20px;
-  text-align: left;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+.filter-select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
 }
 
-.course-card:hover {
-  transform: translateY(-5px);
-}
-
-.course-card img {
-  width: 100%;
-  border-radius: 5px;
-}
-
-.course-card h3 {
-  font-size: 24px;
-  margin: 10px 0;
-}
-
-.course-card p {
-  font-size: 16px;
-  color: #666;
-}
-
-/* Categories Section */
-.categories {
-  padding: 50px 20px;
-  background-color: #f7f7f7;
-  text-align: center;
-}
-
-.categories h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.category-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.category-item {
-  background: #fff;
-  border: 1px solid #e6e6e6;
-  border-radius: 5px;
-  width: 200px;
-  margin: 10px;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s;
-}
-
-.category-item:hover {
-  transform: translateY(-5px);
-}
-
-.category-item h3 {
-  font-size: 24px;
-  margin: 10px 0;
-}
-
-/* Footer Section */
-footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 20px 0;
-}
-
-footer p {
-  margin: 0;
-}
-
-footer .footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-}
-
-footer .footer-links li {
-  margin: 0 10px;
-}
-
-footer .footer-links a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-footer .footer-links a:hover {
-  color: #1c87c9;
+.filter-select:focus {
+  border-color: #80bdff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }

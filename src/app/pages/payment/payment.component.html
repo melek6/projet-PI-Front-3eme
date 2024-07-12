@@ -1,0 +1,22 @@
+<div class="payment-container">
+  <h2>Payer pour {{ title }}</h2>
+  <p>Montant à payer : {{ amount }} $</p>
+  <form (submit)="handleForm($event)">
+    <div>
+      <label for="cardNumber">Numéro de Carte</label>
+      <div id="card-element" #cardElement></div>
+    </div>
+    <button type="submit">Payer {{ amount }} $</button>
+  </form>
+  <div *ngIf="paymentResult" class="payment-result">
+    {{ paymentResult }}
+  </div>
+</div>
+
+<!-- Payment Result Modal -->
+<div id="payment-result-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <p>{{ paymentResult }}</p>
+  </div>
+</div>

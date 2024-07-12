@@ -30,6 +30,9 @@ import { ProjectNotificationsComponent } from 'src/app/front-pages/project-notif
 import { ChatComponent } from 'src/app/front-pages/chat/chat.component';
 import { QuizComponent } from 'src/app/front-pages/quiz/quiz.component';
 import { QuizDetailsComponent } from 'src/app/front-pages/quiz-details/quiz-details.component';
+import { AddevalComponent } from 'src/app/pages/addeval/addeval.component';
+import { PaymentComponent } from 'src/app/pages/payment/payment.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -57,6 +60,7 @@ import { QuizDetailsComponent } from 'src/app/front-pages/quiz-details/quiz-deta
     ReactFormComponent,
     BlogPostFormComponent,
     FormationComponent,
+    AddevalComponent,
     CandidatComponent,
     OffreCandidatComponent,
     OffreDetailsComponent,
@@ -66,7 +70,8 @@ import { QuizDetailsComponent } from 'src/app/front-pages/quiz-details/quiz-deta
     ProjectNotificationsComponent,
     ChatComponent,
     QuizComponent,
-    QuizDetailsComponent
+    QuizDetailsComponent,
+    PaymentComponent
   ],
   exports: [FrontLayoutComponent]
 })

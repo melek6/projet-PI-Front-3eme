@@ -1,21 +1,20 @@
-
-   <div class="modal-header">
-    <h4 class="modal-title">Détails de l'inscription</h4>
-    <button type="button" class="close" aria-label="Close" (click)="onClose()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="status">Status</label>
-        <input type="text" id="status" [(ngModel)]="inscrit.status" name="status" class="form-control">
-      </div>
-     
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="onClose()">Fermer</button>
-    <button type="button" class="btn btn-primary" (click)="onSave()">Enregistrer</button>
-  </div>
-  
+<div class="modal-header">
+  <h4 class="modal-title">Détails de l'inscription</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="etat">Status</label>
+      <select id="etat" [(ngModel)]="inscrit.etat" name="etat" class="form-control">
+        <option *ngFor="let etat of statusOptions" [value]="etat">{{ etat }}</option>
+      </select>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="onClose()">Fermer</button>
+  <button type="button" class="btn btn-primary" (click)="onSave()">Enregistrer</button>
+</div>

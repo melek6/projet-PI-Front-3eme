@@ -1,54 +1,53 @@
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-      <div class="header-body">
-        <!-- Statistiques des formations -->
-        <div class="row">
-          <div class="col-xl-3 col-lg-6">
-            <div class="card card-stats mb-4 mb-xl-0">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Nombre des formations</h5>
-                    <span class="h2 font-weight-bold mb-0">{{ formations.length }}</span>
-                  </div>
-                  <div class="col-auto">
-                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                      <i class="fas fa-chart-bar"></i>
-                    </div>
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Statistiques des formations -->
+      <div class="row">
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Nombre des formations</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ formations.length }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i class="fas fa-chart-bar"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-xl-3 col-lg-6">
-            <div class="card card-stats mb-4 mb-xl-0">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Nouvelles formations</h5>
-                    <span class="h2 font-weight-bold mb-0">{{ nouvellesformations }}</span>
-                  </div>
-                  <div class="col-auto">
-                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fas fa-chart-pie"></i>
-                    </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Nouvelles formations</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ nouvellesformations }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                    <i class="fas fa-chart-pie"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-xl-3 col-lg-6">
-            <div class="card card-stats mb-4 mb-xl-0">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">formations expirées</h5>
-                    <span class="h2 font-weight-bold mb-0">{{ formationsExpirees }}</span>
-                  </div>
-                  <div class="col-auto">
-                    <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                      <i class="fas fa-percent"></i>
-                    </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">formations expirées</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ formationsExpirees }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                    <i class="fas fa-percent"></i>
                   </div>
                 </div>
               </div>
@@ -58,74 +57,105 @@
       </div>
     </div>
   </div>
-  
-  <div class="container-fluid mt--7">
-    <div class="row">
-      <div class="col">
-        <div class="card shadow">
-          <div class="card-header border-0 d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">Gestion des formations</h3>
-            <button class="btn btn-primary" (click)="openModal(false)">Créer une formation</button>
-          </div>
-          <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-              <!-- Colonnes définies -->
-              <ng-container matColumnDef="title">
-                <th mat-header-cell *matHeaderCellDef> TITRE </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.title }} </td>
-              </ng-container>
-              <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef> DESCRIPTION </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.description }} </td>
-              </ng-container>
-              <ng-container matColumnDef="location">
-                <th mat-header-cell *matHeaderCellDef> EMPLACEMENT </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.location }} </td>
-              </ng-container>
-              <ng-container matColumnDef="startDate">
-                <th mat-header-cell *matHeaderCellDef> DATE DE DÉBUT </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.startDate | date }} </td>
-              </ng-container>
-              <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef> DATE DE FIN </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.endDate | date }} </td>
-              </ng-container>
-              <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef> PRIX </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.price | currency }} </td>
-              </ng-container>
-              <ng-container matColumnDef="numberOfHours">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE D'HEURES </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.numberOfHours }} </td>
-              </ng-container>
-              <ng-container matColumnDef="category">
-                <th mat-header-cell *matHeaderCellDef> CATÉGORIE </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.category }} </td>
-              </ng-container>
-              <ng-container matColumnDef="bestSeller">
-                <th mat-header-cell *matHeaderCellDef> MEILLEUR VENDEUR </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.bestSeller ? 'Oui' : 'Non' }} </td>
-              </ng-container>
-              <ng-container matColumnDef="newFormation">
-                <th mat-header-cell *matHeaderCellDef> NOUVELLE FORMATION </th>
-                <td mat-cell *matCellDef="let formation"> {{ formation.newFormation ? 'Oui' : 'Non' }} </td>
-              </ng-container>
-              <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> ACTIONS </th>
-                <td mat-cell *matCellDef="let formation" class="d-flex align-items-center">
-                  <button class="btn btn-success" (click)="openModal(true, formation)">Modifier</button>
-                  <button class="btn btn-sm btn-danger" (click)="deleteFormation(formation.id)">Supprimer</button>
-                  <button class="btn btn-primary btn-sm" (click)="downloadPDF(formation)">Download PDF</button>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Gestion des formations</h3>
+          <button class="btn btn-primary" (click)="openModal(false)">Créer une formation</button>
+        </div>
+        <div class="card-header border-0 d-flex justify-content-between align-items-center">
+          <label for="categoryFilter" class="mb-0">Filtrer par catégorie :</label>
+          <select class="form-control ml-2" id="categoryFilter" [(ngModel)]="selectedCategory" (change)="filterByCategory()">
+            <option value="Toutes">Toutes</option>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">TITRE</th>
+                <th scope="col">DESCRIPTION</th>
+                <th scope="col">EMPLACEMENT</th>
+                <th scope="col">DATE DE DÉBUT</th>
+                <th scope="col">DATE DE FIN</th>
+                <th scope="col">PRIX</th>
+                <th scope="col">NOMBRE D'HEURES</th>
+                <th scope="col">CATÉGORIE</th>
+                <th scope="col">FORMATEUR</th> <!-- Add this column -->
+                <th scope="col">ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let formation of dataSource.data">
+                <td>{{ formation.title }}</td>
+                <td>{{ formation.description }}</td>
+                <td>{{ formation.location }}</td>
+                <td>{{ formation.startDate | date:'short' }}</td>
+                <td>{{ formation.endDate | date:'short' }}</td>
+                <td>{{ formation.price | currency }}</td>
+                <td>{{ formation.numberOfHours }}</td>
+                <td>{{ formation.category }}</td>
+                <td>{{ formation.trainer }}</td> <!-- Add this cell -->
+                <td class="text-right">
+                  <button class="btn btn-success btn-sm" (click)="openModal(true, formation)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteFormation(formation.id)">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                  <button class="btn btn-primary btn-sm" (click)="downloadPDF(formation)">
+                    <i class="fas fa-download"></i>
+                  </button>
                   <input type="file" (change)="uploadPlanning($event, formation.id)" />
                 </td>
-              </ng-container>
-  
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </div>
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer py-4">
+          <nav aria-label="Pagination">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="previousPage()" tabindex="-1">
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item" *ngFor="let page of [].constructor(totalPages); let pageIndex = index"
+                  [class.active]="pageIndex + 1 === currentPage">
+                <a class="page-link" (click)="changePage(pageIndex + 1)">{{ pageIndex + 1 }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="nextPage()">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal de confirmation -->
+<ng-template #confirmationModal let-modal>
+  <div class="modal-body text-center">
+    <div class="success-icon">
+      <i class="fa fa-check-circle" aria-hidden="true"></i>
+    </div>
+    <h3 class="modal-title">Succès</h3>
+    <p>Formation ajoutée avec succès !</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="closeConfirmationModal()">OK</button>
+  </div>
+</ng-template>

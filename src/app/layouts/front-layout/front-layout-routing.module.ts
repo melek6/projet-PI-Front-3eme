@@ -14,13 +14,15 @@ import { UserProjectsManagementComponent } from 'src/app/front-pages/user-projec
 import { ChatComponent } from 'src/app/front-pages/chat/chat.component';
 import { QuizComponent } from 'src/app/front-pages/quiz/quiz.component';
 import { QuizDetailsComponent } from 'src/app/front-pages/quiz-details/quiz-details.component';
+import { AddevalComponent } from 'src/app/pages/addeval/addeval.component';
+import { PaymentComponent } from 'src/app/pages/payment/payment.component';
 
 export const FrontLayoutRoutes: Routes = [
   { path: 'accueil',      component: AcceuilComponent },
   { path: 'blog',      component: BlogPostComponent },
   { path: 'create-blog-post', component: BlogPostFormComponent },
   { path: 'edit-blog-post/:id', component: BlogPostFormComponent },
-  { path: 'evalformation', component: EvaluationfComponent},
+  { path: 'addeval', component: AddevalComponent},
   { path: 'formation', component: FormationComponent },
   { path: 'candidat', component: CandidatComponent },
   { path: 'OffreCandidat', component: OffreCandidatComponent },
@@ -34,9 +36,8 @@ export const FrontLayoutRoutes: Routes = [
   { path: 'evaluationf', component: EvaluationfComponent},
   { path: 'QuizListe', component: QuizComponent},
   { path: 'formation', component: FormationComponent },
-  { path: 'quiz-details/:quizId', component: QuizDetailsComponent }
+  { path: 'quiz-details/:quizId', component: QuizDetailsComponent },
   
 
-
-
+  { path: 'payment', component: PaymentComponent } // Add the payment route
 ];

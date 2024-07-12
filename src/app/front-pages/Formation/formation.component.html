@@ -1,17 +1,67 @@
+<section class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="filter-container" *ngIf="!showingCompletedCourses">
+      <span class="filter-title">Catégorie:</span>
+      <select id="category" class="filter-select" [(ngModel)]="selectedCategory" (change)="onCategoryChange(selectedCategory)">
+        <option value="">Toutes les catégories</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+    </div>
+    <button class="btn btn-success" (click)="showCompletedCourses()">
+      📚 Mes Formations 📚
+    </button>
+  </div>
 
-<!-- Featured Courses Section -->
-<section class="featured-courses container my-5">
-  <h2 class="text-center mb-4">Featured Courses</h2>
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let course of courses">
-      <div class="card h-100 course-card">
-        <div class="card-body">
-          <h1 class="card-title">{{ course.title }}</h1>
-          <p class="card-text">{{ course.description }}</p>
-          <button class="btn btn-primary" (click)="onSaveInscription(course)">S'inscrire</button>
-        </div>
+  <div *ngIf="!showingCompletedCourses">
+    <h2 class="formation-title">⭐ Formations Recommandées ⭐</h2>
+    <div class="featured-courses">
+      <div class="formation-box" *ngFor="let course of recommendedCourses">
+        <h3>{{ course.title }}</h3>
+        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.description }}</p>
+        <p><i class="fas fa-chalkboard-teacher"></i> <strong>Formateur: </strong> {{ course.trainer }}</p>
+        <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.numberOfHours }} heures</p>
+        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.price }} $</p>
+      </div>
+    </div>
+
+    <h2 class="formation-title">📚 Toutes les Formations 📚</h2>
+    <div class="featured-courses">
+      <div class="formation-box" *ngFor="let course of displayedOffres; let i = index">
+        <h3>{{ course.title }}</h3>
+        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.description }}</p>
+        <p><i class="fas fa-chalkboard-teacher"></i> <strong>Formateur: </strong> {{ course.trainer }}</p>
+        <p><i class="fas fa-calendar-alt"></i> <strong>Date de début: </strong> {{ course.startDate | date:'short' }}</p>
+        <p><i class="fas fa-calendar-check"></i> <strong>Date de fin: </strong> {{ course.endDate | date:'short' }}</p>
+        <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.numberOfHours }} heures</p>
+        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.price }} $</p>
+        <button class="btn btn-primary mt-3" (click)="onSaveInscription(course)" [disabled]="isExpired(course)">
+          S'inscrire
+        </button>
+      </div>
+    </div>
+
+    <div class="pagination-container">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
+      <span class="pagination-info">Page {{ currentPage }} sur {{ totalPages }}</span>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">Suivant</button>
+    </div>
+  </div>
+
+  <div *ngIf="showingCompletedCourses">
+    <h2 class="formation-title">📚 Formations Complétées 📚</h2>
+    <div class="featured-courses">
+      <div class="formation-box" *ngFor="let course of completedCourses">
+        <h3>{{ course.formation.title }}</h3>
+        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.formation.description }}</p>
+        <p><i class="fas fa-chalkboard-teacher"></i> <strong>Formateur: </strong> {{ course.formation.trainer }}</p>
+        <!-- <p><i class="fas fa-calendar-alt"></i> <strong>Date de début: </strong> {{ course.formation.startDate | date:'short' }}</p>
+        <p><i class="fas fa-calendar-check"></i> <strong>Date de fin: </strong> {{ course.formation.endDate | date:'short' }}</p> -->
+        <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.formation.numberOfHours }} heures</p>
+        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.formation.price }} $</p>
+        <button class="btn btn-primary mt-3" (click)="openEvaluationModal(course)">
+          Évaluer
+        </button>
       </div>
     </div>
   </div>
 </section>
-

@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormationService } from 'src/app/_services/formation/formation.service';
 import { StorageService } from 'src/app/_services/storage.service';
 import { FormationModalComponent } from '../formation-modal/formation-modal.component';
 import { FormationCategory } from 'src/app/pages/gestion-formation/formation-category.enum';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -15,32 +14,35 @@ import { MatTableDataSource } from '@angular/material/table';
 export class GestionFormationComponent implements OnInit {
   formations: any[] = [];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
-  displayedColumns: string[] = ['title', 'description', 'location', 'startDate', 'endDate', 'price', 'numberOfHours', 'category', 'bestSeller', 'newFormation', 'actions'];
-  nouvellesformations: number = 0;
-  formationsExpirees: number = 0;
+  displayedColumns: string[] = ['title', 'description', 'location', 'startDate', 'endDate', 'price', 'numberOfHours', 'category', 'trainer', 'actions'];
   categories: string[] = Object.values(FormationCategory);
+  selectedCategory: string = 'Toutes';
   userId: any;
+  errorMessage: string = '';
+  confirmationModalRef: NgbModalRef;
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalPages: number;
   
+  nouvellesformations: number = 0; // Ajouter cette ligne
+  formationsExpirees: number = 0; // Ajouter cette ligne
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('confirmationModal') confirmationModal: TemplateRef<any>;
 
   constructor(private formationService: FormationService, private modalService: NgbModal, private storageService: StorageService) { }
 
   ngOnInit(): void {
-    this.loadAllformations();
+    this.loadAllFormations();
     this.userId = this.storageService.getUser();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  loadAllformations(): void {
+  loadAllFormations(): void {
     this.formationService.getAllFormations().subscribe(
       (data: any[]) => {
         this.formations = data;
-        this.dataSource.data = data;
-        this.calculateStatistics();
+        this.totalPages = Math.ceil(this.formations.length / this.pageSize);
+        this.dataSource.data = this.getPaginatedData();
+        this.calculateStatistics(); // Ajouter cette ligne
       },
       error => {
         console.error('Erreur lors de la récupération des formations :', error);
@@ -48,18 +50,31 @@ export class GestionFormationComponent implements OnInit {
     );
   }
 
-  calculateStatistics(): void {
-    const currentDate = new Date();
+  getPaginatedData(): any[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return this.formations.slice(startIndex, startIndex + this.pageSize);
+  }
 
-    this.nouvellesformations = this.formations.filter(formation => {
-      const createDate = new Date(formation.createDate);
-      return (currentDate.getTime() - createDate.getTime()) <= (30 * 24 * 60 * 60 * 1000);
-    }).length;
+  changePage(page: number): void {
+    if (page < 1 || page > this.totalPages) {
+      return;
+    }
+    this.currentPage = page;
+    this.dataSource.data = this.getPaginatedData();
+  }
 
-    this.formationsExpirees = this.formations.filter(formation => {
-      const expiryDate = new Date(formation.expiryDate);
-      return expiryDate < currentDate;
-    }).length;
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.dataSource.data = this.getPaginatedData();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.dataSource.data = this.getPaginatedData();
+    }
   }
 
   openModal(isEditing: boolean, formation?: any): void {
@@ -68,12 +83,22 @@ export class GestionFormationComponent implements OnInit {
     modalRef.componentInstance.isEditing = isEditing;
 
     modalRef.componentInstance.save.subscribe((result: any) => {
-      this.formationService.createFormation(result).subscribe((newformation: any) => {
-        console.log('formation ajoutée avec succès', newformation);
-        this.formations.push(newformation);
-        this.dataSource.data = this.formations; // Mettre à jour le dataSource
-        modalRef.close();
-      });
+      if (new Date(result.startDate) >= new Date(result.endDate)) {
+        this.errorMessage = 'La date de début doit être antérieure à la date de fin';
+        return;
+      }
+
+      if (isEditing) {
+        this.updateFormation(result);
+      } else {
+        this.formationService.createFormation(result).subscribe((newFormation: any) => {
+          this.formations.push(newFormation);
+          this.totalPages = Math.ceil(this.formations.length / this.pageSize);
+          this.dataSource.data = this.getPaginatedData();
+          modalRef.close();
+          this.openConfirmationModal();
+        });
+      }
     });
 
     modalRef.componentInstance.cancel.subscribe(() => {
@@ -81,15 +106,26 @@ export class GestionFormationComponent implements OnInit {
     });
   }
 
+  openConfirmationModal(): void {
+    this.confirmationModalRef = this.modalService.open(this.confirmationModal, { size: 'sm' });
+  }
+
+  closeConfirmationModal(): void {
+    if (this.confirmationModalRef) {
+      this.confirmationModalRef.close();
+    }
+  }
+
   deleteFormation(id: number): void {
-    if (confirm('Are you sure to delete this formation ?'))
-    this.formationService.deleteFormation(id).subscribe(() => {
-      this.formations = this.formations.filter(formation => formation.id !== id);
-      this.dataSource.data = this.formations; // Mettre à jour le dataSource
-      this.calculateStatistics();
-    }, error => {
-      console.error('Erreur lors de la suppression de l\'formation :', error);
-    });
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')) {
+      this.formationService.deleteFormation(id).subscribe(() => {
+        this.formations = this.formations.filter(formation => formation.id !== id);
+        this.totalPages = Math.ceil(this.formations.length / this.pageSize);
+        this.dataSource.data = this.getPaginatedData();
+      }, error => {
+        console.error('Erreur lors de la suppression de la formation :', error);
+      });
+    }
   }
 
   updateFormation(formation: any): void {
@@ -97,13 +133,13 @@ export class GestionFormationComponent implements OnInit {
       const index = this.formations.findIndex(o => o.id === formation.id);
       if (index !== -1) {
         this.formations[index] = { ...formation };
-        this.dataSource.data = this.formations; // Mettre à jour le dataSource
+        this.dataSource.data = this.getPaginatedData();
       }
-      this.calculateStatistics();
     }, error => {
-      console.error('Erreur lors de la mise à jour de l\'formation :', error);
+      console.error('Erreur lors de la mise à jour de la formation :', error);
     });
   }
+
   uploadPlanning(event: any, formationId: number): void {
     const file: File = event.target.files[0];
     if (file) {
@@ -116,5 +152,28 @@ export class GestionFormationComponent implements OnInit {
         }
       );
     }
+  }
+
+  filterByCategory(): void {
+    if (this.selectedCategory === 'Toutes') {
+      this.dataSource.data = this.formations;
+    } else {
+      this.dataSource.data = this.formations.filter(formation => formation.category === this.selectedCategory);
+    }
+    this.dataSource.paginator?.firstPage(); // Retour à la première page après le filtrage
+  }
+
+  calculateStatistics(): void {
+    const currentDate = new Date();
+
+    this.nouvellesformations = this.formations.filter(formation => {
+      const createDate = new Date(formation.startDate);
+      return (currentDate.getTime() - createDate.getTime()) <= (30 * 24 * 60 * 60 * 1000); // Formations créées dans les 30 derniers jours
+    }).length;
+
+    this.formationsExpirees = this.formations.filter(formation => {
+      const expiryDate = new Date(formation.endDate);
+      return expiryDate < currentDate;
+    }).length;
   }
 }
