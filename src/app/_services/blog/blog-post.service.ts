@@ -71,27 +71,27 @@ addReactToBlogPost(blogPostId: number, react: any): Observable<any> {
 
   // Récupérer le nombre de likes d'un article de blog
   getLikesCount(blogPostId: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/likes`);
+    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/likes`,httpOptions);
   }
 
   // Récupérer le nombre de dislikes d'un article de blog
   getDislikesCount(blogPostId: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/dislikes`);
+    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/dislikes`,httpOptions);
   }
 
   // Récupérer la réaction de l'utilisateur à un article de blog
   getUserReact(blogPostId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${blogPostId}/reacts/user`);
+    return this.http.get<any>(`${this.apiUrl}/${blogPostId}/reacts/user`,httpOptions);
   }
 
   // Récupérer les commentaires pour un article de blog
   getCommentsForBlogPost(postId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`);
+    return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`,httpOptions);
   }
 
   // Supprimer un commentaire
   deleteComment(commentId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/comments/${commentId}`);
+    return this.http.delete<void>(`${this.apiUrl}/deleteComments/${commentId}`);
   }
 
   // Mettre à jour un commentaire
@@ -116,14 +116,14 @@ addReactToBlogPost(blogPostId: number, react: any): Observable<any> {
 
 
   getCommentsCount(blogPostId: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/comments/counts`);
+    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/comments/counts`,httpOptions);
   }
 
   getLikesCounts(blogPostId: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/likes/counts`);
+    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/likes/counts`,httpOptions);
   }
 
   getDislikesCounts(blogPostId: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/dislikes/counts`);
+    return this.http.get<number>(`${this.apiUrl}/${blogPostId}/dislikes/counts`,httpOptions);
   }
 }

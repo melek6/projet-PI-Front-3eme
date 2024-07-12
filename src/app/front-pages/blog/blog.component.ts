@@ -42,8 +42,8 @@ export class BlogPostComponent implements OnInit {
   }
 
   updatePostDetails(post: any): void {
-    this.blogPostService.getLikesCount(post.id).subscribe(likes => post.likes = likes);
-    this.blogPostService.getDislikesCount(post.id).subscribe(dislikes => post.dislikes = dislikes);
+    this.blogPostService.getLikesCounts(post.id).subscribe(likes => post.likes = likes);
+    this.blogPostService.getDislikesCounts(post.id).subscribe(dislikes => post.dislikes = dislikes);
     this.blogPostService.getUserReact(post.id).subscribe(react => post.userReact = react);
     this.blogPostService.getCommentsForBlogPost(post.id).subscribe(comments => post.commentaires = comments);
   }
