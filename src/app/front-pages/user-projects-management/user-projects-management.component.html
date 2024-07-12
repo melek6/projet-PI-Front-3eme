@@ -179,7 +179,6 @@
     </div>
   </section>
 
-  <!-- Proposal Form Modal users-->
   <div *ngIf="showProposalModal" class="modal">
     <div class="modal-content">
       <span class="close" (click)="closeProposalModal()">&times;</span>
@@ -206,16 +205,17 @@
           <input
             type="file"
             id="file"
-            formControlName="file"
+            (change)="onFileChange($event)"
             class="form-control"
           />
         </div>
-        <div *ngIf="selectedProposal?.filePath">
+        <div *ngIf="selectedProposal">
           <p>Current file: {{ selectedProposal.filePath }}</p>
           <button
             type="button"
             class="btn btn-danger"
-            (click)="removeExistingFile = true"
+            (click)="deleteFile(selectedProposal.id)"
+            [disabled]="!selectedProposal.filePath"
           >
             Remove File
           </button>

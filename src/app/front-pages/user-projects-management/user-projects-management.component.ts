@@ -211,20 +211,26 @@ export class UserProjectsManagementComponent implements OnInit {
     }
   }
 
+  onFileChange(event: any): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    this.proposalForm.patchValue({
+      file: file,
+    });
+    this.proposalForm.get("file")?.updateValueAndValidity();
+  }
+
   saveProposal(): void {
     if (this.proposalForm.valid && this.selectedProposal) {
       const proposalData = this.proposalForm.value;
       let file: File | null = null;
 
-      if (proposalData.file) {
-        const fileInputElement = proposalData.file as HTMLInputElement;
-        if (fileInputElement.files && fileInputElement.files.length > 0) {
-          file = fileInputElement.files[0];
-        }
+      const fileControl = this.proposalForm.get("file");
+      if (fileControl && fileControl.value) {
+        file = fileControl.value;
       }
 
       this.marketplaceService
-        .updateUserProposition(
+        .updateProposal(
           this.selectedProposal.id,
           proposalData.detail,
           proposalData.amount,
@@ -362,5 +368,23 @@ export class UserProjectsManagementComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(this.qrCodeDialog);
+  }
+  deleteFile(propositionId: number): void {
+    if (propositionId) {
+      this.marketplaceService.deletePropositionFile(propositionId).subscribe(
+        () => {
+          console.log("File deleted successfully");
+          // Remove filePath from the selected proposal
+          if (this.selectedProposal) {
+            this.selectedProposal.filePath = null;
+          }
+        },
+        (error) => {
+          console.error("Error deleting file:", error);
+        }
+      );
+    } else {
+      console.error("Proposition ID is not defined");
+    }
   }
 }

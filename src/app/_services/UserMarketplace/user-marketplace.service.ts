@@ -101,25 +101,22 @@ export class UserMarketplaceService {
     return this.http.delete<void>(`${this.proposalUrl}/user/${propositionId}`);
   }
 
-  updateUserProposition(
-    propositionId: number,
+  updateProposal(
+    proposalId: number,
     detail: string,
     amount: number,
-    file?: File,
-    removeExistingFile: boolean = false
+    file: File | null,
+    removeExistingFile: boolean
   ): Observable<any> {
     const formData: FormData = new FormData();
     formData.append("detail", detail);
     formData.append("amount", amount.toString());
     formData.append("removeExistingFile", removeExistingFile.toString());
     if (file) {
-      formData.append("file", file);
+      formData.append("file", file, file.name);
     }
 
-    return this.http.put<any>(
-      `${this.proposalUrl}/user/${propositionId}`,
-      formData
-    );
+    return this.http.put(`${this.proposalUrl}/${proposalId}`, formData);
   }
 
   downloadFile(fileName: string): Observable<Blob> {
@@ -143,5 +140,9 @@ export class UserMarketplaceService {
     return this.http.get(`${this.QrApi}/${propositionId}`, {
       responseType: "blob",
     });
+  }
+
+  deletePropositionFile(propositionId: number): Observable<void> {
+    return this.http.delete<void>(`${this.proposalUrl}/${propositionId}/file`);
   }
 }
