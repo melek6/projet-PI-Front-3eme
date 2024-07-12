@@ -11,7 +11,7 @@ const httpOptions = {
 export class QuizService {
 
   private apiUrl = 'http://localhost:8081/api/quizzes';
-
+  private api_Url = 'http://localhost:8081/api/questions';
   constructor(private http: HttpClient) {}
 
   getAllQuizzes(): Observable<any[]> {
@@ -40,6 +40,9 @@ export class QuizService {
     return this.http.get(`${this.apiUrl}/${quizId}/participate`, {
       params: { userId: userId.toString() }
     });
+  }
+  getAttentative(idUser : number, quizId : number){
+    return this.http.get<any>(`${this.api_Url}/tentative/${idUser}/${quizId}`, httpOptions);
   }
 }
 

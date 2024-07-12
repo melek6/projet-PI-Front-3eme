@@ -41,4 +41,10 @@ export class QuestionService {
     const url = `${this.apiUrl}/${id}/responses`;
     return this.http.get<string[]>(url);
   }
+
+
+  sendEmailValidationToUser(idUser : number, score : number, quizId){
+    return this.http.post<any>(`${this.apiUrl}/sendMail/${idUser}/${score}/${quizId}`, httpOptions);
+  }
+
 }
