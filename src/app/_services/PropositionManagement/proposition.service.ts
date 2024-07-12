@@ -42,4 +42,5 @@ export class PropositionService {
   getProjects(): Observable<any[]> {
     return this.http.get<any[]>(`${this.projectsUrl}/all`);
   }
+  
 }

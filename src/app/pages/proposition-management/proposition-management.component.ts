@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { PropositionService } from 'src/app/_services/PropositionManagement/proposition.service';
+import { UserMarketplaceService } from "src/app/_services/UserMarketplace/user-marketplace.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export interface PropositionData {
@@ -18,6 +19,7 @@ export interface PropositionData {
     id: number;
     username: string;
   };
+  filePath: string;
 }
 
 @Component({
@@ -38,6 +40,7 @@ export class PropositionManagementComponent implements OnInit {
 
   constructor(
     private propositionService: PropositionService,
+    private UserMarketplaceService: UserMarketplaceService,
     public dialog: MatDialog,
     private fb: FormBuilder
   ) {
@@ -159,6 +162,27 @@ export class PropositionManagementComponent implements OnInit {
       }
     );
   }
+
+  downloadFileBtn(filePath: string): void {
+    const decodedFilePath = decodeURIComponent(filePath.split("?")[0].split("/").pop() || filePath);
+    this.UserMarketplaceService.downloadFile(decodedFilePath).subscribe(
+      (data) => {
+        const blob = new Blob([data], { type: "application/octet-stream" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = decodedFilePath;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+      },
+      (error) => {
+        console.error("Error downloading file:", error);
+      }
+    );
+  }
+  
 
   resetForm() {
     this.propositionForm.reset({

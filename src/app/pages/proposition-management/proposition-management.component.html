@@ -23,7 +23,6 @@
     </div>
   </div>
 </div>
-
 <div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
@@ -66,6 +65,7 @@
                 <button mat-raised-button color="warn" (click)="deleteProposition(proposition.id)">Supprimer</button>
                 <button mat-raised-button color="primary" (click)="approveProposition(proposition.id)">Approuver</button>
                 <button mat-raised-button color="accent" (click)="declineProposition(proposition.id)">Décliner</button>
+                <button mat-raised-button color="default" *ngIf="proposition.filePath"  (click)="downloadFileBtn(proposition.filePath)">Télécharger</button>
               </td>
             </ng-container>
 
