@@ -17,10 +17,10 @@
     <div class="featured-courses">
       <div class="formation-box" *ngFor="let course of recommendedCourses">
         <h3>{{ course.title }}</h3>
-        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.description | slice:0:100 }}{{ course.description.length > 100 ? '...' : '' }}</p>
+        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.description }}</p>
         <p><i class="fas fa-chalkboard-teacher"></i> <strong>Formateur: </strong> {{ course.trainer }}</p>
         <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.numberOfHours }} heures</p>
-        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.price }} $US</p>
+        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.price }} $</p>
       </div>
     </div>
 
@@ -28,12 +28,12 @@
     <div class="featured-courses">
       <div class="formation-box" *ngFor="let course of displayedOffres; let i = index">
         <h3>{{ course.title }}</h3>
-        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.description | slice:0:100 }}{{ course.description.length > 100 ? '...' : '' }}</p>
+        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.description }}</p>
         <p><i class="fas fa-chalkboard-teacher"></i> <strong>Formateur: </strong> {{ course.trainer }}</p>
         <p><i class="fas fa-calendar-alt"></i> <strong>Date de début: </strong> {{ course.startDate | date:'short' }}</p>
         <p><i class="fas fa-calendar-check"></i> <strong>Date de fin: </strong> {{ course.endDate | date:'short' }}</p>
         <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.numberOfHours }} heures</p>
-        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.price }} $US</p>
+        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.price }} $</p>
         <button class="btn btn-primary mt-3" (click)="onSaveInscription(course)" [disabled]="isExpired(course)">
           S'inscrire
         </button>
@@ -52,12 +52,12 @@
     <div class="featured-courses">
       <div class="formation-box" *ngFor="let course of completedCourses">
         <h3>{{ course.formation.title }}</h3>
-        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.formation.description | slice:0:100 }}{{ course.formation.description.length > 100 ? '...' : '' }}</p>
+        <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.formation.description }}</p>
         <p><i class="fas fa-chalkboard-teacher"></i> <strong>Formateur: </strong> {{ course.formation.trainer }}</p>
-        <p><i class="fas fa-calendar-alt"></i> <strong>Date de début: </strong> {{ course.formation.startDate | date:'short' }}</p>
-        <p><i class="fas fa-calendar-check"></i> <strong>Date de fin: </strong> {{ course.formation.endDate | date:'short' }}</p>
+        <!-- <p><i class="fas fa-calendar-alt"></i> <strong>Date de début: </strong> {{ course.formation.startDate | date:'short' }}</p>
+        <p><i class="fas fa-calendar-check"></i> <strong>Date de fin: </strong> {{ course.formation.endDate | date:'short' }}</p> -->
         <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.formation.numberOfHours }} heures</p>
-        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.formation.price }} $US</p>
+        <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.formation.price }} $</p>
         <button class="btn btn-primary mt-3" (click)="openEvaluationModal(course)">
           Évaluer
         </button>

@@ -131,14 +131,15 @@ export class FormationComponent implements OnInit {
   openEvaluationModal(course: any): void {
     const modalRef = this.modalService.open(EvalformationModalComponent);
     modalRef.componentInstance.course = course;
-
+  
     modalRef.componentInstance.save.subscribe((evaluation: any) => {
-      this.formationService.addEvaluationToFormation(course.formation.id, evaluation).subscribe(
+      this.formationService.addEvaluationToFormation(course.id, evaluation).subscribe(
         response => {
-          console.log('Évaluation ajoutée avec succès', response);
+          console.log('Evaluation added successfully', response);
+          modalRef.close();
         },
         error => {
-          console.error('Erreur lors de l\'ajout de l\'évaluation:', error);
+          console.error('Failed to add evaluation:', error);
         }
       );
     });

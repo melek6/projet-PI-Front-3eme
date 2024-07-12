@@ -23,28 +23,56 @@
 }
 
 .formation-box {
-  background-color: #f8f9fa;
+  background-color: #fff; /* Blanc pour une meilleure lisibilité */
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
   flex-basis: 48%; /* Deux éléments par ligne */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre pour l'effet de carte */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajoute une transition pour l'effet de survol */
+}
+
+.formation-box:hover {
+  transform: translateY(-5px); /* Légèrement soulève la carte au survol */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Augmente l'ombre au survol */
 }
 
 .formation-box h3 {
   font-size: 1.5em;
   margin-bottom: 10px;
+  color: #343a40; /* Noir pour une meilleure lisibilité */
 }
 
 .formation-box p {
   font-size: 1em;
+  color: #6c757d; /* Gris pour un contraste agréable */
+  line-height: 1.6;
   margin-bottom: 5px;
+}
+
+.formation-box p strong {
+  color: #343a40; /* Noir pour une meilleure lisibilité */
+}
+
+.formation-box i {
+  margin-right: 5px;
+  color: #777;
 }
 
 .formation-box button {
   width: 100%;
   font-size: 1em;
   padding: 10px;
+  background-color: #007bff; /* Bleu pour les boutons */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.formation-box button:hover {
+  background-color: #0056b3; /* Bleu plus foncé au survol */
 }
 
 .pagination-container {
@@ -61,6 +89,7 @@
   padding: 10px 20px;
   margin: 0 5px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .pagination-info {
