@@ -1,30 +1,139 @@
-<div class="chat-container">
-    <div class="user-list">
-      <h3>Users</h3>
-      <ul>
-        <li *ngFor="let user of users" (click)="selectUser(user.id)">
-          {{ user.username }}
-        </li>
-      </ul>
+<div class="container-fluid h-100 mt-5">
+  <div class="row justify-content-center h-100">
+    <div class="col-md-4 col-xl-2 chat">
+      <div class="card mb-sm-3 mb-md-0 contacts_card">
+        <div class="card-header">
+          <h1 class="chat-list-title">All User</h1>
+        </div>
+        <div class="card-body contacts_body">
+          <ul class="contacts chatList">
+            <li *ngFor="let user of allUsers" (click)="goToChat(user.id)">
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                  <div class="rounded-circle user_img text_inside_circle">
+                    {{ user.username.charAt(0) }}
+                  </div>
+                </div>
+                <div class="user_info">
+                  <div>{{ user.username }}</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-footer"></div>
+      </div>
     </div>
-    <div class="conversations-list">
-      <h3>Conversations</h3>
-      <ul>
-        <li *ngFor="let conversation of conversations" (click)="selectUser(conversation.senderId === loggedInUserId ? conversation.recipientId : conversation.senderId)">
-          {{ conversation.senderId === loggedInUserId ? conversation.recipientUsername : conversation.senderUsername }}
-        </li>
-      </ul>
-    </div>
-    <div class="chat-box">
-      <div class="message-list">
-        <div *ngFor="let message of messages" [ngClass]="{'sent': message.senderId === loggedInUserId, 'received': message.senderId !== loggedInUserId}">
-          <span>{{ message.content }}</span>
+
+    <div class="col-md-8 col-xl-5 chat">
+      <div class="card">
+        <div class="card-header msg_head">
+          <div class="d-flex bd-highlight">
+            <div class="img_cont">
+              <div class="rounded-circle user_img text_inside_circle1">
+                {{ otherUserUsername?.charAt(0) }}
+              </div>
+            </div>
+            <div class="user_info">
+              <span>{{ otherUserUsername }}</span>
+              <p>Message</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="card-body msg_card_body"
+          #scrollMe
+          [scrollTop]="scrollMe.scrollHeight"
+        >
+          <div *ngFor="let msg of userMessages">
+            <!-- Check if the current user sent the message -->
+            <div
+              class="d-flex justify-content-end mb-4"
+              *ngIf="msg.userFromId === user.id"
+            >
+              <div class="msg_cotainer_send">
+                {{ msg.text }}
+                <span class="msg_time_send">{{
+                  msg.sendTime | date : "shortTime"
+                }}</span>
+              </div>
+              <div class="img_cont_msg">
+                <span class="rounded-circle user_img_msg text_inside_circle2">{{
+                  msg.userFromUsername.charAt(0)
+                }}</span>
+              </div>
+            </div>
+            <!-- If the message was received by the current user -->
+            <div
+              class="d-flex justify-content-start mb-4"
+              *ngIf="msg.userFromId !== user.id"
+            >
+              <div class="img_cont_msg">
+                <span class="rounded-circle user_img_msg text_inside_circle3">{{
+                  msg.userFromUsername.charAt(0)
+                }}</span>
+              </div>
+              <div class="msg_cotainer">
+                {{ msg.text }}
+                <span class="msg_time">{{
+                  msg.sendTime | date : "shortTime"
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <form [formGroup]="chatForm">
+            <div class="input-group">
+              <textarea
+                class="form-control type_msg"
+                placeholder="Type your message..."
+                formControlName="replyMessage"
+              ></textarea>
+              <div class="input-group-append">
+                <button
+                  class="input-group-text send_btn"
+                  (click)="sendMessage()"
+                >
+                  <i class="fa fa-location-arrow"></i>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="message-input">
-        <input [(ngModel)]="newMessage" placeholder="Type your message..." />
-        <button (click)="sendMessage()">Send</button>
+    </div>
+
+    <div class="col-md-4 col-xl-2 chat">
+      <div class="card mb-sm-3 mb-md-0 contacts_card">
+        <div class="card-header">
+          <h1 class="chat-list-title">Chat List</h1>
+        </div>
+        <div class="card-body contacts_body">
+          <ul class="contacts chatList">
+            <li
+              *ngFor="let chat of chatList"
+              (click)="
+                loadChatByEmail(chat.user1.username, chat.user2.username)
+              "
+            >
+              <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                  <div class="rounded-circle user_img text_inside_circle">
+                    {{ chat.user1.username.charAt(0) }}
+                  </div>
+                </div>
+                <div class="user_info">
+                  <div>{{ chat.user1.username }}</div>
+                  <div>{{ chat.user2.username }}</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer"></div>
       </div>
     </div>
   </div>
-  
+</div>

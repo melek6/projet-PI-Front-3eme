@@ -1,7 +1,11 @@
+<!-- src/app/user-projects-management/user-projects-management.component.html -->
+
 <section class="user-projects container my-5">
   <h2 class="text-center mb-4">My Projects</h2>
   <div class="text-right mb-4">
-    <button class="btn btn-primary" (click)="openCreateForm()">Create New Project</button>
+    <button class="btn btn-primary" (click)="openCreateForm()">
+      Create New Project
+    </button>
   </div>
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let project of projects">
@@ -12,10 +16,18 @@
           <p class="card-text">Skills Required: {{ project.skillsRequired }}</p>
           <p class="card-text">Budget: {{ project.budget | currency }}</p>
           <p class="card-text">Deadline: {{ project.deadline | date }}</p>
-          <p class="card-text">Number of Propositions: {{ project.nbPropositions }}</p>
-          <button class="btn btn-warning" (click)="openEditForm(project)">Edit</button>
-          <button class="btn btn-danger" (click)="deleteProject(project.id)">Delete</button>
-          <button class="btn btn-info" (click)="openDetails(project)">Details</button>
+          <p class="card-text">
+            Number of Propositions: {{ project.nbPropositions }}
+          </p>
+          <button class="btn btn-warning" (click)="openEditForm(project)">
+            Edit
+          </button>
+          <button class="btn btn-danger" (click)="deleteProject(project.id)">
+            Delete
+          </button>
+          <button class="btn btn-info" (click)="openDetails(project)">
+            Details
+          </button>
         </div>
       </div>
     </div>
@@ -28,36 +40,64 @@
       <form [formGroup]="projectForm" (ngSubmit)="saveProject()">
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" id="title" formControlName="title" class="form-control" />
+          <input
+            type="text"
+            id="title"
+            formControlName="title"
+            class="form-control"
+          />
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea id="description" formControlName="description" class="form-control"></textarea>
+          <textarea
+            id="description"
+            formControlName="description"
+            class="form-control"
+          ></textarea>
         </div>
         <div class="form-group">
           <label for="category">Category</label>
           <select id="category" formControlName="category" class="form-control">
-            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
           </select>
         </div>
         <div class="form-group">
           <label for="skillsRequired">Skills Required</label>
-          <input type="text" id="skillsRequired" formControlName="skillsRequired" class="form-control" />
+          <input
+            type="text"
+            id="skillsRequired"
+            formControlName="skillsRequired"
+            class="form-control"
+          />
         </div>
         <div class="form-group">
           <label for="deadline">Deadline</label>
-          <input type="date" id="deadline" formControlName="deadline" class="form-control" />
+          <input
+            type="date"
+            id="deadline"
+            formControlName="deadline"
+            class="form-control"
+          />
         </div>
         <div class="form-group">
           <label for="budget">Budget</label>
-          <input type="number" id="budget" formControlName="budget" class="form-control" />
+          <input
+            type="number"
+            id="budget"
+            formControlName="budget"
+            class="form-control"
+          />
         </div>
-        <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Create' }}</button>
+        <button type="submit" class="btn btn-primary">
+          {{ isEditing ? "Update" : "Create" }}
+        </button>
       </form>
     </div>
   </div>
 
-  <!-- Propositions Modal -->
+  <!-- Propositions Modal inside projects-->
   <div *ngIf="showPropositionsModal" class="modal">
     <div class="modal-content">
       <span class="close" (click)="closePropositionsModal()">&times;</span>
@@ -67,10 +107,121 @@
           <p>{{ proposition.detail }}</p>
           <p>Amount: {{ proposition.amount | currency }}</p>
           <p>Status: {{ proposition.status }}</p>
-          <button class="btn btn-success" (click)="approveProposition(proposition.id)">Approve</button>
-          <button class="btn btn-danger" (click)="declineProposition(proposition.id)">Decline</button>
+          <button
+            class="btn btn-success"
+            [disabled]="proposition.status === 'APPROVED'"
+            (click)="approveProposition(proposition.id)"
+          >
+            Approve
+          </button>
+          <button
+            class="btn btn-danger"
+            [disabled]="proposition.status === 'APPROVED'"
+            (click)="declineProposition(proposition.id)"
+          >
+            Decline
+          </button>
+          <button
+            *ngIf="proposition.filePath"
+            class="btn btn-primary"
+            (click)="downloadFileBtn(proposition.filePath)"
+          >
+            Download
+          </button>
+          <button
+            *ngIf="proposition.filePath"
+            class="btn btn-info"
+            (click)="generateQRCode(proposition.id)"
+          >
+            QR Code
+          </button>
         </li>
       </ul>
+    </div>
+  </div>
+
+  <!-- QR Code Dialog -->
+  <ng-template #qrCodeDialog>
+    <div class="modal-content">
+      <span class="close" (click)="dialog.closeAll()">&times;</span>
+      <h3>QR Code for Download</h3>
+      <div *ngIf="qrCodeImage">
+        <img [src]="'data:image/png;base64,' + qrCodeImage" alt="QR Code" />
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- User Proposals Section -->
+  <section class="user-proposals container my-5">
+    <h2 class="text-center mb-4">My Proposals</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let proposal of userProposals">
+        <div class="card h-100 proposal-card">
+          <div class="card-body">
+            <p class="card-text">{{ proposal.detail }}</p>
+            <p class="card-text">Amount: {{ proposal.amount | currency }}</p>
+            <p class="card-text">Status: {{ proposal.status }}</p>
+            <button
+              class="btn btn-danger"
+              (click)="deleteUserProposition(proposal.id)"
+            >
+              Delete
+            </button>
+            <button
+              class="btn btn-warning"
+              (click)="openProposalEditForm(proposal)"
+            >
+              Modify
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="showProposalModal" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeProposalModal()">&times;</span>
+      <form [formGroup]="proposalForm" (ngSubmit)="saveProposal()">
+        <div class="form-group">
+          <label for="detail">Detail</label>
+          <textarea
+            id="detail"
+            formControlName="detail"
+            class="form-control"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            formControlName="amount"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="file">File</label>
+          <input
+            type="file"
+            id="file"
+            (change)="onFileChange($event)"
+            class="form-control"
+          />
+        </div>
+        <div *ngIf="selectedProposal">
+          <p>Current file: {{ selectedProposal.filePath }}</p>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteFile(selectedProposal.id)"
+            [disabled]="!selectedProposal.filePath"
+          >
+            Remove File
+          </button>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
     </div>
   </div>
 </section>
