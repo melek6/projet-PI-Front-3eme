@@ -17,10 +17,15 @@ export class BlogPostComponent implements OnInit {
   replyContent: { [key: number]: string } = {};
   createFormVisible: boolean = false;
   newPost: any = { title: '', content: '' };
+  errorMessage: string | null = null;
 
-  constructor(private blogPostService: BlogPostService , private storageService:StorageService) {}
+  constructor(private blogPostService: BlogPostService, private storageService: StorageService) {}
 
   ngOnInit(): void {
+    this.loadBlogPosts();
+  }
+
+  loadBlogPosts(): void {
     this.blogPostService.getAllBlogPosts().subscribe((data: any[]) => {
       this.blogPosts = data.map(post => ({
         ...post,
@@ -31,12 +36,16 @@ export class BlogPostComponent implements OnInit {
       }));
 
       this.blogPosts.forEach(post => {
-        //this.blogPostService.getLikesCount(post.id).subscribe(likes => post.likes = likes);
-       // this.blogPostService.getDislikesCount(post.id).subscribe(dislikes => post.dislikes = dislikes);
-        //this.blogPostService.getUserReact(post.id).subscribe(react => post.userReact = react);
-        this.blogPostService.getCommentsForBlogPost(post.id).subscribe(comments => post.commentaires = comments);
+        this.updatePostDetails(post);
       });
     });
+  }
+
+  updatePostDetails(post: any): void {
+    this.blogPostService.getLikesCount(post.id).subscribe(likes => post.likes = likes);
+    this.blogPostService.getDislikesCount(post.id).subscribe(dislikes => post.dislikes = dislikes);
+    this.blogPostService.getUserReact(post.id).subscribe(react => post.userReact = react);
+    this.blogPostService.getCommentsForBlogPost(post.id).subscribe(comments => post.commentaires = comments);
   }
 
   likePost(post: any): void {
@@ -44,32 +53,36 @@ export class BlogPostComponent implements OnInit {
       post.userReact = null;
       post.likes--;
     } else {
-      if (post.userReact && post.userReact.type === 'dislike') {
+      if (post.userReact && post.userReact.type === 'dislik') {
         post.dislikes--;
       }
       post.userReact = { type: 'like' };
       post.likes++;
     }
+
     this.blogPostService.addReactToBlogPost(post.id, post.userReact).subscribe(() => {
       console.log('Post liked/disliked:', post);
+      this.updatePostDetails(post); // Mettre à jour les détails du post localement
     }, error => {
       console.error('Error updating post reaction:', error);
     });
   }
 
   dislikePost(post: any): void {
-    if (post.userReact && post.userReact.type === 'dislike') {
+    if (post.userReact && post.userReact.type === 'dislik') {
       post.userReact = null;
       post.dislikes--;
     } else {
       if (post.userReact && post.userReact.type === 'like') {
         post.likes--;
       }
-      post.userReact = { type: 'dislike' };
+      post.userReact = { type: 'dislik' };
       post.dislikes++;
     }
+
     this.blogPostService.addReactToBlogPost(post.id, post.userReact).subscribe(() => {
       console.log('Post liked/disliked:', post);
+      this.updatePostDetails(post); // Mettre à jour les détails du post localement
     }, error => {
       console.error('Error updating post reaction:', error);
     });
@@ -95,6 +108,7 @@ export class BlogPostComponent implements OnInit {
     this.blogPostService.updateBlogPost(post.id, post).subscribe(() => {
       console.log('Post updated:', post);
       this.editFormVisible[post.id] = false;
+      this.updatePostDetails(post); // Mettre à jour les détails du post localement
     }, error => {
       console.error('Error updating post:', error);
     });
@@ -102,6 +116,8 @@ export class BlogPostComponent implements OnInit {
 
   toggleCreateForm(): void {
     this.createFormVisible = !this.createFormVisible;
+    this.errorMessage = null; // Reset error message when toggling form
+
   }
 
   createPost(): void {
@@ -109,9 +125,14 @@ export class BlogPostComponent implements OnInit {
       this.blogPosts.push(createdPost);
       this.newPost = { title: '', content: '' };
       this.createFormVisible = false;
-    }, error => {
-      console.error('Error creating post:', error);
-    });
+    },(error) => {
+      if (error.status === 400 && error.error) {
+        this.errorMessage = error.error;
+      } else {
+        this.errorMessage = 'An unexpected error occurred.';
+      }
+    }
+  );
   }
 
   deletePost(id: number): void {
@@ -165,6 +186,7 @@ export class BlogPostComponent implements OnInit {
       this.showReplyForm[parentId] = false;
     });
   }
+
   rephraseContent(): void {
     this.blogPostService.rephrase(this.newPost.content).subscribe((rephrasedContent: any) => {
       this.newPost.content = rephrasedContent[0].generated_text;
@@ -172,6 +194,7 @@ export class BlogPostComponent implements OnInit {
       console.error('Error rephrasing content:', error);
     });
   }
+
   userIsOwner(userId: number): boolean {
     return this.storageService.getUser().id === userId;
   }

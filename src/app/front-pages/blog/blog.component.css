@@ -139,11 +139,11 @@
 }
 
 .cancel-button {
-  background-color: #dc3545;
+  background-color: #f9f9f9;
 }
 
 .cancel-button:hover {
-  background-color: #c82333;
+  background-color: #f9f9f9;
 }
 
 .delete-button {
@@ -230,7 +230,7 @@
 /* Create button */
 .create-button {
   padding: 15px 30px;
-  background-color: #28a745;
+  background-color: #f9f9f9;
   color: #fff;
   border: none;
   border-radius: 30px;
@@ -243,7 +243,7 @@
 }
 
 .create-button:hover {
-  background-color: #218838;
+  background-color: #f9f9f9;
   transform: translateY(-2px);
 }
 
@@ -275,7 +275,7 @@
 }
 
 .submit-button {
-  background-color: #28a745;
+  background-color: #f9f9f9;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -290,12 +290,12 @@
 }
 
 .submit-button:hover {
-  background-color: #218838;
+  background-color: #f9f9f9;
   transform: translateY(-2px);
 }
 
 .cancel-button {
-  background-color: #dc3545;
+  background-color: #f9f9f9;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -308,7 +308,7 @@
 }
 
 .cancel-button:hover {
-  background-color: #c82333;
+  background-color: #f9f9f9;
   transform: translateY(-2px);
 }
 
@@ -354,4 +354,87 @@
   .blog-grid {
     grid-template-columns: 1fr;
   }
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem; 
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem; 
+}
+
+.rephrase-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff; 
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rephrase-button:hover {
+  background-color: #0056b3; 
+}
+.submit-button1{
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+
+  margin-left:84% ;
+  background-color: #218838;
+    transform: translateY(-2px);
+
+}
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
 }
