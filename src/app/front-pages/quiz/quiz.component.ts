@@ -11,6 +11,7 @@ import { StorageService } from 'src/app/_services/storage.service';
 export class QuizComponent implements OnInit {
   quizzes: any[] = [];
   currentUser: any;
+isParticipate : boolean = true;
   qaList = [
     { question: "Comment puis-je commencer le quiz?", answer: "Cliquez sur le bouton 'Démarrer le quiz' pour commencer." },
     { question: "Combien de temps dure chaque question?", answer: "Chaque question a une durée de 30 secondes." },
@@ -38,7 +39,16 @@ export class QuizComponent implements OnInit {
   }
 
   participate(quiz: any): void {
-    this.router.navigate(['/quiz-details', quiz.id]);
+    
+    this.quizService.getAttentative(this.currentUser.id, quiz.id).subscribe( (response : any)=>{
+      console.log("rrrr",response)
+      if(response.length != 0){
+        alert("vous avez déja participer a ce quiz")
+        this.isParticipate = false;
+      }else{
+        this.router.navigate(['/quiz-details', quiz.id]);
+      }
+    })
   }
   /*participate(quiz: any): void {
     this.quizService.checkUserAttempt(quiz.id, this.currentUser.id).subscribe(
