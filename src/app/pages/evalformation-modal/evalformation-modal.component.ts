@@ -1,5 +1,6 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-evalformation-modal',
@@ -14,8 +15,10 @@ export class EvalformationModalComponent implements OnInit {
 
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
-
-  constructor() { }
+  comments: string = '';
+  score: number | null = null;
+  @Input() course: any;
+  constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
     if (!this.evalformation) {
@@ -28,11 +31,17 @@ export class EvalformationModalComponent implements OnInit {
   }
 
   onSave(): void {
-    this.save.emit(this.evalformation);
+    const evaluation = {
+      comments: this.comments,
+      score: this.score,
+      createDate: new Date(),
+      formation: this.course.formation
+    };
+    this.save.emit(evaluation);
+    this.activeModal.close();
   }
-
   onCancel(): void {
-    this.cancel.emit();
+    this.activeModal.dismiss();
   }
 
 }

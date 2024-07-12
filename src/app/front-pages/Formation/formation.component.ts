@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormationService } from 'src/app/_services/formation/formation.service';
 import { InscritformationService } from 'src/app/_services/inscritformation/inscritformation.service';
+import { StorageService } from 'src/app/_services/storage.service';
+import { EvalformationModalComponent } from 'src/app/pages/evalformation-modal/evalformation-modal.component';
 import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal.component';
 
 @Component({
@@ -18,17 +20,21 @@ export class FormationComponent implements OnInit {
   pageSize: number = 10;
   categories: string[] = []; // Pour stocker les catégories de formation
   selectedCategory: string = ''; // Catégorie sélectionnée par l'utilisateur
+  completedCourses: any[] = [];
+  showingCompletedCourses: boolean = false;
   constructor(
     private formationService: FormationService,
     private inscritService: InscritformationService,
     private modalService: NgbModal,
     private router: Router,
+    private storageService: StorageService,
   ) { }
 
   ngOnInit(): void {
     this.getAllFormations();
     this.getRecommendedFormations();
     this.getCategories();
+    this.getCompletedFormations();
   }
 
   getAllFormations(): void {
@@ -106,5 +112,35 @@ export class FormationComponent implements OnInit {
 
   get totalPages(): number {
     return Math.ceil(this.courses.length / this.pageSize);
+  }
+  
+  getCompletedFormations(): void {
+    const user = this.storageService.getUser(); // Obtenez l'utilisateur actuel
+    const userId = user ? user.id : null;
+    if (userId) {
+      this.formationService.getCompletedFormationsByUser(userId).subscribe(data => {
+        this.completedCourses = data;
+      });
+    } else {
+      console.error('User not found.');
+    }
+  }
+  showCompletedCourses(): void {
+    this.showingCompletedCourses = !this.showingCompletedCourses;
+  }
+  openEvaluationModal(course: any): void {
+    const modalRef = this.modalService.open(EvalformationModalComponent);
+    modalRef.componentInstance.course = course;
+
+    modalRef.componentInstance.save.subscribe((evaluation: any) => {
+      this.formationService.addEvaluationToFormation(course.formation.id, evaluation).subscribe(
+        response => {
+          console.log('Évaluation ajoutée avec succès', response);
+        },
+        error => {
+          console.error('Erreur lors de l\'ajout de l\'évaluation:', error);
+        }
+      );
+    });
   }
 }
