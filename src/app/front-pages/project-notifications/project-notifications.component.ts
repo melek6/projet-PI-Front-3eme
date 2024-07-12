@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 import {
   WebsocketService,
   WSMessage,
@@ -9,20 +10,26 @@ import {
   templateUrl: "./project-notifications.component.html",
   styleUrls: ["./project-notifications.component.css"],
 })
-export class ProjectNotificationsComponent implements OnInit {
-  notifications: WSMessage[] = [];
+export class ProjectNotificationsComponent implements OnInit, OnDestroy {
+  message: string;
+  messages: WSMessage[] = [];
+  private messagesSubscription: Subscription;
 
   constructor(private websocketService: WebsocketService) {}
 
   ngOnInit(): void {
-    this.websocketService.subscribeToMessages().subscribe(
-      (message: WSMessage) => {
-        console.log("Received notification:", message); // Log received message
-        this.notifications.push(message);
-      },
-      (error) => {
-        console.error("Error receiving messages:", error);
+    this.websocketService.connect();
+    this.messagesSubscription = this.websocketService.messages$.subscribe(
+      (msg: WSMessage) => {
+        this.messages.push(msg);
       }
     );
+  }
+
+  ngOnDestroy() {
+    if (this.messagesSubscription) {
+      this.messagesSubscription.unsubscribe();
+    }
+    this.websocketService.disconnect();
   }
 }

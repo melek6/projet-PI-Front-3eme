@@ -1,43 +1,93 @@
 import { Injectable } from "@angular/core";
-import { StompService } from "@stomp/ng2-stompjs";
-import { StompConfig } from "@stomp/ng2-stompjs";
-import { Message } from "@stomp/stompjs";
+import {
+  Client,
+  IMessage,
+  Message,
+  Stomp,
+  StompSubscription,
+} from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
 export class WebsocketService {
-  private stompService: StompService;
-
+  private client: Client;
+  private messagesSubject: Subject<WSMessage> = new Subject<WSMessage>();
+  public messages$: Observable<WSMessage> = this.messagesSubject.asObservable();
   constructor() {
-    const backendUrl = "http://localhost:8081/ws"; // Replace with your Spring Boot backend URL
-    const stompConfig: StompConfig = {
-      url: () => new SockJS(backendUrl),
-      headers: {},
-      heartbeat_in: 0,
-      heartbeat_out: 20000,
-      reconnect_delay: 5000,
-      debug: true,
+    this.client = new Client({
+      brokerURL: undefined,
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      webSocketFactory: () => new SockJS("http://localhost:8081/ws"),
+    });
+
+    this.client.onConnect = (frame) => {
+      console.log("Connected: " + frame);
+      this.client.subscribe("/all/WSmessage", (message: IMessage) => {
+        this.onMessageReceived(message);
+      });
     };
 
-    this.stompService = new StompService(stompConfig);
-    this.stompService.initAndConnect();
+    this.client.onStompError = (frame) => {
+      console.error("Broker reported error: " + frame.headers["message"]);
+      console.error("Additional details: " + frame.body);
+    };
   }
 
-  public subscribeToMessages(): Observable<WSMessage> {
-    return this.stompService
-      .subscribe("/all/WSmessage")
-      .pipe(map((message: Message) => JSON.parse(message.body) as WSMessage));
+  // constructor() {
+  //   const backendUrl = "http://localhost:8081/ws";
+  //   const stompConfig: StompConfig = {
+  //     url: () => new SockJS(backendUrl),
+  //     headers: {},
+  //     heartbeat_in: 0,
+  //     heartbeat_out: 20000,
+  //     reconnect_delay: 5000,
+  //     debug: true,
+  //   };
+  //   this.stompService = new StompService(stompConfig);
+  //   this.stompService.initAndConnect();
+  // }
+
+  // public subscribeToMessages(): Observable<WSMessage> {
+  //   return this.stompService
+  //     .subscribe("/app/broadcast")
+  //     .pipe(map((message: Message) => JSON.parse(message.body) as WSMessage));
+  // }
+
+  // public broadcastMessage(wsMessage: WSMessage): void {
+  //   this.stompService.publish({
+  //     destination: "/app/broadcast",
+  //     body: JSON.stringify(wsMessage),
+  //   });
+  // }
+
+  connect() {
+    this.client.activate();
   }
 
-  public sendMessage(wsMessage: WSMessage): void {
-    this.stompService.publish({
+  disconnect() {
+    if (this.client.active) {
+      this.client.deactivate();
+      console.log("Disconnected");
+    }
+  }
+
+  sendMessage(wsMessage: WSMessage) {
+    this.client.publish({
       destination: "/app/application",
       body: JSON.stringify(wsMessage),
     });
+  }
+
+  onMessageReceived(message: Message) {
+    console.log("Message received from server: ", message.body);
+    const wsMessage: WSMessage = JSON.parse(message.body);
+    this.messagesSubject.next(wsMessage);
   }
 }
 

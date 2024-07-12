@@ -1,8 +1,11 @@
-<div class="notifications">
-  <h3>Notifications</h3>
-  <ul>
-    <li *ngFor="let notification of notifications">
-      {{ notification.from }}: {{ notification.text }}
-    </li>
-  </ul>
+<div class="container">
+  <h1>WebSocket Broadcast Messages</h1>
+  <div class="messages">
+    <h2>Messages</h2>
+    <ul>
+      <li *ngFor="let message of messages">
+        <strong>{{ message.from }}:</strong> {{ message.text }}
+      </li>
+    </ul>
+  </div>
 </div>

@@ -21,6 +21,7 @@ import { OffreComponent } from "./pages/offre/offre.component";
 import { AddOffreComponent } from "./pages/add-offre/add-offre.component";
 import { environment } from "src/environments/environment";
 import { FrontLayoutComponent } from "./layouts/front-layout/front-layout.component";
+import { WebsocketService } from "./_services/Websocket/websocket.service";
 
 @NgModule({
   imports: [
@@ -40,7 +41,12 @@ import { FrontLayoutComponent } from "./layouts/front-layout/front-layout.compon
     AuthLayoutComponent,
     // FrontLayoutComponent
   ],
-  providers: [AuthService, authInterceptorProviders, AuthGuard],
+  providers: [
+    AuthService,
+    authInterceptorProviders,
+    AuthGuard,
+    WebsocketService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

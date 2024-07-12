@@ -28,12 +28,12 @@
                   <input
                     type="text"
                     class="form-control"
-                    [(ngModel)]="adminMessage"
-                    placeholder="Enter your message here..."
+                    [(ngModel)]="broadcastText"
+                    placeholder="Enter message to broadcast"
                   />
                 </div>
                 <div class="col-auto">
-                  <button class="btn btn-primary" (click)="sendMessage()">
+                  <button class="btn btn-primary" (click)="broadcastMessage()">
                     Send
                   </button>
                 </div>

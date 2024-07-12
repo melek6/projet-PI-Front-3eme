@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  TemplateRef,
+  OnDestroy,
+} from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog } from "@angular/material/dialog";
@@ -36,7 +42,7 @@ export interface ProjectDataCreation {
   templateUrl: "./project-management.component.html",
   styleUrls: ["./project-management.component.css"],
 })
-export class ProjectManagementComponent implements OnInit {
+export class ProjectManagementComponent implements OnInit, OnDestroy {
   projects: ProjectData[] = [];
   dataSource: MatTableDataSource<ProjectData> =
     new MatTableDataSource<ProjectData>([]);
@@ -56,6 +62,9 @@ export class ProjectManagementComponent implements OnInit {
   projectForm: FormGroup;
   editMode: boolean = false;
   editProjectId: number | null = null;
+
+  messages: WSMessage[] = [];
+  broadcastText: string = "";
 
   categories: string[] = [];
   selectedCategory: string = "";
@@ -84,6 +93,11 @@ export class ProjectManagementComponent implements OnInit {
   ngOnInit(): void {
     this.loadProjects();
     this.loadCategories();
+    this.websocketService.connect();
+  }
+
+  ngOnDestroy() {
+    this.websocketService.disconnect();
   }
 
   ngAfterViewInit() {
@@ -241,8 +255,13 @@ export class ProjectManagementComponent implements OnInit {
   }
 
   sendMessage(): void {
-    const message: WSMessage = { from: "admin", text: this.adminMessage };
+    const message: WSMessage = { from: "Client", text: "Hello from client" };
     this.websocketService.sendMessage(message);
-    this.adminMessage = ""; // Clear the input field
+  }
+
+  broadcastMessage(): void {
+    const message: WSMessage = { from: "Client", text: this.broadcastText };
+    this.websocketService.sendMessage(message);
+    this.broadcastText = "";
   }
 }
