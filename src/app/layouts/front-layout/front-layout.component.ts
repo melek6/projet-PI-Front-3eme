@@ -85,4 +85,11 @@ export class FrontLayoutComponent implements OnInit, OnDestroy {
     }
     this.websocketService.disconnect();
   }
+
+  clearNotifications(): void {
+    this.notificationService.clearNotifications().subscribe(() => {
+      this.notifications = [];
+      console.log("Notifications cleared");
+    });
+  }
 }

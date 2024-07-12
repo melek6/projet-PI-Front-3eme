@@ -46,8 +46,15 @@
               class="dropdown-item"
               href="#"
             >
-              {{ notification.text }}
+              {{ notification.text }},{{ notification.message }}
             </a>
+            <div class="dropdown-divider"></div>
+            <button
+              class="dropdown-item text-center"
+              (click)="clearNotifications()"
+            >
+              Clear Notifications
+            </button>
           </div>
         </li>
         <!-- Notification Icon -->

@@ -1,35 +1,29 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
-import {
-  WebsocketService,
-  WSMessage,
-} from "src/app/_services/Websocket/websocket.service";
+import { Component, OnInit } from "@angular/core";
+import { ProjectNotificationService } from "src/app/_services/Notification/project-notification.service";
 
 @Component({
   selector: "app-project-notifications",
   templateUrl: "./project-notifications.component.html",
   styleUrls: ["./project-notifications.component.css"],
 })
-export class ProjectNotificationsComponent implements OnInit, OnDestroy {
-  message: string;
-  messages: WSMessage[] = [];
-  private messagesSubscription: Subscription;
+export class ProjectNotificationsComponent implements OnInit {
+  notifications: any[] = [];
 
-  constructor(private websocketService: WebsocketService) {}
+  constructor(private notificationService: ProjectNotificationService) {}
 
   ngOnInit(): void {
-    this.websocketService.connect();
-    this.messagesSubscription = this.websocketService.messages$.subscribe(
-      (msg: WSMessage) => {
-        this.messages.push(msg);
-      }
-    );
+    this.loadNotifications();
   }
 
-  ngOnDestroy() {
-    if (this.messagesSubscription) {
-      this.messagesSubscription.unsubscribe();
-    }
-    this.websocketService.disconnect();
+  loadNotifications(): void {
+    this.notificationService.getNotifications().subscribe(
+      (data) => {
+        this.notifications = data;
+        console.log("Notifications:", this.notifications);
+      },
+      (error) => {
+        console.error("Error fetching notifications", error);
+      }
+    );
   }
 }

@@ -1,11 +1,11 @@
-<div class="container">
-  <h1>WebSocket Broadcast Messages</h1>
-  <div class="messages">
-    <h2>Messages</h2>
-    <ul>
-      <li *ngFor="let message of messages">
-        <strong>{{ message.from }}:</strong> {{ message.text }}
-      </li>
-    </ul>
-  </div>
+<div class="notification-container">
+  <h2>Notifications</h2>
+  <ul *ngIf="notifications.length > 0; else noNotifications">
+    <li *ngFor="let notification of notifications">
+      {{ notification.message }}
+    </li>
+  </ul>
+  <ng-template #noNotifications>
+    <p>No notifications available</p>
+  </ng-template>
 </div>

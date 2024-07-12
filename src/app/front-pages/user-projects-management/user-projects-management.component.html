@@ -110,12 +110,14 @@
           <p>Status: {{ proposition.status }}</p>
           <button
             class="btn btn-success"
+            [disabled]="proposition.status === 'APPROVED'"
             (click)="approveProposition(proposition.id)"
           >
             Approve
           </button>
           <button
             class="btn btn-danger"
+            [disabled]="proposition.status === 'APPROVED'"
             (click)="declineProposition(proposition.id)"
           >
             Decline

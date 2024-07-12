@@ -133,4 +133,8 @@ export class UserMarketplaceService {
     const params = new HttpParams().set("filePath", fileName.split("?")[0]);
     return `${this.proposalUrl}/download?${params.toString()}`;
   }
+
+  getApprovedPropositions(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.proposalUrl}/approved`);
+  }
 }

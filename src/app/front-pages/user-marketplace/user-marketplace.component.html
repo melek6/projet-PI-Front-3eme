@@ -1,51 +1,77 @@
+<!-- user-marketplace.component.html -->
 <section class="featured-courses container my-5">
-    <h2 class="text-center mb-4">Featured Projects</h2>
-    <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let project of projects">
-        <div class="card h-100 course-card">
-          <div class="card-body">
-            <h1 class="card-title">{{ project.title }}</h1>
-            <p class="card-text">{{ project.description }}</p>
-            <p class="card-text">Skills Required: {{ project.skillsRequired }}</p>
-            <p class="card-text">Budget: {{ project.budget | currency }}</p>
-            <p class="card-text">Deadline: {{ project.deadline | date }}</p>
-            <button class="btn btn-primary" (click)="openProposalForm(project.id)">Submit Proposal</button>
-          </div>
+  <h2 class="text-center mb-4">Featured Projects</h2>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let project of projects">
+      <div class="card h-100 course-card">
+        <div class="card-body">
+          <h1 class="card-title">{{ project.title }}</h1>
+          <p class="card-text">{{ project.description }}</p>
+          <p class="card-text">Skills Required: {{ project.skillsRequired }}</p>
+          <p class="card-text">Budget: {{ project.budget | currency }}</p>
+          <p class="card-text">Deadline: {{ project.deadline | date }}</p>
+          <button
+            class="btn btn-primary"
+            (click)="openProposalForm(project.id)"
+            [disabled]="approvedPropositions[project.id]"
+          >
+            Submit Proposal
+          </button>
         </div>
       </div>
     </div>
-    
-    <!-- Proposal Form Modal -->
-    <div *ngIf="selectedProjectId !== null" class="modal">
-      <div class="modal-content">
-        <span class="close" (click)="closeProposalForm()">&times;</span>
-        <form [formGroup]="proposalForm" (ngSubmit)="submitProposal(selectedProjectId)">
-          <div class="form-group">
-            <label for="detail">Detail</label>
-            <input type="text" id="detail" formControlName="detail" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" formControlName="amount" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="file">File</label>
-            <input type="file" id="file" (change)="onFileChange($event)" class="form-control" />
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
+  </div>
+
+  <!-- Proposal Form Modal -->
+  <div *ngIf="selectedProjectId !== null" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeProposalForm()">&times;</span>
+      <form
+        [formGroup]="proposalForm"
+        (ngSubmit)="submitProposal(selectedProjectId)"
+      >
+        <div class="form-group">
+          <label for="detail">Detail</label>
+          <input
+            type="text"
+            id="detail"
+            formControlName="detail"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            formControlName="amount"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="file">File</label>
+          <input
+            type="file"
+            id="file"
+            (change)="onFileChange($event)"
+            class="form-control"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
-    
-    <!-- Confirmation Dialog -->
-    <ng-template #confirmationDialog>
-      <h1 mat-dialog-title>Proposal Sent</h1>
-      <div mat-dialog-content>
-        <p>Your proposal has been sent. Wait for approval by checking your email.</p>
-      </div>
-      <div mat-dialog-actions>
-        <button mat-button (click)="dialog.closeAll()">OK</button>
-      </div>
-    </ng-template>
-  </section>
-  
+  </div>
+
+  <!-- Confirmation Dialog -->
+  <ng-template #confirmationDialog>
+    <h1 mat-dialog-title>Proposal Sent</h1>
+    <div mat-dialog-content>
+      <p>
+        Your proposal has been sent. Wait for approval by checking your email.
+      </p>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="dialog.closeAll()">OK</button>
+    </div>
+  </ng-template>
+</section>
