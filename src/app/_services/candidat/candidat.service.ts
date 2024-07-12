@@ -54,4 +54,11 @@ export class CandidatService {
       return throwError(error);
     };
   }
+    getTopOffres(): Observable<any[]> { // Ajoutez cette méthode
+    const url = `${this.apiUrl}/top-offres`;
+    return this.http.get<any[]>(url).pipe(
+      tap(data => console.log('Résultat de getTopOffres :', data)),
+      catchError(this.handleError<any[]>('getTopOffres', []))
+    );
+  }
 }
