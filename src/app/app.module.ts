@@ -22,7 +22,7 @@ import { AddOffreComponent } from "./pages/add-offre/add-offre.component";
 import { environment } from "src/environments/environment";
 import { FrontLayoutComponent } from "./layouts/front-layout/front-layout.component";
 import { WebsocketService } from "./_services/Websocket/websocket.service";
-
+import { NgxQRCodeModule } from "@techiediaries/ngx-qrcode";
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -32,6 +32,7 @@ import { WebsocketService } from "./_services/Websocket/websocket.service";
     NgbModule,
     FormsModule,
     RouterModule,
+    NgxQRCodeModule,
 
     AppRoutingModule,
   ],

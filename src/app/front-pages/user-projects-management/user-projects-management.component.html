@@ -98,7 +98,6 @@
   </div>
 
   <!-- Propositions Modal inside projects-->
-
   <div *ngIf="showPropositionsModal" class="modal">
     <div class="modal-content">
       <span class="close" (click)="closePropositionsModal()">&times;</span>
@@ -125,14 +124,14 @@
           <button
             *ngIf="proposition.filePath"
             class="btn btn-primary"
-            (click)="downloadFile(proposition.filePath)"
+            (click)="downloadFileBtn(proposition.filePath)"
           >
             Download
           </button>
           <button
             *ngIf="proposition.filePath"
-            class="btn btn-secondary"
-            (click)="showQRCode(proposition.filePath)"
+            class="btn btn-info"
+            (click)="generateQRCode(proposition.id)"
           >
             QR Code
           </button>
@@ -143,13 +142,12 @@
 
   <!-- QR Code Dialog -->
   <ng-template #qrCodeDialog>
-    <div class="qr-code-dialog">
-      <h3>Scan QR Code to Download</h3>
-      <ngx-qrcode
-        [qrc-element-type]="'url'"
-        [qrc-value]="qrCodeUrl"
-        [qrc-error-correction-level]="'L'"
-      ></ngx-qrcode>
+    <div class="modal-content">
+      <span class="close" (click)="dialog.closeAll()">&times;</span>
+      <h3>QR Code for Download</h3>
+      <div *ngIf="qrCodeImage">
+        <img [src]="'data:image/png;base64,' + qrCodeImage" alt="QR Code" />
+      </div>
     </div>
   </ng-template>
 

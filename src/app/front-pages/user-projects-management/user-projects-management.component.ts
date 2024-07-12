@@ -51,6 +51,7 @@ export class UserProjectsManagementComponent implements OnInit {
   selectedProposal: PropositionDTO | null = null;
   removeExistingFile = false;
   qrCodeUrl: string | null = null;
+  qrCodeImage: any;
 
   @ViewChild("confirmationDialog") confirmationDialog!: TemplateRef<any>;
   @ViewChild("qrCodeDialog") qrCodeDialog!: TemplateRef<any>;
@@ -300,6 +301,26 @@ export class UserProjectsManagementComponent implements OnInit {
     this.dialog.open(this.confirmationDialog);
   }
 
+  downloadFileBtn(filePath: string): void {
+    const fileName = filePath.split("/").pop() || filePath;
+    this.marketplaceService.downloadFile(fileName).subscribe(
+      (data) => {
+        const blob = new Blob([data], { type: "application/octet-stream" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+      },
+      (error) => {
+        console.error("Error downloading file:", error);
+      }
+    );
+  }
+
   downloadFile(filePath: string): void {
     const fileName = filePath.split("/").pop() || filePath;
     this.marketplaceService.downloadFile(fileName).subscribe(
@@ -320,9 +341,26 @@ export class UserProjectsManagementComponent implements OnInit {
     );
   }
 
-  showQRCode(filePath: string): void {
-    const fileName = filePath.split("/").pop() || filePath;
-    this.qrCodeUrl = this.marketplaceService.getDownloadUrl(fileName);
+  generateQRCode(propositionId: number) {
+    this.marketplaceService.generateQRCode(propositionId).subscribe(
+      (response) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(response);
+        reader.onloadend = () => {
+          const result = reader.result;
+          if (typeof result === "string") {
+            this.qrCodeImage = result.split(",")[1]; // Extract base64 part
+            this.openDialog();
+          }
+        };
+      },
+      (error) => {
+        console.error("Error generating QR code", error);
+      }
+    );
+  }
+
+  openDialog(): void {
     this.dialog.open(this.qrCodeDialog);
   }
 }

@@ -8,6 +8,7 @@ import { Observable } from "rxjs";
 export class UserMarketplaceService {
   private baseUrl = "http://localhost:8081/api/projects";
   private proposalUrl = "http://localhost:8081/api/propositions";
+  private QrApi = "http://localhost:8081/api/qrcode";
 
   constructor(private http: HttpClient) {}
 
@@ -136,5 +137,11 @@ export class UserMarketplaceService {
 
   getApprovedPropositions(): Observable<any[]> {
     return this.http.get<any[]>(`${this.proposalUrl}/approved`);
+  }
+
+  generateQRCode(propositionId: number): Observable<Blob> {
+    return this.http.get(`${this.QrApi}/${propositionId}`, {
+      responseType: "blob",
+    });
   }
 }
