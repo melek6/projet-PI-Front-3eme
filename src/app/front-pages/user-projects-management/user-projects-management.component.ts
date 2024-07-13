@@ -400,4 +400,6 @@ export class UserProjectsManagementComponent implements OnInit {
       queryParams: { price: proposal.amount, title: proposal.detail },
     });
   }
+
+  
 }

@@ -5,6 +5,27 @@ import { StorageService } from 'src/app/_services/storage.service';
 import { FormationModalComponent } from '../formation-modal/formation-modal.component';
 import { FormationCategory } from 'src/app/pages/gestion-formation/formation-category.enum';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormGroup } from '@angular/forms';
+
+
+export interface Formation {
+  id: number;
+  title: string;
+  description: string;
+  trainer: string;
+  startDate: string;
+  endDate: string;
+  location: string;
+  price: number;
+  numberOfHours: number;
+  category: string;
+  planning?: string;
+  planningUrl?: string;
+  bestSeller?: boolean;
+  userId?: number;
+  evaluations?: any[];
+  inscriptions?: any[];
+}
 
 @Component({
   selector: 'app-gestion-formation',
@@ -23,6 +44,8 @@ export class GestionFormationComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 10;
   totalPages: number;
+  selectedFile: File | null = null;
+  uploadResponse: string | null = null;
   
   nouvellesformations: number = 0; // Ajouter cette ligne
   formationsExpirees: number = 0; // Ajouter cette ligne
@@ -176,4 +199,42 @@ export class GestionFormationComponent implements OnInit {
       return expiryDate < currentDate;
     }).length;
   }
+
+  uploadPlanningfIREBASE(event: any, formationId: number): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.formationService.uploadPlanning(formationId, file).subscribe(
+        response => {
+          this.uploadResponse = 'File uploaded successfully!';
+        },
+        error => {
+          this.uploadResponse = 'File upload failed!';
+        }
+      );
+    }
+  }
+
+  downloadPlanning(fileName: string): void {
+    if (!fileName) {
+      console.error('File name is undefined or empty');
+      return;
+    }
+  
+    this.formationService.downloadPlanning(fileName).subscribe(
+      (response: Blob) => {
+        const url = window.URL.createObjectURL(response);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      },
+      error => {
+        console.error('Error downloading file:', error);
+      }
+    );
+  }
+  
+  
 }

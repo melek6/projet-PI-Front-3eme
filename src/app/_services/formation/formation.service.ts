@@ -88,12 +88,14 @@ export class FormationService {
   uploadPlanning(formationId: number, file: File): Observable<any> {
     const formData: FormData = new FormData(); 
     formData.append('file', file);
-
+  
     const url = `${this.apiUrl}/${formationId}/uploadPlanning`;
-    return this.http.post(url, formData, { responseType: 'json' }).pipe(
+    return this.http.post(url, formData, { responseType: 'text' }).pipe(
       catchError(this.handleError<any>('uploadPlanning'))
     );
   }
+  
+  
   getCompletedFormationsByUser(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`http://localhost:8081/api/inscriptions/user/${userId}/completed`);
   }
@@ -101,6 +103,13 @@ export class FormationService {
     const url = `${this.apiUrl}/${formationId}/evaluations`;
     return this.http.post<any>(url, evaluation);
   }
-}
 
+  downloadPlanning(fileName: string): Observable<Blob> {
+    const url = `${this.apiUrl}/downloadPlanning/${fileName}`;
+    return this.http.get(url, { responseType: 'blob' }).pipe(
+      catchError(this.handleError<any>('downloadPlanning'))
+    );
+  }
+
+}
 
