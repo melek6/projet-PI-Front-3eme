@@ -54,8 +54,6 @@
         <h3>{{ course.formation.title }}</h3>
         <p><i class="fas fa-info-circle"></i> <strong>Description: </strong> {{ course.formation.description }}</p>
         <p><i class="fas fa-chalkboard-teacher"></i> <strong>Formateur: </strong> {{ course.formation.trainer }}</p>
-        <!-- <p><i class="fas fa-calendar-alt"></i> <strong>Date de début: </strong> {{ course.formation.startDate | date:'short' }}</p>
-        <p><i class="fas fa-calendar-check"></i> <strong>Date de fin: </strong> {{ course.formation.endDate | date:'short' }}</p> -->
         <p><i class="fas fa-clock"></i> <strong>Nombre d'heures: </strong> {{ course.formation.numberOfHours }} heures</p>
         <p><i class="fas fa-dollar-sign"></i> <strong>Prix: </strong> {{ course.formation.price }} $</p>
         <button class="btn btn-primary mt-3" (click)="openEvaluationModal(course)">
