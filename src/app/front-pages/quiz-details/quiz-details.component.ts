@@ -21,6 +21,7 @@ export class QuizDetailsComponent implements OnInit {
   badWordsList: string[] = ['testbadword', 'mot2', 'mot3'];
   currentUser: any;
   correctAnswers: string[] = [];
+  badWordDetected: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,13 +62,32 @@ export class QuizDetailsComponent implements OnInit {
     );
   }
 
+  replaceBadWords(answer: string): string {
+    this.badWordDetected = false;
+    const lowerCaseAnswer = answer.toLowerCase().trim();
+    this.badWordsList.forEach(badWord => {
+      const regex = new RegExp(badWord, 'gi');
+      if (regex.test(lowerCaseAnswer)) {
+        this.badWordDetected = true;
+      }
+      answer = answer.replace(regex, '*'.repeat(badWord.length));
+    });
+    return answer;
+  }
+
+  onUserInput(): void {
+    this.userAnswer = this.replaceBadWords(this.userAnswer);
+    this.resetTimer(); // Réinitialiser le timer lorsque l'utilisateur saisit une réponse
+  }
+
   submitAnswer(): void {
+    if (this.badWordDetected) {
+      alert("Il ne faut pas entrer des badwords! Votre réponse : " + this.userAnswer);
+      return;
+    }
+
     if (this.userAnswer) {
       const lowerCaseAnswer = this.userAnswer.toLowerCase().trim();
-      if (this.badWordsList.some(badWord => lowerCaseAnswer.includes(badWord))) {
-        alert("Il ne faut pas entrer des badwords!");
-        return;
-      }
     }
 
     // Enregistrer la réponse de l'utilisateur
@@ -113,5 +133,11 @@ export class QuizDetailsComponent implements OnInit {
 
   isLastQuestion(): boolean {
     return this.currentQuestionIndex === this.questions.length - 1;
+  }
+
+  readQuestionAloud(text: string): void {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'fr-FR'; // Set language to French
+    speechSynthesis.speak(utterance);
   }
 }

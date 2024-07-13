@@ -3,14 +3,17 @@
     <div class="card shadow-sm">
       <div class="card-body">
         <div *ngIf="!showScore">
-          <h5 class="card-title text-primary">{{ questions[currentQuestionIndex].title }}</h5>
+          <div class="d-flex align-items-center">
+            <i class="fas fa-volume-up mr-2" (click)="readQuestionAloud(questions[currentQuestionIndex].content)"></i>
+            <h5 class="card-title text-primary">{{ questions[currentQuestionIndex].title }}</h5>
+          </div>
           <p class="card-text">{{ questions[currentQuestionIndex].content }}</p>
           <input 
             type="text" 
             [(ngModel)]="userAnswer" 
             placeholder="Votre réponse" 
             class="form-control mb-3" 
-            (input)="resetTimer()"
+            (input)="onUserInput()"
           />
           <div class="text-center mb-3">
             <p *ngIf="timeLeft > 0" class="text-danger">Temps restant : {{ timeLeft }} secondes</p>
