@@ -120,12 +120,13 @@ export class UserMarketplaceService {
   }
 
   downloadFile(fileName: string): Observable<Blob> {
-    const params = new HttpParams().set("filePath", fileName.split("?")[0]);
+    const params = new HttpParams().set("filePath", encodeURIComponent(fileName.split("?")[0]));
     return this.http.get(`${this.proposalUrl}/download`, {
       params,
       responseType: "blob",
     });
   }
+  
 
   getDownloadUrl(fileName: string): string {
     const params = new HttpParams().set("filePath", fileName.split("?")[0]);

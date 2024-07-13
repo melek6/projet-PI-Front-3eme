@@ -66,6 +66,7 @@
                 <button mat-raised-button color="primary" (click)="approveProposition(proposition.id)">Approuver</button>
                 <button mat-raised-button color="accent" (click)="declineProposition(proposition.id)">Décliner</button>
                 <button mat-raised-button color="default" *ngIf="proposition.filePath"  (click)="downloadFileBtn(proposition.filePath)">Télécharger</button>
+
               </td>
             </ng-container>
 

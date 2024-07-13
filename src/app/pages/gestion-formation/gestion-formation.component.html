@@ -101,7 +101,7 @@
                 <td>{{ formation.price | currency }}</td>
                 <td>{{ formation.numberOfHours }}</td>
                 <td>{{ formation.category }}</td>
-                <td>{{ formation.trainer }}</td> <!-- Add this cell -->
+                <td>{{ formation.trainer }}</td>
                 <td class="text-right">
                   <button class="btn btn-success btn-sm" (click)="openModal(true, formation)">
                     <i class="fas fa-edit"></i>
@@ -113,8 +113,15 @@
                     <i class="fas fa-download"></i>
                   </button>
                   <input type="file" (change)="uploadPlanning($event, formation.id)" />
+                  <button class="btn btn-info btn-sm" (click)="downloadPlanning(formation.planning)">
+                    <i class="fas fa-download"></i> Download Planning
+                  </button>
+                  <div *ngIf="uploadResponse">
+                    {{ uploadResponse }}
+                  </div>
                 </td>
               </tr>
+              
             </tbody>
           </table>
         </div>

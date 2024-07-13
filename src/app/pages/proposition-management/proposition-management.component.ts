@@ -164,7 +164,7 @@ export class PropositionManagementComponent implements OnInit {
   }
 
   downloadFileBtn(filePath: string): void {
-    const decodedFilePath = decodeURIComponent(filePath.split("?")[0].split("/").pop() || filePath);
+    const decodedFilePath = decodeURIComponent(filePath.split("?")[1].split("=")[1]);
     this.UserMarketplaceService.downloadFile(decodedFilePath).subscribe(
       (data) => {
         const blob = new Blob([data], { type: "application/octet-stream" });
@@ -181,7 +181,8 @@ export class PropositionManagementComponent implements OnInit {
         console.error("Error downloading file:", error);
       }
     );
-  }
+}
+
   
 
   resetForm() {

@@ -135,6 +135,13 @@
           >
             QR Code
           </button>
+          <button
+            *ngIf="proposition.status === 'APPROVED'"
+            class="btn btn-primary"
+            (click)="pay(proposition)"
+          >
+            Pay
+          </button>
         </li>
       </ul>
     </div>
