@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
+import { Router } from "@angular/router";
 import { UserMarketplaceService } from "src/app/_services/UserMarketplace/user-marketplace.service";
 
 interface User {
@@ -59,7 +60,8 @@ export class UserProjectsManagementComponent implements OnInit {
   constructor(
     private marketplaceService: UserMarketplaceService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
     this.projectForm = this.fb.group({
       title: ["", Validators.required],
@@ -257,7 +259,7 @@ export class UserProjectsManagementComponent implements OnInit {
         this.loadUserProjects();
       },
       (error) => {
-        console.error("Error deleting project", error);
+        console.error("Error deleting project:", error);
       }
     );
   }
@@ -372,6 +374,7 @@ export class UserProjectsManagementComponent implements OnInit {
   openDialog(): void {
     this.dialog.open(this.qrCodeDialog);
   }
+
   deleteFile(propositionId: number): void {
     if (propositionId) {
       this.marketplaceService.deletePropositionFile(propositionId).subscribe(
@@ -389,5 +392,12 @@ export class UserProjectsManagementComponent implements OnInit {
     } else {
       console.error("Proposition ID is not defined");
     }
+  }
+
+  // Navigate to payment component with the necessary parameters
+  pay(proposal: PropositionDTO): void {
+    this.router.navigate(["/payment"], {
+      queryParams: { price: proposal.amount, title: proposal.detail },
+    });
   }
 }
