@@ -9,6 +9,7 @@ import {
   chartExample2
 } from "../../variables/charts";
 import { BlogPostService } from 'src/app/_services/blog/blog-post.service';
+import { OffreService } from 'src/app/_services/offre/offre.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,13 +25,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   likesChart: Chart;
   dislikesChart: Chart;
   commentsChart: Chart;
-
+  ordersChart
   blogPosts: any[];
 
-  constructor(private blogPostService: BlogPostService) {}
+  constructor(private blogPostService: BlogPostService,private offreService: OffreService) {}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngAfterViewInit(): void {
     this.loadBlogPosts();
+    this.loadDailyOffersData();
+
   }
 
   loadBlogPosts(): void {
@@ -176,35 +182,57 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  ngOnInit() {
-
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
-
-    var chartOrders = document.getElementById('chart-orders');
-
-    parseOptions(Chart, chartOptions());
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-      type: 'line',
-      options: chartExample1.options,
-      data: chartExample1.data
+  loadDailyOffersData() {
+    this.offreService.getAllOffres().subscribe(data => {
+      const dailyOffers = this.processDailyOffersData(data);
+      this.initializeChart(dailyOffers);
     });
   }
 
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
+  processDailyOffersData(data: any[]): { dates: string[], counts: number[] } {
+    const offersByDate = {};
+
+    data.forEach(offer => {
+      const date = new Date(offer.createDate).toLocaleDateString();
+      if (!offersByDate[date]) {
+        offersByDate[date] = 0;
+      }
+      offersByDate[date]++;
+    });
+
+    const dates = Object.keys(offersByDate);
+    const counts = dates.map(date => offersByDate[date]);
+
+    return { dates, counts };
+  }
+
+  initializeChart(data: { dates: string[], counts: number[] }) {
+    const chartOrders = document.getElementById('chart-orders') as HTMLCanvasElement;
+
+    const chartData = {
+      labels: data.dates,
+      datasets: [{
+        label: 'Daily Offers',
+        data: data.counts,
+        backgroundColor: '#fb6340'
+      }]
+    };
+
+    const chartOptions = {
+      responsive: true,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    };
+
+    this.ordersChart = new Chart(chartOrders, {
+      type: 'bar',
+      data: chartData,
+      options: chartOptions
+    });
   }
 }

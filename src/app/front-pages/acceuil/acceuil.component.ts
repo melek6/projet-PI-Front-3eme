@@ -8,8 +8,6 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 
 export class AcceuilComponent {
 
-  constructor() { }
-
 
 
 }
