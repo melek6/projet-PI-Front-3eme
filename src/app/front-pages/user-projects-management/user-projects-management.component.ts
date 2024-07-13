@@ -308,7 +308,8 @@ export class UserProjectsManagementComponent implements OnInit {
   }
 
   downloadFileBtn(filePath: string): void {
-    const fileName = filePath.split("/").pop() || filePath;
+    const decodedFilePath = decodeURIComponent(filePath);
+    const fileName = decodedFilePath.split("/").pop() || decodedFilePath;
     this.marketplaceService.downloadFile(fileName).subscribe(
       (data) => {
         const blob = new Blob([data], { type: "application/octet-stream" });
@@ -326,6 +327,8 @@ export class UserProjectsManagementComponent implements OnInit {
       }
     );
   }
+  
+
 
   downloadFile(filePath: string): void {
     const fileName = filePath.split("/").pop() || filePath;
