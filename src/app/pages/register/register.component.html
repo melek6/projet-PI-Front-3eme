@@ -1,3 +1,4 @@
+
 <div class="header bg-gradient-danger py-7 py-lg-8">
   <div class="container">
     <div class="header-body text-center mb-7">
@@ -81,6 +82,32 @@
               </div>
             </div>
             <div class="form-group">
+              <label for="email">phone</label>
+              <input
+                type="number"
+                class="form-control"
+                name="phone"
+                [(ngModel)]="form.phone"
+                
+                #number="ngModel"
+                
+              />
+              
+            </div>
+            <div class="form-group">
+              <label for="email">adresse</label>
+              <input
+                type="text"
+                class="form-control"
+                name="adresse"
+                [(ngModel)]="form.adresse"
+               
+                #adresse="ngModel"
+                
+              />
+              
+            </div>
+            <div class="form-group">
               <label for="password">Password</label>
               <input
                 type="password"
@@ -105,8 +132,24 @@
                 type="file"
                 id="file"
                 class="form-control-file"
-                (change)="onFileSelected($event)"
+                (change)="onFileChange($event)"
                 required
+              />
+            </div>
+            <div>
+              <label for="roles">Role</label>
+              <select id="roles" [(ngModel)]="selectedRole" name="roles">
+                <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+              </select>
+            </div>
+            <div class="form-group" *ngIf="selectedRole === 'MODERATOR'">
+              <label for="file">Attestation (PDF):</label>
+              <input
+                type="file"
+                id="attestation"
+                class="form-control-file"
+                (change)="onAttestationChange($event)"
+                
               />
             </div>
             <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
@@ -124,4 +167,8 @@
       </div>
     </div>
   </div>
+
 </div>
+
+
+

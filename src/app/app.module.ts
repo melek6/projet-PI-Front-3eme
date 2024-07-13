@@ -7,20 +7,18 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { EvaluationfComponent } from './front-pages/EvaluationF/evaluationf.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-import { FrontLayoutModule } from './layouts/front-layout/front-layout.module';
 import { AuthService } from './_services/auth.service';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { AuthGuard } from './_helpers/auth/auth-guard.service';
-import { OffreComponent } from './pages/offre/offre.component';
-import { AddOffreComponent } from './pages/add-offre/add-offre.component';
+import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
-import { FrontLayoutComponent } from './layouts/front-layout/front-layout.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+
 
 @NgModule({
   imports: [
@@ -31,6 +29,11 @@ import { FrontLayoutComponent } from './layouts/front-layout/front-layout.compon
     NgbModule,
     RouterModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    
+   
+   
 
 
   ],
@@ -45,6 +48,10 @@ import { FrontLayoutComponent } from './layouts/front-layout/front-layout.compon
     AuthService,
     authInterceptorProviders,
     AuthGuard,
+   
+      
+    
+    
   ],
   bootstrap: [AppComponent]
 })

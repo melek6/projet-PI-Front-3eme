@@ -9,6 +9,7 @@ import { CandidatComponent } from 'src/app/front-pages/candidat/candidat.compone
 import { OffreCandidatComponent } from 'src/app/front-pages/offre-candidat/offre-candidat.component';
 import { OffreDetailsComponent } from 'src/app/front-pages/offre-details/offre-details.component';
 import { InscritFormationComponent } from 'src/app/front-pages/InscriptionFormation/inscritformation.component';
+import { ProfileComponent } from 'src/app/front-pages/profile/profile/profile.component';
 
 export const FrontLayoutRoutes: Routes = [
   { path: 'accueil',      component: AcceuilComponent },
@@ -21,7 +22,9 @@ export const FrontLayoutRoutes: Routes = [
   { path: 'OffreCandidat', component: OffreCandidatComponent },
   { path: 'offre/:id', component: OffreDetailsComponent },
   { path: 'candidat/:id', component: CandidatComponent }, // Route pour afficher les détails de l'offre avec l'ID comme paramètre
-  { path: 'inscrit', component: InscritFormationComponent }
+  { path: 'inscrit', component: InscritFormationComponent },
+  { path: 'profile', component: ProfileComponent },
+
 
 
 

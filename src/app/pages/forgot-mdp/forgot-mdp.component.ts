@@ -21,6 +21,7 @@ export class ForgotMDPComponent implements OnInit {
   requestPasswordReset() {
     this.passwordResetService.requestPasswordReset(this.email).subscribe(response => {
       console.log(response);
+      
       alert('Password reset code sent to your email.');
     });
   }

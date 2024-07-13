@@ -8,8 +8,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Nombre des offres</h5>
-                                    <!-- <span class="h2 font-weight-bold mb-0">{{ offres.length }}</span> -->
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Totale User</h5>
+                                    <span class="h2 font-weight-bold mb-0">{{ totalUsers  }}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -25,8 +25,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Nouvelles offres</h5>
-                                    <!-- <span class="h2 font-weight-bold mb-0">{{ nouvellesOffres }}</span> -->
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Utilisateurs bloqués:</h5>
+                                    <span class="h2 font-weight-bold mb-0">{{ blockedUsers  }}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -42,8 +42,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Offres expirées</h5>
-                                    <!-- <span class="h2 font-weight-bold mb-0">{{ offresExpirees }}</span> -->
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Entreprise: </h5>
+                                    <span class="h2 font-weight-bold mb-0">{{ moderators  }}</span>
                                 </div>
                                 <div class="col-auto">
                                     <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -68,6 +68,9 @@
                 </div>
                 <div class="card-header border-0">
                     <button class="btn btn-primary" (click)="openModal(false)">Ajouter un utilisateur</button>
+                </div>
+                <div class="card-header border-0">
+                    <button class="btn btn-primary" (click)="openModal1()">liste demande moderateur</button>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush">
@@ -131,3 +134,87 @@
     </div>
 </div>
 
+
+
+
+
+
+<!-- Ajoutez ce bloc pour la modale -->
+<div #modbloq class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Blocked Moderators</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal2()"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="blockedModerators.length > 0; else noData">
+            
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom d'utilisateur</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Rôles</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of blockedModerators">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            
+                            <td>{{ getUserRoles(user) }}</td>
+                            <td class="text-right">
+                                <div ngbDropdown placement="bottom-right">
+                                    <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div ngbDropdownMenu class="dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item" (click)="deleteUser(user.id)">Supprimer</a>
+                                        <a class="dropdown-item" (click)="blockmoderator(user.id)">
+                                            {{ user.blocked ? 'Débloquer' : 'Bloquer' }}
+                                          </a>
+                                                                                  </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer py-4">
+                <nav aria-label="Pagination">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item" [class.disabled]="currentPage === 1">
+                            <a class="page-link" (click)="changePage(currentPage - 1)" tabindex="-1">
+                                <i class="fas fa-angle-left"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let pageIndex = index" [class.active]="pageIndex + 1 === currentPage">
+                            <a class="page-link" (click)="changePage(pageIndex + 1)">{{ pageIndex + 1 }}</a>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                            <a class="page-link" (click)="changePage(currentPage + 1)">
+                                <i class="fas fa-angle-right"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+          </div>
+          <ng-template #noData>
+            <p>No blocked moderators found.</p>
+          </ng-template>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal2()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

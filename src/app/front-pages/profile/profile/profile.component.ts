@@ -1,22 +1,17 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
-import { AdminService } from 'src/app/_services/admin/admin.service';
 import { AuthService } from 'src/app/_services/auth.service';
-import { StorageService } from 'src/app/_services/storage.service';
-import { EventBusService } from 'src/app/_shared/event-bus.service';
-import { AdduserComponent } from '../adduser/adduser.component';
-import { UserupdateService } from 'src/app/_services/updateuser/userupdate.service';
+import { BlogPostService } from 'src/app/_services/blog/blog-post.service';
 import { UserService } from 'src/app/_services/user.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   user: any;
   selectedFile: File | null = null;
   oldPassword: string;
@@ -29,17 +24,32 @@ export class UserProfileComponent implements OnInit {
     phone: '',
     adresse: ''
   };
+  blogPosts: any= [];
   // updateForm:any;
   @ViewChild('profilePictureModal') profilePictureModal: ElementRef;
   @ViewChild('updateprofile') updateprofile: ElementRef;
   @ViewChild('resetmdp') resetmdp: ElementRef;
-  constructor(private router: Router, private authService: AuthService,private formBuilder: FormBuilder,) { }
+  constructor(private router: Router,private  userservice:UserService,private authService: AuthService,private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.user = this.authService.getCurrentUser();
     this.updateUserDTO=this.authService.getCurrentUser();
     console.log(this.user);
+    
   }
+  // getBlogPostsByUserId(): void {
+  //   this.userservice.getBlogPostsByUserId(this.user.id).subscribe(
+  //     (data: any) => {
+  //       this.blogPosts = data;
+  //       console.log('Blog Posts:', this.blogPosts);
+  //     },
+  //     error => {
+  //       console.error('Error fetching blog posts:', error);
+  //     }
+  //   );
+  // }
+  
+  
   onUpdateUser() {
     
 
@@ -137,5 +147,3 @@ openModal2(): void {
     );
   }
 }
-
-

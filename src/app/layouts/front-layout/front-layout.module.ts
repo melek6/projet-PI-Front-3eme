@@ -19,6 +19,7 @@ import { CandidatComponent } from 'src/app/front-pages/candidat/candidat.compone
 import { OffreCandidatComponent } from 'src/app/front-pages/offre-candidat/offre-candidat.component';
 import { OffreDetailsComponent } from 'src/app/front-pages/offre-details/offre-details.component';
 import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal.component';
+import { ProfileComponent } from 'src/app/front-pages/profile/profile/profile.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -44,6 +45,7 @@ import { InscritModalComponent } from 'src/app/pages/inscrit-modal/inscrit-modal
     OffreCandidatComponent,
     OffreDetailsComponent,
     InscritModalComponent,
+    ProfileComponent,
   ],
   exports: [FrontLayoutComponent]
 })

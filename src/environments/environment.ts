@@ -4,15 +4,29 @@
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: "AIzaSyAPG-Yrjeg7gwBjKzgRX4ruFqrJ7RJns0g",
-    authDomain: "esoteric-cider-427223-v4.firebaseapp.com",
-    projectId: "esoteric-cider-427223-v4",
-    storageBucket: "esoteric-cider-427223-v4.appspot.com",
-    messagingSenderId: "325879189874",
-    appId: "1:325879189874:web:01db7fb5b0df423565cdeb",
-    measurementId: "G-SDGMNDPMGM"
+  // firebase: {
+  //   apiKey: "AIzaSyBfbAb7RvGFxbxSSJRNDDENiFCGJINka6c",
+  //   authDomain: "pidev3eme-c5b61.firebaseapp.com",
+  //   projectId: "pidev3eme-c5b61",
+  //   storageBucket: "pidev3eme-c5b61.appspot.com",
+  //   messagingSenderId: "977445836359",
+  //   appId: "1:977445836359:web:d7f56c2a6b3b79a25b4362",
+  //    measurementId: "G-P3939E1XBZ"
+  // },
+  firebaseConfig: {
+    apiKey: "AIzaSyAB_padXMmnUdeaabbt4RSdGpPp_vyaKHg",
+  authDomain: "pidev-427123.firebaseapp.com",
+  projectId: "pidev-427123",
+  storageBucket: "pidev-427123.appspot.com",
+  messagingSenderId: "90878944461",
+  appId: "1:90878944461:web:c7765555f034ec0b1c7584",
+  measurementId: "G-0J7FLSDJNB"
   }
+
+  
+  // googleOAuthClientId: '977445836359-uqc94joj5c8geg19m4vdfvq8uhffrfpm.apps.googleusercontent.com',
+  // googleOAuthClientSecret: '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',
+  // googleOAuthRedirectUri: 'http://localhost:4200/__/auth/handler',
 };
 
 /*

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/_services/admin/admin.service';
 import { AdduserComponent } from '../adduser/adduser.component';
@@ -9,23 +9,65 @@ import { AdduserComponent } from '../adduser/adduser.component';
   styleUrls: ['./gestionuser.component.css']
 })
 export class GestionuserComponent implements OnInit {
-
+  totalUsers: number;
+  blockedUsers: number;
+  moderators: number;
+  blockedModerators: any[] = [];
   users: any[] = [];
   currentPageUsers: any[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 0;
-
+  @ViewChild('modbloq') modbloq: ElementRef;
   constructor(private userService: AdminService, private modalService: NgbModal, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadAllUsers();
-  }
+    this.userService.getTotalUsers().subscribe(data => {
+      this.totalUsers = data;
+    });
 
+    this.userService.getBlockedUsers().subscribe(data => {
+      this.blockedUsers = data;
+    });
+
+    this.userService.getModerators().subscribe(data => {
+      this.moderators = data;
+    });
+  }
+  openModal1(): void {
+    const modalElement = this.modbloq.nativeElement;
+    if (modalElement) {
+      this.lodemoderateurbloq(); // Charge les modérateurs bloqués avant d'ouvrir la modale
+      modalElement.classList.add('show');
+      modalElement.style.display = 'block';
+      modalElement.removeAttribute('aria-hidden');
+      modalElement.setAttribute('aria-modal', 'true');
+    }
+  }
+  
+  closeModal2(): void {
+    const modalElement = this.modbloq.nativeElement;
+    if (modalElement) {
+      modalElement.classList.remove('show');
+      modalElement.style.display = 'none';
+      modalElement.setAttribute('aria-hidden', 'true');
+      modalElement.removeAttribute('aria-modal');
+    }
+  }
   getUserRoles(user: any): string {
     return user.roles.map((role: any) => role.name).join(', ');
   }
-
+  lodemoderateurbloq(): void {
+    this.userService.getBlockedModerators().subscribe(
+      (data: any[]) => {
+        this.blockedModerators = data;
+      },
+      error => {
+        console.error('Erreur lors de la récupération des utilisateurs :', error);
+      }
+    );
+  }
   loadAllUsers(): void {
     this.userService.getAllUsers().subscribe(
       (data: any[]) => {
@@ -37,7 +79,17 @@ export class GestionuserComponent implements OnInit {
       }
     );
   }
-
+  blockmoderator(userId: number): void {
+    const user = this.users.find(u => u.id === userId);
+    if (user) {
+      this.userService.blockUser(userId).subscribe(updatedUser => {
+        user.blocked = !user.blocked; // Toggle the blocked status
+        this.lodemoderateurbloq(); // Refresh the list of blocked moderators
+      }, error => {
+        console.error('Erreur lors du blocage/deblocage de l\'utilisateur :', error);
+      });
+    }
+  }
   updateCurrentPageUsers(): void {
     this.totalPages = Math.ceil(this.users.length / this.itemsPerPage);
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;

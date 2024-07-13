@@ -18,16 +18,11 @@ export class FrontLayoutComponent implements OnInit {
 
   constructor(private tokenStorage: StorageService, private utilisateurService: UserService, private authService :AuthService, router:Router) { }
 
- /* getUserbyid() {
-    this.utilisateurService.findByUsername(this.username).subscribe(data => {
-      console.log(data)
-      this.user = data;
-    });
-  }*/
+ 
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
-      //this.getUserbyid();
+     
       this.username = this.tokenStorage.getUser().username;
     
     }

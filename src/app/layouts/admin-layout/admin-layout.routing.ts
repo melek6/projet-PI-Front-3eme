@@ -28,8 +28,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listecondidat',      component: ListeCondidatComponent },
     { path: 'offre',           component: OffreComponent },
     { path: 'Ajouter',           component: AddOffreComponent },
-    // { path: 'gestionuser',           component: GestionuserComponent },
-    { path: 'gestionuser', component: GestionuserComponent, canActivate: [AdminGuard] },
+    { path: 'gestionuser',           component: GestionuserComponent },
+    // { path: 'gestionuser', component: GestionuserComponent, canActivate: [AdminGuard] },
 
     { path: 'adduser',           component: AdduserComponent },
     { path: 'quiz',      component: GestionQuizComponent },

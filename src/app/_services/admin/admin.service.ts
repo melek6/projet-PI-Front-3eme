@@ -16,13 +16,30 @@ export class AdminService {
   private baseUrl = 'http://localhost:8081/api/admin/';
 
   constructor(private http: HttpClient,private router: Router) { }
+  getTotalUsers(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'total');
+  }
 
+  getBlockedUsers(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'blocked');
+  }
+
+  getModerators(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'moderators');
+  }
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl + 'users').pipe(
       tap(data => console.log('Résultat de getAllUsers :', data)),
       catchError(this.handleError)
     );
   }
+  getBlockedModerators(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl + 'blocked-moderators').pipe(
+      tap(data => console.log('Résultat de getAll blocked-moderators :', data)),
+      catchError(this.handleError)
+    );
+  }
+  
 
   addUser(user: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'addUser', user, httpOptions).pipe(

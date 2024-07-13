@@ -25,14 +25,17 @@
         <div class="card-header bg-transparent pb-5">
           <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
           <div class="btn-wrapper text-center">
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
+            <a (click)="onGoogleSignIn()" class="btn btn-neutral btn-icon">
               <span class="btn-inner--icon"><img src="../assets/img/icons/common/github.svg"></span>
               <span class="btn-inner--text">Github</span>
             </a>
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
+            <!-- <p *ngIf="erreurLogin">{{ erreurLogin }}</p> -->
+            <!-- <a href="javascript:void(0)" class="btn btn-neutral btn-icon"> -->
+              <!-- <button class="btn btn-danger" (click)="logingithub()">Sign in with Google</button> -->
+
               <span class="btn-inner--icon"><img src="../assets/img/icons/common/google.svg"></span>
               <span class="btn-inner--text">Google</span>
-            </a>
+            <!-- </a> -->
           </div>
         </div>
         <div class="card-body px-lg-5 py-lg-5">

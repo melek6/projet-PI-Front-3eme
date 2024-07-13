@@ -7,6 +7,7 @@ const TOKEN_KEY = 'auth-token';
   providedIn: 'root'
 })
 export class StorageService {
+  
   constructor() {}
 
   signOut(): void {
@@ -19,9 +20,12 @@ export class StorageService {
   }
 
   public getUser(): any {
-    return JSON.parse(sessionStorage.getItem(USER_KEY));
+    return JSON.parse(sessionStorage?.getItem(USER_KEY));
   }
-
+  saveUserr(user: any): void {
+    sessionStorage.setItem('auth-user', JSON.stringify(user));
+  }
+  
   public isLoggedIn(): boolean {
     return !!window.sessionStorage.getItem(USER_KEY);
   }
