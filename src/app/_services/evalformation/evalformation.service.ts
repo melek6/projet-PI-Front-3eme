@@ -21,11 +21,12 @@ export class EvalformationService {
     );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed:`, error);
-      return of(result as T);
-    };
+  getEvaluationsByFormation(formationId: number): Observable<any[]> {
+    const url = `${this.apiUrl}/${formationId}/evaluations`;
+    return this.http.get<any[]>(url).pipe(
+      tap(data => console.log(`Evaluations for formation id=${formationId}:`, data)),
+      catchError(this.handleError<any[]>('getEvaluationsByFormation', []))
+    );
   }
 
   getEvaluationById(id: number): Observable<any> {
@@ -58,6 +59,16 @@ export class EvalformationService {
 
   addEvaluationToFormation(formationId: number, evaluation: any): Observable<any> {
     const url = `${this.apiUrl}/${formationId}/evaluations`;
-    return this.http.post<any>(url, evaluation);
+    return this.http.post<any>(url, evaluation).pipe(
+      tap(data => console.log(`Evaluation added to formation id=${formationId}:`, data)),
+      catchError(this.handleError<any>('addEvaluationToFormation'))
+    );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed:`, error);
+      return of(result as T);
+    };
   }
 }

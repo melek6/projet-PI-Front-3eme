@@ -1,6 +1,6 @@
-
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EvalformationService } from 'src/app/_services/evalformation/evalformation.service';
 
 @Component({
   selector: 'app-evalformation-modal',
@@ -17,15 +17,16 @@ export class EvalformationModalComponent implements OnInit {
   @Output() cancel = new EventEmitter<void>();
   comments: string = '';
   score: number | null = null;
-  @Input() course: any;
-  constructor(public activeModal: NgbActiveModal) { }
+  @Input() course: any; // Assuming this is the course object which contains formationId
+
+  constructor(public activeModal: NgbActiveModal, private evalformationService: EvalformationService) { }
 
   ngOnInit(): void {
     if (!this.evalformation) {
       this.evalformation = {
         id: 0,
-    score: 4, 
-    comments: ''
+        score: 4, 
+        comments: ''
       };
     }
   }
@@ -37,11 +38,21 @@ export class EvalformationModalComponent implements OnInit {
       createDate: new Date(),
       formation: this.course.formation
     };
-    this.save.emit(evaluation);
-    this.activeModal.close();
+
+    this.evalformationService.addEvaluationToFormation(this.course.formationId, evaluation).subscribe(
+      response => {
+        console.log('Évaluation ajoutée avec succès:', response);
+        this.save.emit(evaluation);
+        this.activeModal.close();
+      },
+      error => {
+        console.error('Erreur lors de l\'ajout de l\'évaluation:', error);
+      }
+    );
   }
+
+
   onCancel(): void {
     this.activeModal.dismiss();
   }
-
 }

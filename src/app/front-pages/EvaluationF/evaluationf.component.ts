@@ -26,7 +26,7 @@ export class EvaluationfComponent implements OnInit {
   }
 
   submitEvaluation(): void {
-    this.http.post<Evaluation>('http://localhost:8080/api/evaluations', this.evaluation)
+    this.http.post<Evaluation>('http://localhost:8080/api/evalformation', this.evaluation)
       .subscribe(response => {
         console.log(response); 
         this.resetForm();

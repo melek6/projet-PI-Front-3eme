@@ -86,7 +86,7 @@ export class FormationService {
   //   return this.http.post<any>(url, evaluation);
   // }
   uploadPlanning(formationId: number, file: File): Observable<any> {
-    const formData: FormData = new FormData();
+    const formData: FormData = new FormData(); 
     formData.append('file', file);
 
     const url = `${this.apiUrl}/${formationId}/uploadPlanning`;
@@ -99,10 +99,7 @@ export class FormationService {
   }
   addEvaluationToFormation(formationId: number, evaluation: any): Observable<any> {
     const url = `${this.apiUrl}/${formationId}/evaluations`;
-    return this.http.post<any>(url, evaluation, httpOptions).pipe(
-      tap(_ => console.log('Évaluation ajoutée')),
-      catchError(this.handleError<any>('addEvaluationToFormation'))
-    );
+    return this.http.post<any>(url, evaluation);
   }
 }
 
